@@ -1,0 +1,34 @@
+﻿<Page
+    x:Class="ProjectOpendeurdag.Opleidingen"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ProjectOpendeurdag"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:data="using:ProjectOpendeurdag.Models"
+    mc:Ignorable="d">
+    <Page.Resources>
+        <DataTemplate x:DataType="data:Opleiding" x:Key="OpleidingDataTemplate">
+            <StackPanel HorizontalAlignment="Center">
+                <Image Width="150" Height="100" Source="{x:Bind ImageLink}"/>
+                <TextBlock FontSize="16" Text="{x:Bind Naam}" HorizontalAlignment="Center"/>
+                <TextBlock FontSize="16" Text="{x:Bind Type}" HorizontalAlignment="Center"/>
+            </StackPanel>
+        </DataTemplate>
+
+    </Page.Resources>
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="100" />
+        </Grid.RowDefinitions>
+        <GridView ItemsSource="{x:Bind opleidingen}" IsItemClickEnabled="True" ItemTemplate="{StaticResource OpleidingDataTemplate}"></GridView>
+        <TextBlock Grid.Row="1"
+                   Name="ResultTextBlock"
+                   FontSize="24"
+                   Foreground="Red"
+                   FontWeight="Bold"
+                   Margin="0,20,0,0"/>
+    </Grid>
+</Page>
