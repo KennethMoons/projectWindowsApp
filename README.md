@@ -7,6 +7,7 @@ wat er al gebeurd is :
 - infomoment toevoegen/update/verwijderen
 - lijst van gebruikers krijgen
 - weergeven hoeveel gebruikers er zijn
+- volledige ASP.NET web api
 
 
 wat er nog moet gebeuren :
