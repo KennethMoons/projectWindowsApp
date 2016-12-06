@@ -11,6 +11,7 @@ wat er al gebeurd is :
 
 
 wat er nog moet gebeuren :
+- De backend online zetten op azure.
 - layout verbeteren
 - layout voor mobile phone
 - Authentificatie. er zit al een admin bij gebruikers met admin als wachtwoord. maar het inloggen moet gebeuren
