@@ -116,6 +116,7 @@
     <Compile Include="InfomomentBeheerUpdate.xaml.cs">
       <DependentUpon>InfomomentBeheerUpdate.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Api.cs" />
     <Compile Include="LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
