@@ -31,11 +31,7 @@ namespace ProjectOpendeurdag
         }
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
-            HttpClient client = new HttpClient();
-            var JsonResponse = await client.GetStringAsync("http://localhost:51399/api/Newsitems");
-            var newsitemsResult = JsonConvert.DeserializeObject<List<Newsitem>>(JsonResponse);
-            newsitemList.ItemsSource = newsitemsResult;
-
+            newsitemList.ItemsSource = await Api.GetAsync<List<Newsitem>>();
         }
 
         private void AppBarButton_Click(object sender, RoutedEventArgs e)

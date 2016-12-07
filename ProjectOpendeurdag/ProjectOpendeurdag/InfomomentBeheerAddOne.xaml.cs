@@ -32,9 +32,7 @@ namespace ProjectOpendeurdag
 
         private async void CampussenComboBox_Loaded(object sender, RoutedEventArgs e)
         {
-            HttpClient client = new HttpClient();
-            var JsonResponse = await client.GetStringAsync("http://localhost:51399/api/Campus");
-            List<Campus> campussen = JsonConvert.DeserializeObject<List<Campus>>(JsonResponse);
+            List<Campus> campussen = await Api.GetAsync<List<Campus>>();
             List<String> waarden = new List<string>();
             foreach (Campus c in campussen)
             {
@@ -53,11 +51,7 @@ namespace ProjectOpendeurdag
             infomoment.Datum = Datum.Date.ToString().Split(' ')[0];
             infomoment.OpleidingId = OpleidingenComboBox.SelectedIndex + 1;
             infomoment.Uur = Tijd.Time.ToString();
-            var infomomentJson = JsonConvert.SerializeObject(infomoment);
-            var client = new HttpClient();
-            var httpContent = new StringContent(infomomentJson);
-            httpContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
-            await client.PostAsync("http://localhost:51399/api/Infomoments", httpContent);
+            await Api.PostAsync<Infomoment>(infomoment);
             Frame.GoBack();
         }
 
@@ -68,9 +62,7 @@ namespace ProjectOpendeurdag
 
         private async void OpleidingenComboBox_Loaded(object sender, RoutedEventArgs e)
         {
-            HttpClient client = new HttpClient();
-            var JsonResponse = await client.GetStringAsync("http://localhost:51399/api/Opleidings");
-            List<Opleiding> opleidingen = JsonConvert.DeserializeObject<List<Opleiding>>(JsonResponse);
+            List<Opleiding> opleidingen = await Api.GetAsync<List<Opleiding>>();
             List<String> waarden = new List<string>();
             foreach (Opleiding o in opleidingen)
             {

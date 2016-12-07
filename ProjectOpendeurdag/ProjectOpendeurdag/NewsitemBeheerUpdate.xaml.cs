@@ -40,9 +40,7 @@ namespace ProjectOpendeurdag
 
         private async void OpleidingenComboBox_Loaded(object sender, RoutedEventArgs e)
         {
-            HttpClient client = new HttpClient();
-            var JsonResponse = await client.GetStringAsync("http://localhost:51399/api/Opleidings");
-            List<Opleiding> opleidingen = JsonConvert.DeserializeObject<List<Opleiding>>(JsonResponse);
+            List<Opleiding> opleidingen = await Api.GetAsync<List<Opleiding>>();
             List<String> waarden = new List<string>();
             foreach (Opleiding o in opleidingen)
             {
@@ -54,9 +52,7 @@ namespace ProjectOpendeurdag
 
         private async void CampussenComboBox_Loaded(object sender, RoutedEventArgs e)
         {
-            HttpClient client = new HttpClient();
-            var JsonResponse = await client.GetStringAsync("http://localhost:51399/api/Campus");
-            List<Campus> campussen = JsonConvert.DeserializeObject<List<Campus>>(JsonResponse);
+            List<Campus> campussen = await Api.GetAsync<List<Campus>>();
             List<String> waarden = new List<string>();
             foreach (Campus c in campussen)
             {
@@ -68,8 +64,7 @@ namespace ProjectOpendeurdag
 
         private async void AppBarButton_Click_1(object sender, RoutedEventArgs e)
         {
-            var client = new HttpClient();
-            await client.DeleteAsync("http://localhost:51399/api/Newsitems/" + newsitem.NewsitemId);
+            await Api.DeleteAsync<Newsitem>(newsitem.NewsitemId);
             Frame.GoBack();
         }
 
@@ -81,11 +76,7 @@ namespace ProjectOpendeurdag
             newsitem.Datum = Datum.Date.ToString().Split(' ')[0];
             newsitem.OpleidingId = OpleidingenComboBox.SelectedIndex + 1;
             newsitem.Uur = Tijd.Time.ToString();
-            var client = new HttpClient();
-            var newsitemtJson = JsonConvert.SerializeObject(newsitem);
-            var httpContent = new StringContent(newsitemtJson);
-            httpContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
-            await client.PutAsync("http://localhost:51399/api/Newsitems/" + newsitem.NewsitemId, httpContent);
+            await Api.PutAsync<Newsitem>(newsitem.NewsitemId, newsitem);
             Frame.GoBack();
         }
     }

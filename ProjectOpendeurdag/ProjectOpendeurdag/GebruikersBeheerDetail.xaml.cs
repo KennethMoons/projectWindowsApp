@@ -36,16 +36,10 @@ namespace ProjectOpendeurdag
 
         public async void VulGebruikers()
         {
-            HttpClient client = new HttpClient();
-            var JsonResponse = await client.GetStringAsync("http://localhost:51399/api/Gebruikers");
-            List<Gebruiker> gebruikerResult = JsonConvert.DeserializeObject<List<Gebruiker>>(JsonResponse);
+            List<Gebruiker> gebruikerResult = await Api.GetAsync<List<Gebruiker>>();
             gebruikerResult.RemoveAt(0);
-            HttpClient client1 = new HttpClient();
-            var JsonResponse1 = await client1.GetStringAsync("http://localhost:51399/api/VoorkeurOpleidings");
-            List<VoorkeurOpleiding> voorkeurOpleidingen = JsonConvert.DeserializeObject<List<VoorkeurOpleiding>>(JsonResponse1);
-            HttpClient client2 = new HttpClient();
-            var JsonResponse2 = await client2.GetStringAsync("http://localhost:51399/api/VoorkeurCampus");
-            List<VoorkeurCampus> voorkeurCampussen = JsonConvert.DeserializeObject<List<VoorkeurCampus>>(JsonResponse2);
+            List<VoorkeurOpleiding> voorkeurOpleidingen = await Api.GetAsync<List<VoorkeurOpleiding>>();
+            List<VoorkeurCampus> voorkeurCampussen = await Api.GetAsync<List<VoorkeurCampus>>();
 
             foreach (Gebruiker g in gebruikerResult)
             {
@@ -65,9 +59,7 @@ namespace ProjectOpendeurdag
                 {
                     if (dg.Id == vo.GebruikerId)
                     {
-                        HttpClient client3 = new HttpClient();
-                        var JsonResponse3 = await client3.GetStringAsync("http://localhost:51399/api/Opleidings/" + vo.OpleidingId);
-                        Opleiding opleiding = JsonConvert.DeserializeObject<Opleiding>(JsonResponse3);
+                        Opleiding opleiding = await Api.GetAsync<Opleiding>(vo.OpleidingId);
                         dg.OpleidingVoorkeuren += opleiding.Naam + " ";
                     }
                 }
@@ -75,9 +67,7 @@ namespace ProjectOpendeurdag
                 {
                     if (dg.Id == vc.GebruikerId)
                     {
-                        HttpClient client3 = new HttpClient();
-                        var JsonResponse3 = await client3.GetStringAsync("http://localhost:51399/api/Campus/" + vc.CampusId);
-                        Campus campus = JsonConvert.DeserializeObject<Campus>(JsonResponse3);
+                        Campus campus = await Api.GetAsync<Campus>(vc.CampusId);
                         dg.CampusVoorkeuren += campus.Naam + " ";
 
                     }

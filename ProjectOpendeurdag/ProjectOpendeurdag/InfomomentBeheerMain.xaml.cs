@@ -31,10 +31,7 @@ namespace ProjectOpendeurdag
         }
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
-            HttpClient client = new HttpClient();
-            var JsonResponse = await client.GetStringAsync("http://localhost:51399/api/Infomoments");
-            var infomomentenResult = JsonConvert.DeserializeObject<List<Infomoment>>(JsonResponse);
-            infomomentenList.ItemsSource = infomomentenResult;
+            infomomentenList.ItemsSource = await Api.GetAsync<List<Infomoment>>();
 
         }
 

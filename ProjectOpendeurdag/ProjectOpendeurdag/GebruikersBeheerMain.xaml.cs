@@ -38,10 +38,7 @@ namespace ProjectOpendeurdag
 
         public async void getAantalGebruikers()
         {
-            HttpClient client = new HttpClient();
-            List<Gebruiker> gebruikers = new List<Gebruiker>();
-            var JsonResponse = await client.GetStringAsync("http://localhost:51399/api/Gebruikers");
-            gebruikers = JsonConvert.DeserializeObject<List<Gebruiker>>(JsonResponse);
+            List<Gebruiker> gebruikers = await Api.GetAsync<List<Gebruiker>>();
             int aantal = gebruikers.Count - 1;
             aantalStudenten.Text = aantal.ToString();
         }

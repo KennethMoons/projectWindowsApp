@@ -40,14 +40,7 @@ namespace ProjectOpendeurdag
             gebruiker.Gemeente = TxtGemeente.Text;
             gebruiker.Email = TxtEmail.Text;
             gebruiker.Telnr = TxtTelefoon.Text;
-
-            var gebruikerJson = JsonConvert.SerializeObject(gebruiker);
-
-            var client = new HttpClient();
-            var httpContent = new StringContent(gebruikerJson);
-            httpContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
-
-            await client.PostAsync("http://localhost:51399/api/Gebruikers", httpContent); 
+            await Api.PostAsync<Gebruiker>(gebruiker);
             Frame.GoBack();
         }
 

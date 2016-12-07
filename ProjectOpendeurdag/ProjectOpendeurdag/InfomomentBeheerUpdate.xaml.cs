@@ -46,26 +46,19 @@ namespace ProjectOpendeurdag
             infomoment.Datum = Datum.Date.ToString().Split(' ')[0];
             infomoment.OpleidingId = OpleidingenComboBox.SelectedIndex + 1;
             infomoment.Uur = Tijd.Time.ToString();
-            var client = new HttpClient();
-            var infomomentJson = JsonConvert.SerializeObject(infomoment);
-            var httpContent = new StringContent(infomomentJson);
-            httpContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
-            await client.PutAsync("http://localhost:51399/api/Infomoments/" + infomoment.InfomomentId, httpContent);
+            await Api.PutAsync<Infomoment>(infomoment.InfomomentId, infomoment);
             Frame.GoBack();
         }
 
         private async void AppBarButton_Click_1(object sender, RoutedEventArgs e)
         {
-            var client = new HttpClient();
-            await client.DeleteAsync("http://localhost:51399/api/Infomoments/" + infomoment.InfomomentId);
+            await Api.DeleteAsync<Infomoment>(infomoment.InfomomentId);
             Frame.GoBack();
         }
 
         private async void OpleidingenComboBox_Loaded(object sender, RoutedEventArgs e)
         {
-            HttpClient client = new HttpClient();
-            var JsonResponse = await client.GetStringAsync("http://localhost:51399/api/Opleidings");
-            List<Opleiding> opleidingen = JsonConvert.DeserializeObject<List<Opleiding>>(JsonResponse);
+            List<Opleiding> opleidingen = await Api.GetAsync<List<Opleiding>>();
             List<String> waarden = new List<string>();
             foreach (Opleiding o in opleidingen)
             {
@@ -77,9 +70,7 @@ namespace ProjectOpendeurdag
 
         private async void CampussenComboBox_Loaded(object sender, RoutedEventArgs e)
         {
-            HttpClient client = new HttpClient();
-            var JsonResponse = await client.GetStringAsync("http://localhost:51399/api/Campus");
-            List<Campus> campussen = JsonConvert.DeserializeObject<List<Campus>>(JsonResponse);
+            List<Campus> campussen = await Api.GetAsync<List<Campus>>();
             List<String> waarden = new List<string>();
             foreach (Campus c in campussen)
             {
