@@ -18,7 +18,7 @@ namespace ProjectOpendeurdag
         /// <summary>
         /// API base URL
         /// </summary>
-        public const string API_URL = "http://10.10.74.184:51399/api";
+        public const string API_URL = "http://projectwindowsapp.azurewebsites.net/api";
 
         /// <summary>
         /// Dictionary to map models to correct API URI
