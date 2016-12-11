@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Storage;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -28,12 +29,16 @@ namespace ProjectOpendeurdag
         public MainPage()
         {
             this.InitializeComponent();
+            var roamingSettings = ApplicationData.Current.RoamingSettings;
+            if (Int32.Parse(roamingSettings.Values["gebruikerId"].ToString()) != 1)
+            {
+                AdminButton.Visibility = Visibility.Collapsed;
+            }
             BackButton.Visibility = Visibility.Collapsed;
             MyFrame.Navigate(typeof(Newsfeed));
             TitleTextBlock.Text = "news feed";
-            NewsFeedLbi.IsSelected = true;
             frame = MyFrame;
-            
+
         }
 
         private void HamburgerButton_Click(object sender, RoutedEventArgs e)
@@ -72,7 +77,7 @@ namespace ProjectOpendeurdag
             else if (InfoMomentenLbi.IsSelected)
             {
                 BackButton.Visibility = Visibility.Visible;
-                MyFrame.Navigate(typeof(Infomomenten));
+                MyFrame.Navigate(typeof(InfomomentFeed));
                 TitleTextBlock.Text = "Infomomenten";
             }
         }
@@ -82,9 +87,9 @@ namespace ProjectOpendeurdag
             MyFrame.Navigate(typeof(AdminPage));
         }
 
-        private void AanmeldenButton_Click(object sender, RoutedEventArgs e)
+        private void OptiesButton_Click(object sender, RoutedEventArgs e)
         {
-            MyFrame.Navigate(typeof(LoginPage));
+            MyFrame.Navigate(typeof(Opties));
         }
     }
 }

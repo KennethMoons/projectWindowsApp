@@ -28,5 +28,20 @@ namespace ProjectOpendeurdag
         {
             this.InitializeComponent();
         }
+
+        public async void vulCampussen()
+        {
+            List<Campus> campussen = await Api.GetAsync<List<Campus>>();
+            campussen.RemoveAt(campussen.Count - 1);
+            campussen[0].ImageLink = "Assets/campus1.jpg";
+            campussen[1].ImageLink = "Assets/campus2.jpg";
+            campussen[2].ImageLink = "Assets/campus3.jpeg";
+            campussenList.ItemsSource = campussen;
+        }
+
+        private void campussenList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }

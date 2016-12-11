@@ -1,17 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Roots >
   <Roots.PropertyPathNames>
-    <RootPropertyPathName Name="OpleidingVoorkeuren" />
-    <RootPropertyPathName Name="CampusVoorkeuren" />
-    <RootPropertyPathName Name="Email" />
-    <RootPropertyPathName Name="Telnr" />
     <RootPropertyPathName Name="Gemeente" />
     <RootPropertyPathName Name="Postcode" />
     <RootPropertyPathName Name="Adres" />
     <RootPropertyPathName Name="Naam" />
+    <RootPropertyPathName Name="ImageLink" />
+    <RootPropertyPathName Name="OpleidingVoorkeuren" />
+    <RootPropertyPathName Name="CampusVoorkeuren" />
+    <RootPropertyPathName Name="Email" />
+    <RootPropertyPathName Name="Telnr" />
     <RootPropertyPathName Name="Beschrijving" />
     <RootPropertyPathName Name="Titel" />
     <RootPropertyPathName Name="Inhoud" />
+    <RootPropertyPathName Name="Opleiding" />
+    <RootPropertyPathName Name="Campus" />
   </Roots.PropertyPathNames>
   <Roots.RootTypes>
     <RootType FullName="Windows.UI.Xaml.Application">
@@ -44,11 +47,11 @@
       <RootProperty Name="Background" />
       <RootProperty Name="FontFamily" />
       <RootProperty Name="FontSize" />
+      <RootProperty Name="IsEnabled" />
       <RootProperty Name="BorderBrush" />
       <RootEvent Name="Click" />
     </RootType>
     <RootType FullName="ProjectOpendeurdag.AdminPage" />
-    <RootType FullName="ProjectOpendeurdag.Campussen" />
     <RootType FullName="Windows.UI.Xaml.Controls.ListBox">
       <RootProperty Name="ItemTemplate" />
       <RootProperty Name="SelectionMode" />
@@ -58,19 +61,25 @@
     <RootType FullName="Windows.UI.Xaml.DataTemplate">
       <RootProperty Name="Template" />
     </RootType>
+    <RootType FullName="Windows.UI.Xaml.Controls.Image">
+      <RootProperty Name="Width" />
+      <RootProperty Name="Height" />
+      <RootProperty Name="Source" />
+    </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.TextBlock">
       <RootProperty Name="Text" />
+      <RootProperty Name="FontSize" />
       <RootProperty Name="Margin" />
       <RootProperty Name="Width" />
-      <RootProperty Name="FontSize" />
-      <RootProperty Name="Foreground" />
       <RootProperty Name="FontFamily" />
       <RootProperty Name="Inlines" />
+      <RootProperty Name="Foreground" />
       <RootProperty Name="Name" />
       <RootProperty Name="FontWeight" />
       <RootProperty Name="HorizontalAlignment" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Data.Binding" />
+    <RootType FullName="ProjectOpendeurdag.Campussen" />
     <RootType FullName="ProjectOpendeurdag.GebruikersBeheerDetail" />
     <RootType FullName="ProjectOpendeurdag.GebruikersBeheerMain" />
     <RootType FullName="Windows.UI.Xaml.Controls.CommandBar">
@@ -102,17 +111,11 @@
     <RootType FullName="ProjectOpendeurdag.InfomomentBeheerAddOne" />
     <RootType FullName="ProjectOpendeurdag.InfomomentBeheerMain" />
     <RootType FullName="ProjectOpendeurdag.InfomomentBeheerUpdate" />
-    <RootType FullName="ProjectOpendeurdag.Infomomenten" />
+    <RootType FullName="ProjectOpendeurdag.InfomomentFeed" />
+    <RootType FullName="ProjectOpendeurdag.InfomomentfeedDetail" />
     <RootType FullName="Windows.UI.Xaml.Controls.RowDefinition">
       <RootProperty Name="Height" />
     </RootType>
-    <RootType FullName="Windows.UI.Xaml.Controls.PasswordBox">
-      <RootProperty Name="Name" />
-      <RootProperty Name="BorderBrush" />
-      <RootProperty Name="Margin" />
-      <RootEvent Name="GotFocus" />
-    </RootType>
-    <RootType FullName="ProjectOpendeurdag.LoginPage" />
     <RootType FullName="Windows.UI.Xaml.Controls.RelativePanel">
       <RootProperty Name="Children" />
       <RootMethod Name="GetAlignLeftWithPanel" />
@@ -134,21 +137,25 @@
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.ListBoxItem">
       <RootProperty Name="Name" />
+      <RootProperty Name="IsEnabled" />
       <RootProperty Name="Content" />
     </RootType>
+    <RootType FullName="Windows.UI.Xaml.Controls.PasswordBox">
+      <RootProperty Name="Name" />
+      <RootProperty Name="BorderBrush" />
+      <RootProperty Name="Margin" />
+      <RootEvent Name="GotFocus" />
+    </RootType>
+    <RootType FullName="ProjectOpendeurdag.LoginPage" />
     <RootType FullName="Windows.UI.Xaml.Controls.Frame">
       <RootProperty Name="Name" />
     </RootType>
     <RootType FullName="ProjectOpendeurdag.MainPage" />
     <RootType FullName="ProjectOpendeurdag.Newsfeed" />
+    <RootType FullName="ProjectOpendeurdag.NewsfeedDetail" />
     <RootType FullName="ProjectOpendeurdag.NewsitemBeheerAddOne" />
     <RootType FullName="ProjectOpendeurdag.NewsitemBeheerMain" />
     <RootType FullName="ProjectOpendeurdag.NewsitemBeheerUpdate" />
-    <RootType FullName="Windows.UI.Xaml.Controls.Image">
-      <RootProperty Name="Width" />
-      <RootProperty Name="Height" />
-      <RootProperty Name="Source" />
-    </RootType>
     <RootType FullName="Microsoft.Xaml.DirectUI.ProxyTypes.BindExtension" />
     <RootType FullName="Windows.UI.Xaml.Controls.GridView">
       <RootProperty Name="ItemsSource" />
@@ -157,6 +164,7 @@
     </RootType>
     <RootType FullName="Microsoft.Xaml.DirectUI.ProxyTypes.StaticResourceExtension" />
     <RootType FullName="ProjectOpendeurdag.Opleidingen" />
+    <RootType FullName="ProjectOpendeurdag.Opties" />
     <RootType FullName="ProjectOpendeurdag.RegistratiePagina" />
   </Roots.RootTypes>
 </Roots>

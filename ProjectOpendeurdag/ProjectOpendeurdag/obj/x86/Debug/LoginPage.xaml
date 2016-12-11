@@ -7,28 +7,96 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid x:ConnectionId='1' x:Name="LayoutRoot" Background="White">
+    <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <StackPanel Grid.Row="0" Margin="12,17,0,28">
 
-            <!--UserName-->
-            <TextBlock Text="UserID" Foreground="Black" FontSize="30"/>
-            <TextBox x:ConnectionId='2'  BorderBrush="LightGray" Name="UserName"                             />
+        <RelativePanel>
+            <Button x:ConnectionId='11' Name="HamburgerButton" 
+                    RelativePanel.AlignLeftWithPanel="True"
+                    FontFamily="Segoe MDL2 Assets"
+                    FontSize="36" 
+                    Content="&#xE700;" 
+                    IsEnabled="False"/>
 
-            <!--Password-->
-            <TextBlock  Foreground="Black" Text="Password" Margin="9,-7,0,0" FontSize="30"/>
-            <PasswordBox x:ConnectionId='3' BorderBrush="LightGray" Name="PassWord"                              />
+            <TextBlock x:ConnectionId='12' Name="TitleTextBlock"
+                       RelativePanel.RightOf="HamburgerButton"
+                       FontSize="28"
+                       FontWeight="Bold"
+                       Margin="20,5,0,0"/>
 
-            <!--Login Button-->
-            <Button x:ConnectionId='4' Content="Login" Background="#FF30DABB" Name="Login"                     />
+            <Button x:ConnectionId='13' Name="OptiesButton" 
+                    RelativePanel.AlignRightWithPanel="True"
+                    FontFamily="Segoe MDL2 Assets"
+                    FontSize="36" 
+                    Content="&#xE713;"
+                    IsEnabled="False"/>
 
-            <!--  Registration Button-->
-            <Button x:ConnectionId='5' Content="Registration" Background="#FF30DABB" Name="SignUp"                     />
+        </RelativePanel>
 
-        </StackPanel>
+        <SplitView x:ConnectionId='1' Grid.Row="1" 
+                   Name="MySplitView"
+                   DisplayMode="CompactOverlay" 
+                   OpenPaneLength="235" 
+                   CompactPaneLength="56">
+            <SplitView.Pane>
+                <ListBox SelectionMode="Single">
+                    <ListBoxItem x:ConnectionId='2' Name="NewsFeedLbi" IsEnabled="False">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="36" Text="&#xE8E4;" />
+                            <TextBlock FontSize="24" Margin="20,0,0,0">News feed</TextBlock>
+                        </StackPanel>
+                    </ListBoxItem>
+                    <ListBoxItem x:ConnectionId='3' Name="OpleidingenLbi" IsEnabled="False">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="36" Text="&#xE1CE;" />
+                            <TextBlock FontSize="24" Margin="20,0,0,0">Opleidingen</TextBlock>
+                        </StackPanel>
+                    </ListBoxItem>
+                    <ListBoxItem x:ConnectionId='4' Name="CampussenLbi" IsEnabled="False">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="36" Text="&#xE10F;" />
+                            <TextBlock FontSize="24" Margin="20,0,0,0">Campussen</TextBlock>
+                        </StackPanel>
+                    </ListBoxItem>
+                    <ListBoxItem x:ConnectionId='5' Name="InfoMomentenLbi" IsEnabled="False">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="36" Text="&#xE787;" />
+                            <TextBlock FontSize="24" Margin="20,0,0,0">Infomomenten</TextBlock>
+                        </StackPanel>
+                    </ListBoxItem>
+                </ListBox>
+            </SplitView.Pane>
+            <SplitView.Content>
+                <Grid x:ConnectionId='6' x:Name="LayoutRoot" Background="White">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Row="0" Margin="12,17,0,28">
+
+                        <!--UserName-->
+                        <TextBlock Text="Email" Foreground="Black" FontSize="30"/>
+                        <TextBox x:ConnectionId='7'  BorderBrush="LightGray" Name="UserName"                             />
+
+                        <!--Password-->
+                        <TextBlock  Foreground="Black" Text="Password" Margin="9,-7,0,0" FontSize="30"/>
+                        <PasswordBox x:ConnectionId='8' BorderBrush="LightGray" Name="PassWord"                              />
+
+                        <!--Login Button-->
+                        <Button x:ConnectionId='9' Content="Login" Background="#FF30DABB" Name="Login"                     />
+
+                        <!--  Registration Button-->
+                        <Button x:ConnectionId='10' Content="Registration" Background="#FF30DABB" Name="SignUp"                     />
+
+                    </StackPanel>
+
+                </Grid>
+            </SplitView.Content>
+
+        </SplitView>
 
     </Grid>
 </Page>

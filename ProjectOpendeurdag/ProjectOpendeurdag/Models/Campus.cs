@@ -13,5 +13,6 @@ namespace ProjectOpendeurdag.Models
         public String Adres { get; set; }
         public String Postcode { get; set; }
         public String Gemeente { get; set; }
+        public String ImageLink { get; set; }
     }
 }

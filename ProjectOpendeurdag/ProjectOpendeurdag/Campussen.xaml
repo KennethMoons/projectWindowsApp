@@ -7,4 +7,21 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:data="using:ProjectOpendeurdag.Models"
     mc:Ignorable="d">
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <ListBox x:Name="campussenList" SelectionChanged="campussenList_SelectionChanged">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <Image Width="150" Height="100" Source="{Binding ImageLink}"/>
+                        <TextBlock Text="{Binding Naam}" FontSize="24"/>
+                        <TextBlock Text="{Binding Adres}" FontSize="24"/>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding Postcode}" FontSize="24"/>
+                            <TextBlock Text="{Binding Gemeente}" FontSize="24"/>
+                        </StackPanel>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </Grid>
 </Page>

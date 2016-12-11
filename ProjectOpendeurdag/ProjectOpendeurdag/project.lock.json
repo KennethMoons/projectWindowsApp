@@ -317,6 +317,15 @@
           "lib/portable-net45+wp80+win8+wpa81/Newtonsoft.Json.dll": {}
         }
       },
+      "NotificationsExtensions.UniversalApps/1.0.3": {
+        "type": "package",
+        "compile": {
+          "lib/netcore451/NotificationsExtensions.winmd": {}
+        },
+        "runtime": {
+          "lib/netcore451/NotificationsExtensions.winmd": {}
+        }
+      },
       "System.AppContext/4.0.0": {
         "type": "package",
         "dependencies": {
@@ -2197,6 +2206,15 @@
           "lib/portable-net45+wp80+win8+wpa81/Newtonsoft.Json.dll": {}
         }
       },
+      "NotificationsExtensions.UniversalApps/1.0.3": {
+        "type": "package",
+        "compile": {
+          "lib/netcore451/NotificationsExtensions.winmd": {}
+        },
+        "runtime": {
+          "lib/netcore451/NotificationsExtensions.winmd": {}
+        }
+      },
       "runtime.any.System.Private.DataContractSerialization/4.1.0": {
         "type": "package",
         "dependencies": {
@@ -3992,6 +4010,15 @@
           "lib/portable-net45+wp80+win8+wpa81/Newtonsoft.Json.dll": {}
         }
       },
+      "NotificationsExtensions.UniversalApps/1.0.3": {
+        "type": "package",
+        "compile": {
+          "lib/netcore451/NotificationsExtensions.winmd": {}
+        },
+        "runtime": {
+          "lib/netcore451/NotificationsExtensions.winmd": {}
+        }
+      },
       "runtime.aot.System.Private.DataContractSerialization/4.1.0": {
         "type": "package",
         "dependencies": {
@@ -5752,6 +5779,15 @@
         },
         "runtime": {
           "lib/portable-net45+wp80+win8+wpa81/Newtonsoft.Json.dll": {}
+        }
+      },
+      "NotificationsExtensions.UniversalApps/1.0.3": {
+        "type": "package",
+        "compile": {
+          "lib/netcore451/NotificationsExtensions.winmd": {}
+        },
+        "runtime": {
+          "lib/netcore451/NotificationsExtensions.winmd": {}
         }
       },
       "runtime.any.System.Private.DataContractSerialization/4.1.0": {
@@ -7552,6 +7588,15 @@
           "lib/portable-net45+wp80+win8+wpa81/Newtonsoft.Json.dll": {}
         }
       },
+      "NotificationsExtensions.UniversalApps/1.0.3": {
+        "type": "package",
+        "compile": {
+          "lib/netcore451/NotificationsExtensions.winmd": {}
+        },
+        "runtime": {
+          "lib/netcore451/NotificationsExtensions.winmd": {}
+        }
+      },
       "runtime.aot.System.Private.DataContractSerialization/4.1.0": {
         "type": "package",
         "dependencies": {
@@ -9312,6 +9357,15 @@
         },
         "runtime": {
           "lib/portable-net45+wp80+win8+wpa81/Newtonsoft.Json.dll": {}
+        }
+      },
+      "NotificationsExtensions.UniversalApps/1.0.3": {
+        "type": "package",
+        "compile": {
+          "lib/netcore451/NotificationsExtensions.winmd": {}
+        },
+        "runtime": {
+          "lib/netcore451/NotificationsExtensions.winmd": {}
         }
       },
       "runtime.any.System.Private.DataContractSerialization/4.1.0": {
@@ -11110,6 +11164,15 @@
         },
         "runtime": {
           "lib/portable-net45+wp80+win8+wpa81/Newtonsoft.Json.dll": {}
+        }
+      },
+      "NotificationsExtensions.UniversalApps/1.0.3": {
+        "type": "package",
+        "compile": {
+          "lib/netcore451/NotificationsExtensions.winmd": {}
+        },
+        "runtime": {
+          "lib/netcore451/NotificationsExtensions.winmd": {}
         }
       },
       "runtime.aot.System.Private.DataContractSerialization/4.1.0": {
@@ -13384,6 +13447,22 @@
         "lib/portable-net45+wp80+win8+wpa81/Newtonsoft.Json.dll",
         "lib/portable-net45+wp80+win8+wpa81/Newtonsoft.Json.xml",
         "tools/install.ps1"
+      ]
+    },
+    "NotificationsExtensions.UniversalApps/1.0.3": {
+      "sha512": "GhvWc83B7QNWn7zS0u+hq9/sDqc47pbg59T1BZAbDq19LmLTORwR71+Bqt2/LaHYpWC3uIERHxJl2eAmBJVD+w==",
+      "type": "package",
+      "files": [
+        "NotificationsExtensions.UniversalApps.1.0.3.nupkg.sha512",
+        "NotificationsExtensions.UniversalApps.nuspec",
+        "lib/netcore451/NotificationsExtensions.XML",
+        "lib/netcore451/NotificationsExtensions.pdb",
+        "lib/netcore451/NotificationsExtensions.pri",
+        "lib/netcore451/NotificationsExtensions.winmd",
+        "lib/wpa81/NotificationsExtensions.XML",
+        "lib/wpa81/NotificationsExtensions.pdb",
+        "lib/wpa81/NotificationsExtensions.pri",
+        "lib/wpa81/NotificationsExtensions.winmd"
       ]
     },
     "runtime.any.System.Private.DataContractSerialization/4.1.0": {
@@ -16235,6 +16314,7 @@
       "Microsoft.NETCore.UniversalWindowsPlatform >= 5.1.0",
       "Microsoft.Net.http >= 2.2.29",
       "Newtonsoft.Json >= 9.0.1",
+      "NotificationsExtensions.UniversalApps >= 1.0.3",
       "Xamarin.Forms >= 2.3.3.168"
     ],
     "UAP,Version=v10.0": []

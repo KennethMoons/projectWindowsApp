@@ -1,0 +1,51 @@
+﻿<Page
+    x:Class="ProjectOpendeurdag.Opties"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ProjectOpendeurdag"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <StackPanel>
+            <TextBlock Text="Voorkeur campus" Margin="20"></TextBlock>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Welke campus ?" Margin="20"></TextBlock>
+                <ComboBox x:ConnectionId='7' x:Name="CampussenComboBox" Margin="20"                                  ></ComboBox>
+                <Button x:ConnectionId='8' Name="VoegCampusToeBtn"                                Content="voeg toe" Margin="20"></Button>
+            </StackPanel>
+            <StackPanel>
+                <ListBox x:ConnectionId='5' x:Name="campussenList">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding Campus.Naam}" FontSize="12"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+                <Button x:ConnectionId='6' Name="DeleteCampusBtn"                               Content="delete campus"></Button>
+            </StackPanel>
+            <TextBlock Text="Voorkeur opleiding" Margin="20"></TextBlock>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Welke opleiding ?" Margin="20"></TextBlock>
+                <ComboBox x:ConnectionId='3' x:Name="OpleidingenComboBox" Margin="20"                                    ></ComboBox>
+                <Button x:ConnectionId='4' Name="VoegOpleidingToeComboBox"                                        Content="voeg toe" Margin="20"></Button>
+            </StackPanel>
+            <StackPanel>
+                <ListBox x:ConnectionId='1' x:Name="opleidingenLijst">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding Opleiding.Naam}" FontSize="12"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+                <Button x:ConnectionId='2' Name="DeleteOpleidingBtn"                                  Content="delete opleiding"></Button>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Page>
+

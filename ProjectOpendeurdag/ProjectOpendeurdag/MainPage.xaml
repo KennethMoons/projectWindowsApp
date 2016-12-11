@@ -39,24 +39,18 @@
                     RelativePanel.AlignRightWithPanel="True"
                     FontFamily="Segoe MDL2 Assets"
                     FontSize="36" 
-                    Content="&#xE713;" />
-
-            <Button Name="AanmeldenButton" 
-                    RelativePanel.LeftOf="OptiesButton"
-                    FontFamily="Segoe MDL2 Assets"
-                    FontSize="36" 
-                    Content="&#xE703;"
-                    Click="AanmeldenButton_Click"
+                    Content="&#xE713;"
+                    Click="OptiesButton_Click"
                     />
-            
+
             <Button Name="AdminButton" 
-                    RelativePanel.LeftOf="AanmeldenButton"
+                    RelativePanel.LeftOf="OptiesButton"
                     FontFamily="Segoe MDL2 Assets"
                     FontSize="36" 
                     Content="&#xE7EF;"
                     Click="AdminButton_Click"
                     />
-            
+
         </RelativePanel>
 
         <SplitView Grid.Row="1" 

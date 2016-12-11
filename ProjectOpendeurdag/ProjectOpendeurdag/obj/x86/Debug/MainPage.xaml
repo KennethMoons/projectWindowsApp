@@ -39,24 +39,18 @@
                     RelativePanel.AlignRightWithPanel="True"
                     FontFamily="Segoe MDL2 Assets"
                     FontSize="36" 
-                    Content="&#xE713;" />
-
-            <Button x:ConnectionId='12' Name="AanmeldenButton" 
-                    RelativePanel.LeftOf="OptiesButton"
-                    FontFamily="Segoe MDL2 Assets"
-                    FontSize="36" 
-                    Content="&#xE703;"
-                                                 
+                    Content="&#xE713;"
+                                              
                     />
-            
-            <Button x:ConnectionId='13' Name="AdminButton" 
-                    RelativePanel.LeftOf="AanmeldenButton"
+
+            <Button x:ConnectionId='12' Name="AdminButton" 
+                    RelativePanel.LeftOf="OptiesButton"
                     FontFamily="Segoe MDL2 Assets"
                     FontSize="36" 
                     Content="&#xE7EF;"
                                              
                     />
-            
+
         </RelativePanel>
 
         <SplitView x:ConnectionId='1' Grid.Row="1" 

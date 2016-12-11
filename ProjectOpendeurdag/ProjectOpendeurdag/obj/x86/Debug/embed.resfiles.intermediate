@@ -6,12 +6,15 @@ GebruikersBeheerMain.xbf
 InfomomentBeheerAddOne.xbf
 InfomomentBeheerMain.xbf
 InfomomentBeheerUpdate.xbf
-Infomomenten.xbf
+InfomomentFeed.xbf
+InfomomentfeedDetail.xbf
 LoginPage.xbf
 MainPage.xbf
 Newsfeed.xbf
+NewsfeedDetail.xbf
 NewsitemBeheerAddOne.xbf
 NewsitemBeheerMain.xbf
 NewsitemBeheerUpdate.xbf
 Opleidingen.xbf
+Opties.xbf
 RegistratiePagina.xbf

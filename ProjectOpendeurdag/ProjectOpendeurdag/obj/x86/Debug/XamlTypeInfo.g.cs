@@ -156,7 +156,7 @@ namespace ProjectOpendeurdag.ProjectOpendeurdag_XamlTypeInfo
 
         private void InitTypeTables()
         {
-            _typeNameTable = new string[18];
+            _typeNameTable = new string[21];
             _typeNameTable[0] = "ProjectOpendeurdag.AdminPage";
             _typeNameTable[1] = "Windows.UI.Xaml.Controls.Page";
             _typeNameTable[2] = "Windows.UI.Xaml.Controls.UserControl";
@@ -166,17 +166,20 @@ namespace ProjectOpendeurdag.ProjectOpendeurdag_XamlTypeInfo
             _typeNameTable[6] = "ProjectOpendeurdag.InfomomentBeheerAddOne";
             _typeNameTable[7] = "ProjectOpendeurdag.InfomomentBeheerMain";
             _typeNameTable[8] = "ProjectOpendeurdag.InfomomentBeheerUpdate";
-            _typeNameTable[9] = "ProjectOpendeurdag.Infomomenten";
-            _typeNameTable[10] = "ProjectOpendeurdag.LoginPage";
-            _typeNameTable[11] = "ProjectOpendeurdag.MainPage";
-            _typeNameTable[12] = "ProjectOpendeurdag.Newsfeed";
-            _typeNameTable[13] = "ProjectOpendeurdag.NewsitemBeheerAddOne";
-            _typeNameTable[14] = "ProjectOpendeurdag.NewsitemBeheerMain";
-            _typeNameTable[15] = "ProjectOpendeurdag.NewsitemBeheerUpdate";
-            _typeNameTable[16] = "ProjectOpendeurdag.Opleidingen";
-            _typeNameTable[17] = "ProjectOpendeurdag.RegistratiePagina";
+            _typeNameTable[9] = "ProjectOpendeurdag.InfomomentFeed";
+            _typeNameTable[10] = "ProjectOpendeurdag.InfomomentfeedDetail";
+            _typeNameTable[11] = "ProjectOpendeurdag.LoginPage";
+            _typeNameTable[12] = "ProjectOpendeurdag.MainPage";
+            _typeNameTable[13] = "ProjectOpendeurdag.Newsfeed";
+            _typeNameTable[14] = "ProjectOpendeurdag.NewsfeedDetail";
+            _typeNameTable[15] = "ProjectOpendeurdag.NewsitemBeheerAddOne";
+            _typeNameTable[16] = "ProjectOpendeurdag.NewsitemBeheerMain";
+            _typeNameTable[17] = "ProjectOpendeurdag.NewsitemBeheerUpdate";
+            _typeNameTable[18] = "ProjectOpendeurdag.Opleidingen";
+            _typeNameTable[19] = "ProjectOpendeurdag.Opties";
+            _typeNameTable[20] = "ProjectOpendeurdag.RegistratiePagina";
 
-            _typeTable = new global::System.Type[18];
+            _typeTable = new global::System.Type[21];
             _typeTable[0] = typeof(global::ProjectOpendeurdag.AdminPage);
             _typeTable[1] = typeof(global::Windows.UI.Xaml.Controls.Page);
             _typeTable[2] = typeof(global::Windows.UI.Xaml.Controls.UserControl);
@@ -186,15 +189,18 @@ namespace ProjectOpendeurdag.ProjectOpendeurdag_XamlTypeInfo
             _typeTable[6] = typeof(global::ProjectOpendeurdag.InfomomentBeheerAddOne);
             _typeTable[7] = typeof(global::ProjectOpendeurdag.InfomomentBeheerMain);
             _typeTable[8] = typeof(global::ProjectOpendeurdag.InfomomentBeheerUpdate);
-            _typeTable[9] = typeof(global::ProjectOpendeurdag.Infomomenten);
-            _typeTable[10] = typeof(global::ProjectOpendeurdag.LoginPage);
-            _typeTable[11] = typeof(global::ProjectOpendeurdag.MainPage);
-            _typeTable[12] = typeof(global::ProjectOpendeurdag.Newsfeed);
-            _typeTable[13] = typeof(global::ProjectOpendeurdag.NewsitemBeheerAddOne);
-            _typeTable[14] = typeof(global::ProjectOpendeurdag.NewsitemBeheerMain);
-            _typeTable[15] = typeof(global::ProjectOpendeurdag.NewsitemBeheerUpdate);
-            _typeTable[16] = typeof(global::ProjectOpendeurdag.Opleidingen);
-            _typeTable[17] = typeof(global::ProjectOpendeurdag.RegistratiePagina);
+            _typeTable[9] = typeof(global::ProjectOpendeurdag.InfomomentFeed);
+            _typeTable[10] = typeof(global::ProjectOpendeurdag.InfomomentfeedDetail);
+            _typeTable[11] = typeof(global::ProjectOpendeurdag.LoginPage);
+            _typeTable[12] = typeof(global::ProjectOpendeurdag.MainPage);
+            _typeTable[13] = typeof(global::ProjectOpendeurdag.Newsfeed);
+            _typeTable[14] = typeof(global::ProjectOpendeurdag.NewsfeedDetail);
+            _typeTable[15] = typeof(global::ProjectOpendeurdag.NewsitemBeheerAddOne);
+            _typeTable[16] = typeof(global::ProjectOpendeurdag.NewsitemBeheerMain);
+            _typeTable[17] = typeof(global::ProjectOpendeurdag.NewsitemBeheerUpdate);
+            _typeTable[18] = typeof(global::ProjectOpendeurdag.Opleidingen);
+            _typeTable[19] = typeof(global::ProjectOpendeurdag.Opties);
+            _typeTable[20] = typeof(global::ProjectOpendeurdag.RegistratiePagina);
         }
 
         private int LookupTypeIndexByName(string typeName)
@@ -236,15 +242,18 @@ namespace ProjectOpendeurdag.ProjectOpendeurdag_XamlTypeInfo
         private object Activate_6_InfomomentBeheerAddOne() { return new global::ProjectOpendeurdag.InfomomentBeheerAddOne(); }
         private object Activate_7_InfomomentBeheerMain() { return new global::ProjectOpendeurdag.InfomomentBeheerMain(); }
         private object Activate_8_InfomomentBeheerUpdate() { return new global::ProjectOpendeurdag.InfomomentBeheerUpdate(); }
-        private object Activate_9_Infomomenten() { return new global::ProjectOpendeurdag.Infomomenten(); }
-        private object Activate_10_LoginPage() { return new global::ProjectOpendeurdag.LoginPage(); }
-        private object Activate_11_MainPage() { return new global::ProjectOpendeurdag.MainPage(); }
-        private object Activate_12_Newsfeed() { return new global::ProjectOpendeurdag.Newsfeed(); }
-        private object Activate_13_NewsitemBeheerAddOne() { return new global::ProjectOpendeurdag.NewsitemBeheerAddOne(); }
-        private object Activate_14_NewsitemBeheerMain() { return new global::ProjectOpendeurdag.NewsitemBeheerMain(); }
-        private object Activate_15_NewsitemBeheerUpdate() { return new global::ProjectOpendeurdag.NewsitemBeheerUpdate(); }
-        private object Activate_16_Opleidingen() { return new global::ProjectOpendeurdag.Opleidingen(); }
-        private object Activate_17_RegistratiePagina() { return new global::ProjectOpendeurdag.RegistratiePagina(); }
+        private object Activate_9_InfomomentFeed() { return new global::ProjectOpendeurdag.InfomomentFeed(); }
+        private object Activate_10_InfomomentfeedDetail() { return new global::ProjectOpendeurdag.InfomomentfeedDetail(); }
+        private object Activate_11_LoginPage() { return new global::ProjectOpendeurdag.LoginPage(); }
+        private object Activate_12_MainPage() { return new global::ProjectOpendeurdag.MainPage(); }
+        private object Activate_13_Newsfeed() { return new global::ProjectOpendeurdag.Newsfeed(); }
+        private object Activate_14_NewsfeedDetail() { return new global::ProjectOpendeurdag.NewsfeedDetail(); }
+        private object Activate_15_NewsitemBeheerAddOne() { return new global::ProjectOpendeurdag.NewsitemBeheerAddOne(); }
+        private object Activate_16_NewsitemBeheerMain() { return new global::ProjectOpendeurdag.NewsitemBeheerMain(); }
+        private object Activate_17_NewsitemBeheerUpdate() { return new global::ProjectOpendeurdag.NewsitemBeheerUpdate(); }
+        private object Activate_18_Opleidingen() { return new global::ProjectOpendeurdag.Opleidingen(); }
+        private object Activate_19_Opties() { return new global::ProjectOpendeurdag.Opties(); }
+        private object Activate_20_RegistratiePagina() { return new global::ProjectOpendeurdag.RegistratiePagina(); }
 
         private global::Windows.UI.Xaml.Markup.IXamlType CreateXamlType(int typeIndex)
         {
@@ -313,65 +322,86 @@ namespace ProjectOpendeurdag.ProjectOpendeurdag_XamlTypeInfo
                 xamlType = userType;
                 break;
 
-            case 9:   //  ProjectOpendeurdag.Infomomenten
+            case 9:   //  ProjectOpendeurdag.InfomomentFeed
                 userType = new global::ProjectOpendeurdag.ProjectOpendeurdag_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Windows.UI.Xaml.Controls.Page"));
-                userType.Activator = Activate_9_Infomomenten;
+                userType.Activator = Activate_9_InfomomentFeed;
                 userType.SetIsLocalType();
                 xamlType = userType;
                 break;
 
-            case 10:   //  ProjectOpendeurdag.LoginPage
+            case 10:   //  ProjectOpendeurdag.InfomomentfeedDetail
                 userType = new global::ProjectOpendeurdag.ProjectOpendeurdag_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Windows.UI.Xaml.Controls.Page"));
-                userType.Activator = Activate_10_LoginPage;
+                userType.Activator = Activate_10_InfomomentfeedDetail;
                 userType.SetIsLocalType();
                 xamlType = userType;
                 break;
 
-            case 11:   //  ProjectOpendeurdag.MainPage
+            case 11:   //  ProjectOpendeurdag.LoginPage
                 userType = new global::ProjectOpendeurdag.ProjectOpendeurdag_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Windows.UI.Xaml.Controls.Page"));
-                userType.Activator = Activate_11_MainPage;
+                userType.Activator = Activate_11_LoginPage;
                 userType.SetIsLocalType();
                 xamlType = userType;
                 break;
 
-            case 12:   //  ProjectOpendeurdag.Newsfeed
+            case 12:   //  ProjectOpendeurdag.MainPage
                 userType = new global::ProjectOpendeurdag.ProjectOpendeurdag_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Windows.UI.Xaml.Controls.Page"));
-                userType.Activator = Activate_12_Newsfeed;
+                userType.Activator = Activate_12_MainPage;
                 userType.SetIsLocalType();
                 xamlType = userType;
                 break;
 
-            case 13:   //  ProjectOpendeurdag.NewsitemBeheerAddOne
+            case 13:   //  ProjectOpendeurdag.Newsfeed
                 userType = new global::ProjectOpendeurdag.ProjectOpendeurdag_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Windows.UI.Xaml.Controls.Page"));
-                userType.Activator = Activate_13_NewsitemBeheerAddOne;
+                userType.Activator = Activate_13_Newsfeed;
                 userType.SetIsLocalType();
                 xamlType = userType;
                 break;
 
-            case 14:   //  ProjectOpendeurdag.NewsitemBeheerMain
+            case 14:   //  ProjectOpendeurdag.NewsfeedDetail
                 userType = new global::ProjectOpendeurdag.ProjectOpendeurdag_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Windows.UI.Xaml.Controls.Page"));
-                userType.Activator = Activate_14_NewsitemBeheerMain;
+                userType.Activator = Activate_14_NewsfeedDetail;
                 userType.SetIsLocalType();
                 xamlType = userType;
                 break;
 
-            case 15:   //  ProjectOpendeurdag.NewsitemBeheerUpdate
+            case 15:   //  ProjectOpendeurdag.NewsitemBeheerAddOne
                 userType = new global::ProjectOpendeurdag.ProjectOpendeurdag_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Windows.UI.Xaml.Controls.Page"));
-                userType.Activator = Activate_15_NewsitemBeheerUpdate;
+                userType.Activator = Activate_15_NewsitemBeheerAddOne;
                 userType.SetIsLocalType();
                 xamlType = userType;
                 break;
 
-            case 16:   //  ProjectOpendeurdag.Opleidingen
+            case 16:   //  ProjectOpendeurdag.NewsitemBeheerMain
                 userType = new global::ProjectOpendeurdag.ProjectOpendeurdag_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Windows.UI.Xaml.Controls.Page"));
-                userType.Activator = Activate_16_Opleidingen;
+                userType.Activator = Activate_16_NewsitemBeheerMain;
                 userType.SetIsLocalType();
                 xamlType = userType;
                 break;
 
-            case 17:   //  ProjectOpendeurdag.RegistratiePagina
+            case 17:   //  ProjectOpendeurdag.NewsitemBeheerUpdate
                 userType = new global::ProjectOpendeurdag.ProjectOpendeurdag_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Windows.UI.Xaml.Controls.Page"));
-                userType.Activator = Activate_17_RegistratiePagina;
+                userType.Activator = Activate_17_NewsitemBeheerUpdate;
+                userType.SetIsLocalType();
+                xamlType = userType;
+                break;
+
+            case 18:   //  ProjectOpendeurdag.Opleidingen
+                userType = new global::ProjectOpendeurdag.ProjectOpendeurdag_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Windows.UI.Xaml.Controls.Page"));
+                userType.Activator = Activate_18_Opleidingen;
+                userType.SetIsLocalType();
+                xamlType = userType;
+                break;
+
+            case 19:   //  ProjectOpendeurdag.Opties
+                userType = new global::ProjectOpendeurdag.ProjectOpendeurdag_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Windows.UI.Xaml.Controls.Page"));
+                userType.Activator = Activate_19_Opties;
+                userType.SetIsLocalType();
+                xamlType = userType;
+                break;
+
+            case 20:   //  ProjectOpendeurdag.RegistratiePagina
+                userType = new global::ProjectOpendeurdag.ProjectOpendeurdag_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Windows.UI.Xaml.Controls.Page"));
+                userType.Activator = Activate_20_RegistratiePagina;
                 userType.SetIsLocalType();
                 xamlType = userType;
                 break;

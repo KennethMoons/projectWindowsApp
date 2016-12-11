@@ -8,6 +8,7 @@ namespace ProjectOpendeurdag.Models
 {
     class Opleiding
     {
+        public int OpleidingId { get; set; }
         private String naam;
         private String type;
         private String imageLink;
