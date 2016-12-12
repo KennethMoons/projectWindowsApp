@@ -9,86 +9,105 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="44" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <RelativePanel>
-            <Button Name="HamburgerButton" 
-                    RelativePanel.AlignLeftWithPanel="True"
-                    FontFamily="Segoe MDL2 Assets"
-                    FontSize="36" 
-                    Content="&#xE700;" 
-                    Click="HamburgerButton_Click" />
+        <RelativePanel Background="{ThemeResource SystemControlBackgroundAccentBrush}" >
 
-            <Button Name="BackButton"
-                    RelativePanel.RightOf="HamburgerButton" 
-                    FontFamily="Segoe MDl2 Assets" 
-                    FontSize="36"
-                    Content="&#xE0C4;" 
-                    Click="BackButton_Click"
-                     />
+            <Button Name="HamburgerButton"
+                                Background="{ThemeResource SystemControlDisabledTransparentBrush}"
+                                BorderThickness="0"
+                    RelativePanel.AlignLeftWithPanel="True"
+                       Foreground="{ThemeResource SystemControlForegroundAltHighBrush}"
+                                            Click="HamburgerButton_Click"
+                    >
+                <StackPanel Orientation="Horizontal" Margin="4,8">
+                    <FontIcon Glyph="&#xE700;" />
+                </StackPanel>
+            </Button>
 
             <TextBlock Name="TitleTextBlock"
-                       RelativePanel.RightOf="BackButton"
-                       FontSize="28"
+                       RelativePanel.RightOf="HamburgerButton"
+                       RelativePanel.AlignVerticalCenterWith="HamburgerButton"
+                       VerticalAlignment="Stretch"
+                       HorizontalAlignment="Center"
+                       TextAlignment="Center"
                        FontWeight="Bold"
-                       Margin="20,5,0,0"/>
-
-            <Button Name="OptiesButton" 
-                    RelativePanel.AlignRightWithPanel="True"
-                    FontFamily="Segoe MDL2 Assets"
-                    FontSize="36" 
-                    Content="&#xE713;"
-                    Click="OptiesButton_Click"
-                    />
-
-            <Button Name="AdminButton" 
-                    RelativePanel.LeftOf="OptiesButton"
-                    FontFamily="Segoe MDL2 Assets"
-                    FontSize="36" 
-                    Content="&#xE7EF;"
-                    Click="AdminButton_Click"
-                    />
+                       Foreground="{ThemeResource SystemControlForegroundAltHighBrush}"
+                       Text="Nieuws"
+                       Margin="8,0,0,0"
+                       />
 
         </RelativePanel>
 
         <SplitView Grid.Row="1" 
                    Name="MySplitView"
-                   DisplayMode="CompactOverlay" 
-                   OpenPaneLength="235" 
-                   CompactPaneLength="56">
+                   DisplayMode="CompactInline"
+                   CompactPaneLength="44"
+                   OpenPaneLength="180">
             <SplitView.Pane>
-                <ListBox SelectionMode="Single" 
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="88" />
+                    </Grid.RowDefinitions>
+
+
+                    <ListBox Name="NavigationList" SelectionMode="Single"
                          SelectionChanged="ListBox_SelectionChanged">
-                    <ListBoxItem Name="NewsFeedLbi">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="36" Text="&#xE8E4;" />
-                            <TextBlock FontSize="24" Margin="20,0,0,0">News feed</TextBlock>
-                        </StackPanel>
-                    </ListBoxItem>
-                    <ListBoxItem Name="OpleidingenLbi">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="36" Text="&#xE1CE;" />
-                            <TextBlock FontSize="24" Margin="20,0,0,0">Opleidingen</TextBlock>
-                        </StackPanel>
-                    </ListBoxItem>
-                    <ListBoxItem Name="CampussenLbi">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="36" Text="&#xE10F;" />
-                            <TextBlock FontSize="24" Margin="20,0,0,0">Campussen</TextBlock>
-                        </StackPanel>
-                    </ListBoxItem>
-                    <ListBoxItem Name="InfoMomentenLbi">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="36" Text="&#xE787;" />
-                            <TextBlock FontSize="24" Margin="20,0,0,0">Infomomenten</TextBlock>
-                        </StackPanel>
-                    </ListBoxItem>
-                </ListBox>
+                        <ListBoxItem Name="NewsFeedLbi">
+                            <StackPanel Orientation="Horizontal">
+                                <FontIcon Glyph="&#xE8E4;" />
+                                <TextBlock Margin="16,0,0,0" VerticalAlignment="Center">Nieuws</TextBlock>
+                            </StackPanel>
+                        </ListBoxItem>
+                        <ListBoxItem Name="OpleidingenLbi">
+                            <StackPanel Orientation="Horizontal">
+                                <FontIcon Glyph="&#xE1CE;" />
+                                <TextBlock Margin="16,0,0,0">Opleidingen</TextBlock>
+                            </StackPanel>
+                        </ListBoxItem>
+                        <ListBoxItem Name="CampussenLbi">
+                            <StackPanel Orientation="Horizontal">
+                                <FontIcon Glyph="&#xE10F;" />
+                                <TextBlock Margin="16,0,0,0">Campussen</TextBlock>
+                            </StackPanel>
+                        </ListBoxItem>
+                        <ListBoxItem Name="InfoMomentenLbi">
+                            <StackPanel Orientation="Horizontal">
+                                <FontIcon Glyph="&#xE787;" />
+                                <TextBlock Margin="16,0,0,0">Infomomenten</TextBlock>
+                            </StackPanel>
+                        </ListBoxItem>
+                    </ListBox>
+
+                    <StackPanel Grid.Row="1" Orientation="Vertical">
+
+                        <Button Name="AdminButton"
+                                Background="{ThemeResource SystemControlDisabledTransparentBrush}"
+                                BorderThickness="0"
+                                            Click="AdminButton_Click" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left">
+                            <StackPanel Orientation="Horizontal" Margin="4,8">
+                                <FontIcon Glyph="&#xE7EF;" />
+                                <TextBlock Margin="16,0,0,0">Administratie</TextBlock>
+                            </StackPanel>
+                        </Button>
+                        <Button Name="OptiesButton"
+                                Background="{ThemeResource SystemControlDisabledTransparentBrush}"
+                                BorderThickness="0"
+                                            Click="OptiesButton_Click" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left">
+                            <StackPanel Orientation="Horizontal" Margin="4,8">
+                                <FontIcon Glyph="&#xE713;" />
+                                <TextBlock Margin="16,0,0,0">Instellingen</TextBlock>
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+
+                </Grid>
             </SplitView.Pane>
             <SplitView.Content>
-                <Frame Name="MyFrame"></Frame>
+                <Frame Name="MyFrame" Margin="4,0,0,0"></Frame>
             </SplitView.Content>
 
         </SplitView>

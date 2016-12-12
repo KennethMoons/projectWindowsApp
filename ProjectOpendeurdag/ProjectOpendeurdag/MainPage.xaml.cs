@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using System.Diagnostics;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -30,15 +31,13 @@ namespace ProjectOpendeurdag
         {
             this.InitializeComponent();
             var roamingSettings = ApplicationData.Current.RoamingSettings;
+
             if (Int32.Parse(roamingSettings.Values["gebruikerId"].ToString()) != 1)
             {
                 AdminButton.Visibility = Visibility.Collapsed;
             }
-            BackButton.Visibility = Visibility.Collapsed;
-            MyFrame.Navigate(typeof(Newsfeed));
-            TitleTextBlock.Text = "news feed";
-            frame = MyFrame;
 
+            NavigationList.SelectedItem = NewsFeedLbi;
         }
 
         private void HamburgerButton_Click(object sender, RoutedEventArgs e)
@@ -50,7 +49,12 @@ namespace ProjectOpendeurdag
         {
             if (MyFrame.CanGoBack)
             {
+                Debug.WriteLine("Going back");
                 MyFrame.GoBack();
+            }
+            else
+            {
+                Debug.WriteLine("Cant go back");
             }
         }
 
@@ -58,25 +62,21 @@ namespace ProjectOpendeurdag
         {
             if (NewsFeedLbi.IsSelected)
             {
-                BackButton.Visibility = Visibility.Collapsed;
                 MyFrame.Navigate(typeof(Newsfeed));
-                TitleTextBlock.Text = "News feed";
+                TitleTextBlock.Text = "Nieuws";
             }
             else if (OpleidingenLbi.IsSelected)
             {
-                BackButton.Visibility = Visibility.Visible;
                 MyFrame.Navigate(typeof(Opleidingen));
                 TitleTextBlock.Text = "Opleidingen";
             }
             else if (CampussenLbi.IsSelected)
             {
-                BackButton.Visibility = Visibility.Visible;
                 MyFrame.Navigate(typeof(Campussen));
                 TitleTextBlock.Text = "Campussen";
             }
             else if (InfoMomentenLbi.IsSelected)
             {
-                BackButton.Visibility = Visibility.Visible;
                 MyFrame.Navigate(typeof(InfomomentFeed));
                 TitleTextBlock.Text = "Infomomenten";
             }
@@ -84,12 +84,12 @@ namespace ProjectOpendeurdag
 
         private void AdminButton_Click(object sender, RoutedEventArgs e)
         {
-            MyFrame.Navigate(typeof(AdminPage));
+            this.Frame.Navigate(typeof(AdminPage));
         }
 
         private void OptiesButton_Click(object sender, RoutedEventArgs e)
         {
-            MyFrame.Navigate(typeof(Opties));
+            this.Frame.Navigate(typeof(Opties));
         }
     }
 }
