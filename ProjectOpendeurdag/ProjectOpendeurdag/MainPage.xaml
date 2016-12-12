@@ -16,12 +16,11 @@
         <RelativePanel Background="{ThemeResource SystemControlBackgroundAccentBrush}" >
 
             <Button Name="HamburgerButton"
-                                Background="{ThemeResource SystemControlDisabledTransparentBrush}"
-                                BorderThickness="0"
+                    Background="{ThemeResource SystemControlDisabledTransparentBrush}"
+                    Foreground="{ThemeResource SystemControlForegroundAltHighBrush}"
+                    BorderThickness="0"
                     RelativePanel.AlignLeftWithPanel="True"
-                       Foreground="{ThemeResource SystemControlForegroundAltHighBrush}"
-                                            Click="HamburgerButton_Click"
-                    >
+                    Click="HamburgerButton_Click">
                 <StackPanel Orientation="Horizontal" Margin="4,8">
                     <FontIcon Glyph="&#xE700;" />
                 </StackPanel>
@@ -59,7 +58,7 @@
                         <ListBoxItem Name="NewsFeedLbi">
                             <StackPanel Orientation="Horizontal">
                                 <FontIcon Glyph="&#xE8E4;" />
-                                <TextBlock Margin="16,0,0,0" VerticalAlignment="Center">Nieuws</TextBlock>
+                                <TextBlock Margin="16,0,0,0">Nieuws</TextBlock>
                             </StackPanel>
                         </ListBoxItem>
                         <ListBoxItem Name="OpleidingenLbi">
@@ -87,16 +86,26 @@
                         <Button Name="AdminButton"
                                 Background="{ThemeResource SystemControlDisabledTransparentBrush}"
                                 BorderThickness="0"
-                                            Click="AdminButton_Click" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left">
+                                HorizontalAlignment="Stretch"
+                                HorizontalContentAlignment="Left">
                             <StackPanel Orientation="Horizontal" Margin="4,8">
                                 <FontIcon Glyph="&#xE7EF;" />
                                 <TextBlock Margin="16,0,0,0">Administratie</TextBlock>
                             </StackPanel>
+                            <Button.Flyout>
+                                <MenuFlyout>
+                                    <MenuFlyoutItem x:Name="NewsitemBeheer" Text="Nieuwsbeheer" Click="NewsitemBeheer_Click" />
+                                    <MenuFlyoutItem x:Name="InfomomentBeheer" Text="Infomomentbeheer" Click="InfomomentBeheer_Click" />
+                                    <MenuFlyoutItem x:Name="GebruikersBeheer" Text="Gebruikersbeheer" Click="GebruikersBeheer_Click" />
+                                </MenuFlyout>
+                            </Button.Flyout>
                         </Button>
                         <Button Name="OptiesButton"
                                 Background="{ThemeResource SystemControlDisabledTransparentBrush}"
                                 BorderThickness="0"
-                                            Click="OptiesButton_Click" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left">
+                                Click="OptiesButton_Click"
+                                HorizontalAlignment="Stretch"
+                                HorizontalContentAlignment="Left">
                             <StackPanel Orientation="Horizontal" Margin="4,8">
                                 <FontIcon Glyph="&#xE713;" />
                                 <TextBlock Margin="16,0,0,0">Instellingen</TextBlock>

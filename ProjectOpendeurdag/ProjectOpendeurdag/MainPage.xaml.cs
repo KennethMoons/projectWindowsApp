@@ -15,6 +15,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using System.Diagnostics;
+using Windows.UI.Core;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -26,7 +27,7 @@ namespace ProjectOpendeurdag
     public sealed partial class MainPage : Page
     {
         Frame frame;
-        
+
         public MainPage()
         {
             this.InitializeComponent();
@@ -38,24 +39,32 @@ namespace ProjectOpendeurdag
             }
 
             NavigationList.SelectedItem = NewsFeedLbi;
+            MyFrame.Navigate(typeof(Newsfeed));
+            TitleTextBlock.Text = "Nieuws";
+
+            MyFrame.Navigated += MyFrame_Navigated;
+
+            SystemNavigationManager.GetForCurrentView().BackRequested += OnBackRequested;
+            SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = MyFrame.CanGoBack ? AppViewBackButtonVisibility.Visible : AppViewBackButtonVisibility.Collapsed;
+        }
+
+        private void MyFrame_Navigated(object sender, NavigationEventArgs e)
+        {
+            SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = MyFrame.CanGoBack ? AppViewBackButtonVisibility.Visible : AppViewBackButtonVisibility.Collapsed;
+        }
+
+        private void OnBackRequested(object sender, BackRequestedEventArgs e)
+        {
+            if (MyFrame.CanGoBack)
+            {
+                e.Handled = true;
+                MyFrame.GoBack();
+            }
         }
 
         private void HamburgerButton_Click(object sender, RoutedEventArgs e)
         {
             MySplitView.IsPaneOpen = !MySplitView.IsPaneOpen;
-        }
-
-        private void BackButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (MyFrame.CanGoBack)
-            {
-                Debug.WriteLine("Going back");
-                MyFrame.GoBack();
-            }
-            else
-            {
-                Debug.WriteLine("Cant go back");
-            }
         }
 
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -82,15 +91,25 @@ namespace ProjectOpendeurdag
             }
         }
 
-        private void AdminButton_Click(object sender, RoutedEventArgs e)
-        {
-            this.Frame.Navigate(typeof(AdminPage));
-        }
-
         private void OptiesButton_Click(object sender, RoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(Opties));
+            Frame.Navigate(typeof(Opties));
+        }
+
+        private void NewsitemBeheer_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(NewsitemBeheerMain));
+        }
+
+        private void InfomomentBeheer_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(InfomomentBeheerMain));
+        }
+
+        private void GebruikersBeheer_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(GebruikersBeheerMain));
         }
     }
 }
-       
+
