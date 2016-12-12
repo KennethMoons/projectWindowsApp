@@ -37,20 +37,41 @@ namespace ProjectOpendeurdag
             {
                 AdminButton.Visibility = Visibility.Collapsed;
             }
-
-            NavigationList.SelectedItem = NewsFeedLbi;
-            MyFrame.Navigate(typeof(Newsfeed));
-            TitleTextBlock.Text = "Nieuws";
-
+            
             MyFrame.Navigated += MyFrame_Navigated;
 
             SystemNavigationManager.GetForCurrentView().BackRequested += OnBackRequested;
             SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = MyFrame.CanGoBack ? AppViewBackButtonVisibility.Visible : AppViewBackButtonVisibility.Collapsed;
+
+            // Nagivate to newsfeed by default
+            MyFrame.Navigate(typeof(Newsfeed));
         }
 
         private void MyFrame_Navigated(object sender, NavigationEventArgs e)
         {
             SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = MyFrame.CanGoBack ? AppViewBackButtonVisibility.Visible : AppViewBackButtonVisibility.Collapsed;
+
+            // Update title & selected item in navigation list
+            if (e.SourcePageType.Equals(typeof(Newsfeed)))
+            {
+                TitleTextBlock.Text = "Nieuws";
+                NavigationList.SelectedItem = NewsFeedLbi;
+            }
+            else if (e.SourcePageType.Equals(typeof(Opleidingen)))
+            {
+                TitleTextBlock.Text = "Opleidingen";
+                NavigationList.SelectedItem = OpleidingenLbi;
+            }
+            else if (e.SourcePageType.Equals(typeof(Campussen)))
+            {
+                TitleTextBlock.Text = "Campussen";
+                NavigationList.SelectedItem = CampussenLbi;
+            }
+            else if (e.SourcePageType.Equals(typeof(InfomomentFeed)))
+            {
+                TitleTextBlock.Text = "Infomomenten";
+                NavigationList.SelectedItem = InfoMomentenLbi;
+            }
         }
 
         private void OnBackRequested(object sender, BackRequestedEventArgs e)
@@ -72,22 +93,18 @@ namespace ProjectOpendeurdag
             if (NewsFeedLbi.IsSelected)
             {
                 MyFrame.Navigate(typeof(Newsfeed));
-                TitleTextBlock.Text = "Nieuws";
             }
             else if (OpleidingenLbi.IsSelected)
             {
                 MyFrame.Navigate(typeof(Opleidingen));
-                TitleTextBlock.Text = "Opleidingen";
             }
             else if (CampussenLbi.IsSelected)
             {
                 MyFrame.Navigate(typeof(Campussen));
-                TitleTextBlock.Text = "Campussen";
             }
             else if (InfoMomentenLbi.IsSelected)
             {
                 MyFrame.Navigate(typeof(InfomomentFeed));
-                TitleTextBlock.Text = "Infomomenten";
             }
         }
 
