@@ -110,6 +110,11 @@ namespace ProjectOpendeurdag
         {
             Frame.Navigate(typeof(GebruikersBeheerMain));
         }
+
+        private void LoginButton_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(LoginPage));
+        }
     }
 }
 

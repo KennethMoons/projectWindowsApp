@@ -28,7 +28,7 @@ namespace ProjectOpendeurdag
         public LoginPage()
         {
             this.InitializeComponent();
-            TitleTextBlock.Text = "log in";
+            //TitleTextBlock.Text = "log in";
         }
 
         private void SignUp_Click(object sender, RoutedEventArgs e)

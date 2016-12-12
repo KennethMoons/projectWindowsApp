@@ -7,75 +7,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-
-        <RelativePanel>
-            <Button Name="HamburgerButton" 
-                    RelativePanel.AlignLeftWithPanel="True"
-                    FontFamily="Segoe MDL2 Assets"
-                    FontSize="36" 
-                    Content="&#xE700;" 
-                    IsEnabled="False"/>
-
-            <TextBlock Name="TitleTextBlock"
-                       RelativePanel.RightOf="HamburgerButton"
-                       FontSize="28"
-                       FontWeight="Bold"
-                       Margin="20,5,0,0"/>
-
-            <Button Name="OptiesButton" 
-                    RelativePanel.AlignRightWithPanel="True"
-                    FontFamily="Segoe MDL2 Assets"
-                    FontSize="36" 
-                    Content="&#xE713;"
-                    IsEnabled="False"/>
-
-        </RelativePanel>
-
-        <SplitView Grid.Row="1" 
-                   Name="MySplitView"
-                   DisplayMode="CompactOverlay" 
-                   OpenPaneLength="235" 
-                   CompactPaneLength="56">
-            <SplitView.Pane>
-                <ListBox SelectionMode="Single">
-                    <ListBoxItem Name="NewsFeedLbi" IsEnabled="False">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="36" Text="&#xE8E4;" />
-                            <TextBlock FontSize="24" Margin="20,0,0,0">News feed</TextBlock>
-                        </StackPanel>
-                    </ListBoxItem>
-                    <ListBoxItem Name="OpleidingenLbi" IsEnabled="False">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="36" Text="&#xE1CE;" />
-                            <TextBlock FontSize="24" Margin="20,0,0,0">Opleidingen</TextBlock>
-                        </StackPanel>
-                    </ListBoxItem>
-                    <ListBoxItem Name="CampussenLbi" IsEnabled="False">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="36" Text="&#xE10F;" />
-                            <TextBlock FontSize="24" Margin="20,0,0,0">Campussen</TextBlock>
-                        </StackPanel>
-                    </ListBoxItem>
-                    <ListBoxItem Name="InfoMomentenLbi" IsEnabled="False">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="36" Text="&#xE787;" />
-                            <TextBlock FontSize="24" Margin="20,0,0,0">Infomomenten</TextBlock>
-                        </StackPanel>
-                    </ListBoxItem>
-                </ListBox>
-            </SplitView.Pane>
-            <SplitView.Content>
-                <Grid x:Name="LayoutRoot" Background="White">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-                    <StackPanel Grid.Row="0" Margin="12,17,0,28">
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <StackPanel Margin="8">
 
                         <!--UserName-->
                         <TextBlock Text="Email" Foreground="Black" FontSize="30"/>
@@ -92,11 +25,5 @@
                         <Button Content="Registration" Background="#FF30DABB" Name="SignUp" Click="SignUp_Click"/>
 
                     </StackPanel>
-
                 </Grid>
-            </SplitView.Content>
-
-        </SplitView>
-
-    </Grid>
 </Page>
