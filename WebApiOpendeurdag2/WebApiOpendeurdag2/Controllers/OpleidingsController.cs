@@ -13,7 +13,7 @@ using WebApiOpendeurdag2.Models;
 
 namespace WebApiOpendeurdag2.Controllers
 {
-    [Authorize(Roles = GebruikerRoles.Admin)]
+    [Authorize(Roles = GebruikersRollen.Admin)]
     public class OpleidingsController : ApiController
     {
         private WebApiOpendeurdag2Context db = new WebApiOpendeurdag2Context();

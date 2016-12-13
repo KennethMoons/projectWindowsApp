@@ -196,6 +196,10 @@
     <Compile Include="Migrations\201612051456455_Initial.Designer.cs">
       <DependentUpon>201612051456455_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201612131718220_GebruikersRol.cs" />
+    <Compile Include="Migrations\201612131718220_GebruikersRol.Designer.cs">
+      <DependentUpon>201612131718220_GebruikersRol.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Campus.cs" />
     <Compile Include="Models\Gebruiker.cs" />
@@ -246,6 +250,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201612051456455_Initial.resx">
       <DependentUpon>201612051456455_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612131718220_GebruikersRol.resx">
+      <DependentUpon>201612131718220_GebruikersRol.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

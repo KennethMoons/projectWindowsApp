@@ -19,14 +19,12 @@ namespace WebApiOpendeurdag2.Controllers
         private WebApiOpendeurdag2Context db = new WebApiOpendeurdag2Context();
 
         // GET: api/VoorkeurCampus
-        [AllowAnonymous]
         public IQueryable<VoorkeurCampus> GetVoorkeurCampus()
         {
             return db.VoorkeurCampus;
         }
 
         // GET: api/VoorkeurCampus/5
-        [AllowAnonymous]
         [ResponseType(typeof(VoorkeurCampus))]
         public async Task<IHttpActionResult> GetVoorkeurCampus(int id)
         {

@@ -20,7 +20,7 @@ namespace WebApiOpendeurdag2.Security
 
         public bool IsInRole(string role)
         {
-            return User.Roles != null ? User.Roles.Contains(role) : false;
+            return !String.IsNullOrEmpty(User.Rol) ? User.Rol.Equals(role) : false;
         }
     }
 }
