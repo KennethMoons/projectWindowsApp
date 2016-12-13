@@ -16,5 +16,10 @@ namespace ProjectOpendeurdag.Models
         public String Postcode { get; set; }
         public String Gemeente { get; set; }
         public String Telnr { get; set; }
+        public String Rol { get; set; }
+    }
+    class GebruikersRollen
+    {
+        public const String Admin = "admin";
     }
 }

@@ -18,5 +18,11 @@ namespace WebApiOpendeurdag2.Models
         public String Postcode { get; set; }
         public String Gemeente { get; set; }
         public String Telnr { get; set; }
+        public String Rol { get; set; }
+    }
+
+    public class GebruikersRollen
+    {
+        public const string Admin = "admin";
     }
 }

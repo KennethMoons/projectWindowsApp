@@ -13,6 +13,7 @@ using WebApiOpendeurdag2.Models;
 
 namespace WebApiOpendeurdag2.Controllers
 {
+    [Authorize]
     public class VoorkeurCampusController : ApiController
     {
         private WebApiOpendeurdag2Context db = new WebApiOpendeurdag2Context();

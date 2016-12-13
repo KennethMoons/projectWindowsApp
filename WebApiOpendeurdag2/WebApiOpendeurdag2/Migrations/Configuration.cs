@@ -15,30 +15,23 @@ namespace WebApiOpendeurdag2.Migrations
 
         protected override void Seed(WebApiOpendeurdag2.Models.WebApiOpendeurdag2Context context)
         {
-            context.Gebruikers.AddOrUpdate(new Gebruiker() { GebruikerId = 0, Email = "admin", Wachtwoord = "admin" });
-            context.Campus.AddOrUpdate(new Campus[] {
-                new Campus() { CampusId = 0, Naam = "Schoonmeersen", Adres = "Valentin Vaerwyckweg 1", Gemeente = "Gent", Postcode = "9000" },
-                new Campus() { CampusId = 1, Naam = "Mercator", Adres = "Henleykaai 84", Gemeente = "Gent", Postcode = "9000" },
-                new Campus() { CampusId = 2, Naam = "Aalst", Adres = "Arbeidstraat 14", Gemeente = "Aalst", Postcode = "9300" }
+            context.Gebruikers.AddOrUpdate(new Gebruiker[] {
+                new Gebruiker() { GebruikerId = 1, Email = "admin", Wachtwoord = "admin", Rol = GebruikersRollen.Admin },
+                new Gebruiker() { GebruikerId = 2, Email = "user", Wachtwoord = "user" }
             });
-            context.Opleidings.AddOrUpdate(new Opleiding[] {
-                new Opleiding() {OpleidingId = 0, Naam = "Bedrijfsmanagment", Type = "professionele bachelor" },
-                new Opleiding() {OpleidingId = 1, Naam = "Office management", Type = "professionele bachelor" },
-                new Opleiding() {OpleidingId = 2, Naam = "Retailmanagement", Type = "professionele bachelor" },
-                new Opleiding() {OpleidingId = 3, Naam = "Toegepaste informatica", Type = "professionele bachelor" }
-            });
-            //  This method will be called after migrating to the latest version.
 
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
-            //  to avoid creating duplicate seed data. E.g.
-            //
-            //    context.People.AddOrUpdate(
-            //      p => p.FullName,
-            //      new Person { FullName = "Andrew Peters" },
-            //      new Person { FullName = "Brice Lambson" },
-            //      new Person { FullName = "Rowan Miller" }
-            //    );
-            //
+            context.Campus.AddOrUpdate(new Campus[] {
+                new Campus() { CampusId = 1, Naam = "Schoonmeersen", Adres = "Valentin Vaerwyckweg 1", Gemeente = "Gent", Postcode = "9000" },
+                new Campus() { CampusId = 2, Naam = "Mercator", Adres = "Henleykaai 84", Gemeente = "Gent", Postcode = "9000" },
+                new Campus() { CampusId = 3, Naam = "Aalst", Adres = "Arbeidstraat 14", Gemeente = "Aalst", Postcode = "9300" }
+            });
+
+            context.Opleidings.AddOrUpdate(new Opleiding[] {
+                new Opleiding() {OpleidingId = 1, Naam = "Bedrijfsmanagment", Type = "professionele bachelor" },
+                new Opleiding() {OpleidingId = 2, Naam = "Office management", Type = "professionele bachelor" },
+                new Opleiding() {OpleidingId = 3, Naam = "Retailmanagement", Type = "professionele bachelor" },
+                new Opleiding() {OpleidingId = 4, Naam = "Toegepaste informatica", Type = "professionele bachelor" }
+            });
         }
     }
 }

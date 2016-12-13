@@ -40,7 +40,6 @@ namespace ProjectOpendeurdag
                 waarden.Add(o.Naam);
             }
             OpleidingenComboBox.ItemsSource = waarden;
-            OpleidingenComboBox.SelectedIndex = 4;
         }
 
         private async void CampussenComboBox_Loaded(object sender, RoutedEventArgs e)
@@ -52,7 +51,6 @@ namespace ProjectOpendeurdag
                 waarden.Add(c.Naam);
             }
             CampussenComboBox.ItemsSource = waarden;
-            CampussenComboBox.SelectedIndex = 3;
         }
 
         private async void AppBarButton_Click(object sender, RoutedEventArgs e)

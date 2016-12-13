@@ -32,6 +32,9 @@ namespace ProjectOpendeurdag
         {
             this.InitializeComponent();
             this.Suspending += OnSuspending;
+
+            // Restore login
+            Api.Login();
         }
 
         /// <summary>
@@ -101,6 +104,16 @@ namespace ProjectOpendeurdag
 
         private void OnNavigated(object sender, NavigationEventArgs e)
         {
+            if (e.SourcePageType.Equals(typeof(MainPage)))
+            {
+                Frame frame = (Frame)sender;
+
+                if (frame.BackStack != null)
+                {
+                    frame.BackStack.Clear();
+                }
+            }
+
             // Toggle back button on navigation event
             SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = ((Frame) sender).CanGoBack ? AppViewBackButtonVisibility.Visible : AppViewBackButtonVisibility.Collapsed;
         }
