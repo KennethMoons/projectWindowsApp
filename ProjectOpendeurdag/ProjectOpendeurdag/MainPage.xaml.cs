@@ -26,8 +26,6 @@ namespace ProjectOpendeurdag
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        Frame frame;
-
         public MainPage()
         {
             this.InitializeComponent();

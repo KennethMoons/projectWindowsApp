@@ -7,6 +7,7 @@ using System.Net.Http;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.Security.Credentials;
 
 namespace ProjectOpendeurdag
 {
@@ -18,7 +19,9 @@ namespace ProjectOpendeurdag
         /// <summary>
         /// API base URL
         /// </summary>
-        public const string API_URL = "http://projectwindowsapp.azurewebsites.net/api";
+        public const string API_URL = "http://localhost:51399/api";
+
+        public const string API_KEY = "mGI4VHw6fmhsPSG44oa8yhB9xlZGKyps";
 
         /// <summary>
         /// Dictionary to map models to correct API URI
@@ -34,8 +37,6 @@ namespace ProjectOpendeurdag
             { typeof(VoorkeurOpleiding), "VoorkeurOpleidings" }
         };
 
-        private static HttpClient http = new HttpClient();
-
 
         /// <summary>
         /// DELETE object from API
@@ -45,7 +46,7 @@ namespace ProjectOpendeurdag
         /// <returns>Deserialized object</returns>
         public static async Task<HttpResponseMessage> DeleteAsync<T>(int id)
         {
-            return await http.DeleteAsync(GetUri<T>(id));
+            return await GetHttpClient().DeleteAsync(GetUri<T>(id));
         }
 
         /// <summary>
@@ -77,7 +78,7 @@ namespace ProjectOpendeurdag
         /// <returns>Deserialized object</returns>
         public static async Task<T> GetAsync<T>(string uri)
         {
-            return JsonConvert.DeserializeObject<T>(await http.GetStringAsync(uri));
+            return JsonConvert.DeserializeObject<T>(await GetHttpClient().GetStringAsync(uri));
         }
 
         /// <summary>
@@ -140,7 +141,7 @@ namespace ProjectOpendeurdag
         {
             HttpContent content = new StringContent(json);
             content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
-            return await http.PostAsync(uri, content);
+            return await GetHttpClient().PostAsync(uri, content);
         }
 
         /// <summary>
@@ -175,7 +176,78 @@ namespace ProjectOpendeurdag
         {
             HttpContent content = new StringContent(json);
             content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
-            return await http.PutAsync(uri, content);
+            return await GetHttpClient().PutAsync(uri, content);
+        }
+
+        private static HttpClient GetHttpClient()
+        {
+            HttpClient client = new HttpClient();
+
+            // Set API key
+            client.DefaultRequestHeaders.Add("API_KEY", API_KEY);
+
+            // Set authorization if logged in
+            var loginCredential = GetCredentialFromLocker();
+
+            if (loginCredential != null)
+            {
+                var username = loginCredential.UserName;
+                var password = loginCredential.Password;
+                var auth = Convert.ToBase64String(ASCIIEncoding.ASCII.GetBytes(String.Format("{0}:{1}", username, password)));
+                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", auth);
+            }
+
+            return client;
+        }
+
+
+        private static PasswordCredential GetCredentialFromLocker()
+        {
+            PasswordCredential credential = null;
+
+            var vault = new PasswordVault();
+            var credentials = vault.FindAllByResource(API_KEY);
+
+            if (credentials.Count > 0)
+            {
+                credential = credentials[0];
+            }
+
+            return credential;
+        }
+
+        public static async Task<bool> ValidateCredentials(string email, string password)
+        {
+            HttpClient client = new HttpClient();
+
+            // Set API key
+            client.DefaultRequestHeaders.Add("API_KEY", API_KEY);
+
+            // Set authorization
+            var auth = Convert.ToBase64String(ASCIIEncoding.ASCII.GetBytes(String.Format("{0}:{1}", email, password)));
+            client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", auth);
+
+            HttpResponseMessage response = await client.GetAsync(String.Format("{0}/{1}", API_URL, "login"));
+
+            return response.IsSuccessStatusCode;
+        }
+
+        public static void SetCredentials(string email, string password)
+        {
+            var vault = new PasswordVault();
+
+            // Remove previous credentials (if any)
+            try
+            {
+                vault.FindAllByResource(API_KEY).ToList().ForEach(c => vault.Remove(c));
+            }
+            catch
+            {
+                // No credentials
+            }    
+
+            // Add new credentials
+            vault.Add(new PasswordCredential(API_KEY, email, password));
         }
     }
 }

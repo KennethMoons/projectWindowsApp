@@ -15,6 +15,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Windows.Security.Credentials;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -38,20 +39,16 @@ namespace ProjectOpendeurdag
 
         private async void Login_Click(object sender, RoutedEventArgs e)
         {
-            List<Gebruiker> gebruikers = new List<Gebruiker>();
-            gebruikers = await Api.GetAsync<List<Gebruiker>>();
-            Gebruiker inlogGebruiker = new Gebruiker();
+            var email = UserName.Text.Trim();
+            var password = PassWord.Password.Trim();
 
-            foreach (Gebruiker g in gebruikers)
+            if (await Api.ValidateCredentials(email, password))
             {
-                if (g.Email.ToString().Trim() == UserName.Text.Trim() && g.Wachtwoord == PassWord.Password.Trim())
-                {
-                    var roamingSettings = ApplicationData.Current.RoamingSettings;
-                    roamingSettings.Values["gebruikerId"] = g.GebruikerId.ToString();
-                    Frame.Navigate(typeof(MainPage));
-                    return;
-                }
+                Api.SetCredentials(email, password);
+                Frame.Navigate(typeof(MainPage));
+                return;
             }
+
             MessageDialog showDialog = new MessageDialog("aanmelden niet gelukt");
             showDialog.Commands.Add(new UICommand("Ok") { Id = 0 });
             showDialog.DefaultCommandIndex = 0;
@@ -66,5 +63,6 @@ namespace ProjectOpendeurdag
         {
 
         }
+
     }
 }
