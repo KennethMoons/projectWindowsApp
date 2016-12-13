@@ -29,13 +29,9 @@ namespace ProjectOpendeurdag
         public MainPage()
         {
             this.InitializeComponent();
-            var roamingSettings = ApplicationData.Current.RoamingSettings;
 
-            if (Int32.Parse(roamingSettings.Values["gebruikerId"].ToString()) != 1)
-            {
-                AdminButton.Visibility = Visibility.Collapsed;
-            }
-            
+            ToggleLoginButtons();
+
             MyFrame.Navigated += MyFrame_Navigated;
 
             SystemNavigationManager.GetForCurrentView().BackRequested += OnBackRequested;
@@ -43,6 +39,19 @@ namespace ProjectOpendeurdag
 
             // Nagivate to newsfeed by default
             MyFrame.Navigate(typeof(Newsfeed));
+        }
+
+        private void ToggleLoginButtons()
+        {
+            var settings = ApplicationData.Current.RoamingSettings;
+
+
+            bool isLoggedIn = settings.Values["gebruikerId"] != null;
+            bool isAdmin = settings.Values["gebruikerIsAdmin"] != null && Boolean.Parse(settings.Values["gebruikerIsAdmin"].ToString());
+
+            LoginButton.Visibility = !isLoggedIn ? Visibility.Visible : Visibility.Collapsed;
+            UserButton.Visibility = isLoggedIn && !isAdmin ? Visibility.Visible : Visibility.Collapsed;
+            AdminButton.Visibility = isLoggedIn && isAdmin ? Visibility.Visible : Visibility.Collapsed;
         }
 
         private void MyFrame_Navigated(object sender, NavigationEventArgs e)
@@ -129,6 +138,12 @@ namespace ProjectOpendeurdag
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(LoginPage));
+        }
+
+        private void Logout_Click(object sender, RoutedEventArgs e)
+        {
+            Api.Logout();
+            ToggleLoginButtons();
         }
     }
 }

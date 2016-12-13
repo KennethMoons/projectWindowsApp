@@ -42,8 +42,11 @@ namespace ProjectOpendeurdag
             var email = UserName.Text.Trim();
             var password = PassWord.Password.Trim();
 
-            if (await Api.ValidateCredentials(email, password))
+            var gebruiker = await Api.Login(email, password);
+
+            if (gebruiker != null)
             {
+                ApplicationData.Current.RoamingSettings.Values["gebruikerId"] = gebruiker.GebruikerId;
                 Api.SetCredentials(email, password);
                 Frame.Navigate(typeof(MainPage));
                 return;

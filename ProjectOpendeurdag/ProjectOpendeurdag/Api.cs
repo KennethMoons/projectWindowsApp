@@ -8,6 +8,8 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.Security.Credentials;
+using Windows.Storage;
+using System.Diagnostics;
 
 namespace ProjectOpendeurdag
 {
@@ -206,18 +208,60 @@ namespace ProjectOpendeurdag
             PasswordCredential credential = null;
 
             var vault = new PasswordVault();
-            var credentials = vault.FindAllByResource(API_KEY);
-
-            if (credentials.Count > 0)
+            try
             {
-                credential = credentials[0];
+                var credentials = vault.FindAllByResource(API_KEY);
+
+                if (credentials.Count > 0)
+                {
+                    credential = credentials[0];
+                    credential.RetrievePassword();
+                }
+            }
+            catch (Exception)
+            {
+                // No credentials found
             }
 
             return credential;
         }
 
-        public static async Task<bool> ValidateCredentials(string email, string password)
+        public static Gebruiker Login()
         {
+            var credentials = GetCredentialFromLocker();
+
+            if (credentials != null)
+            {
+                return Login(credentials.UserName, credentials.Password).Result;
+            }
+
+            return null;
+        }
+
+        public static void Logout()
+        {
+            var settings = ApplicationData.Current.RoamingSettings;
+
+            settings.Values.Remove("gebruikerId");
+            settings.Values.Remove("gebruikerIsAdmin");
+
+            var vault = new PasswordVault();
+
+            // Remove previous credentials (if any)
+            try
+            {
+                vault.FindAllByResource(API_KEY).ToList().ForEach(c => vault.Remove(c));
+            }
+            catch
+            {
+                // No credentials
+            }
+        }
+
+        public static async Task<Gebruiker> Login(string email, string password)
+        {
+            Debug.WriteLine("Login {0} -> {1}", email, password);
+
             HttpClient client = new HttpClient();
 
             // Set API key
@@ -227,9 +271,33 @@ namespace ProjectOpendeurdag
             var auth = Convert.ToBase64String(ASCIIEncoding.ASCII.GetBytes(String.Format("{0}:{1}", email, password)));
             client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", auth);
 
-            HttpResponseMessage response = await client.GetAsync(String.Format("{0}/{1}", API_URL, "login"));
+            Gebruiker user = null;
 
-            return response.IsSuccessStatusCode;
+            try
+            {
+                user = JsonConvert.DeserializeObject<Gebruiker>(await client.GetStringAsync(String.Format("{0}/{1}", API_URL, "login")));
+            }
+            catch (Exception)
+            {
+                // Login failed
+            }
+
+            var settings = ApplicationData.Current.RoamingSettings;
+
+            if (user != null)
+            {
+                settings.Values["gebruikerId"] = user.GebruikerId;
+                settings.Values["gebruikerIsAdmin"] = user.Rol != null && GebruikersRollen.Admin.Equals(user.Rol);
+
+                SetCredentials(email, password);
+            }
+            else
+            {
+                settings.Values.Remove("gebruikerId");
+                settings.Values.Remove("gebruikerIsAdmin");
+            }
+
+            return user;
         }
 
         public static void SetCredentials(string email, string password)
@@ -244,7 +312,7 @@ namespace ProjectOpendeurdag
             catch
             {
                 // No credentials
-            }    
+            }
 
             // Add new credentials
             vault.Add(new PasswordCredential(API_KEY, email, password));
