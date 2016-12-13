@@ -183,6 +183,7 @@
     <Compile Include="Controllers\CampusController.cs" />
     <Compile Include="Controllers\GebruikersController.cs" />
     <Compile Include="Controllers\InfomomentsController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\NewsitemsController.cs" />
     <Compile Include="Controllers\OpleidingsController.cs" />
     <Compile Include="Controllers\VoorkeurCampusController.cs" />
