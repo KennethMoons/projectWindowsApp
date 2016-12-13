@@ -13,17 +13,20 @@ using WebApiOpendeurdag2.Models;
 
 namespace WebApiOpendeurdag2.Controllers
 {
+    [Authorize(Roles = GebruikerRoles.Admin)]
     public class NewsitemsController : ApiController
     {
         private WebApiOpendeurdag2Context db = new WebApiOpendeurdag2Context();
 
         // GET: api/Newsitems
+        [AllowAnonymous]
         public IQueryable<Newsitem> GetNewsitems()
         {
             return db.Newsitems;
         }
 
         // GET: api/Newsitems/5
+        [AllowAnonymous]
         [ResponseType(typeof(Newsitem))]
         public async Task<IHttpActionResult> GetNewsitem(int id)
         {
