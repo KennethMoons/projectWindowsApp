@@ -7,10 +7,10 @@ namespace WebApiOpendeurdag2.Services
 {
     public static class ReportFactory
     {
-        internal static ReportService<T> Create<T>(ReportType type) where T : class
+        internal static ReportService<T, D> Create<T, D>(ReportType type) where T : class where D : class
         {
             switch (type) {
-                case ReportType.PDF: return new PdfReportService<T>();
+                case ReportType.PDF: return new PdfReportService<T>() as ReportService<T, D>;
                 case ReportType.EXCEL: break;
             }
             throw new NotImplementedException(type.ToString() + " heeft nog geen ReportService");

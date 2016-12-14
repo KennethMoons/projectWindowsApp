@@ -1,4 +1,6 @@
-﻿using System;
+﻿using iText.Layout;
+using iText.Layout.Element;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -20,9 +22,30 @@ namespace WebApiOpendeurdag2.Controllers
         [System.Web.Http.AllowAnonymous]
         public async Task<ActionResult> GetReports()
         {
-            Stream s = ReportFactory.Create<Gebruiker>(ReportType.PDF).MakeDocument(db.Gebruikers);
+            var service = ReportFactory.Create<Gebruiker, Table>(ReportType.PDF);
+            service.strat = new GebruikerPdfStrat();
+            Stream s = service.MakeDocument(db.Gebruikers);
 
             return File(s, "application/pdf", "result.pdf");
+        }
+
+        class GebruikerPdfStrat : AddLineStrategy<Gebruiker, Table>
+        {
+            public void AddLine(Gebruiker obj, Table tab)
+            {
+                tab.AddCell(obj.GebruikerId.ToString());
+                tab.AddCell(obj.Naam);
+                tab.AddCell(obj.Email);
+                tab.AddCell(obj.Telnr);
+                tab.AddCell(obj.Postcode);
+                tab.AddCell(obj.Gemeente);
+                // TODO: Gebruiker moet List<VoorkeurCampus> en List<VoorkeurOpleiding> hebben
+            }
+
+            public int Length()
+            {
+                return 6;
+            }
         }
     }
 }
