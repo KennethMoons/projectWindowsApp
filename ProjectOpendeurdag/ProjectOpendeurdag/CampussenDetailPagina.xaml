@@ -1,0 +1,38 @@
+﻿<Page
+    x:Class="ProjectOpendeurdag.CampussenDetailPagina"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ProjectOpendeurdag"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:Maps="using:Windows.UI.Xaml.Controls.Maps"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <StackPanel>
+            <Image Height="125" Width="900" x:Name="afbeelding"/>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="campus" Margin="20"/>
+                <TextBlock x:Name="campus" Text="campus" Margin="20"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="adres" Margin="20"/>
+                <TextBlock x:Name="adres" Text="adres" Margin="20"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="postcode" Margin="20"/>
+                <TextBlock x:Name="postcode" Text="postcode" Margin="20"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="gemeente" Margin="20"/>
+                <TextBlock x:Name="gemeente" Text="gemeente" Margin="20"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="weer" Margin="20"/>
+                <TextBlock x:Name="weer" Margin="20"/>
+            </StackPanel>
+
+            <Maps:MapControl x:Name="myMap" Height="250" Width="450" MapDoubleTapped="myMap_MapDoubleTapped"/>
+        </StackPanel>
+    </Grid>
+</Page>

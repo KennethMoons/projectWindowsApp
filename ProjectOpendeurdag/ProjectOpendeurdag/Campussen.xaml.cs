@@ -41,7 +41,11 @@ namespace ProjectOpendeurdag
 
         private void campussenList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            Campus campus = campussenList.SelectedItem as Campus;
+            if (campus.CampusId == 1)
+            {
+                Frame.Navigate(typeof(CampussenDetailPagina), campus);
+            }
         }
     }
 }
