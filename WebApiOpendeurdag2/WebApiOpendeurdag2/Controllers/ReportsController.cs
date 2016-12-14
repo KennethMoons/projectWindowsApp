@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
@@ -15,18 +16,30 @@ using WebApiOpendeurdag2.Services;
 
 namespace WebApiOpendeurdag2.Controllers
 {
-    public class ReportsController : Controller
+    public class ReportsController : ApiController
     {
         private WebApiOpendeurdag2Context db = new WebApiOpendeurdag2Context();
 
         [System.Web.Http.AllowAnonymous]
-        public async Task<ActionResult> GetReports()
+        public async Task<HttpResponseMessage> GetReports()
         {
             var service = ReportFactory.Create<Gebruiker, Table>(ReportType.PDF);
             service.strat = new GebruikerPdfStrat();
-            Stream s = service.MakeDocument(db.Gebruikers);
+            MemoryStream s = service.MakeDocument(db.Gebruikers) as MemoryStream;
+            // https://stackoverflow.com/questions/26038856/how-to-return-a-file-filecontentresult-in-asp-net-webapi
+            var result = new HttpResponseMessage(HttpStatusCode.OK)
+            {
+                Content = new ByteArrayContent(s.ToArray())
+            };
+            result.Content.Headers.ContentDisposition =
+                new System.Net.Http.Headers.ContentDispositionHeaderValue("attachment")
+                {
+                    FileName = "GebruikerReport.pdf"
+                };
+            result.Content.Headers.ContentType =
+                new MediaTypeHeaderValue("application/octet-stream");
 
-            return File(s, "application/pdf", "result.pdf");
+            return result;
         }
 
         class GebruikerPdfStrat : AddLineStrategy<Gebruiker, Table>

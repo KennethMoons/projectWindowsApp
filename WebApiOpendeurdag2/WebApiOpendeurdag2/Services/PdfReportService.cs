@@ -25,6 +25,7 @@ namespace WebApiOpendeurdag2.Services
             Stream result = new MemoryStream();
             PdfDocument pdf = new PdfDocument(new PdfWriter(result));
             using (Document doc = new Document(pdf)) {
+                doc.Add(new Paragraph("Dit is een rapport van alle studenten"));
                 Table table = new Table(strat.Length());
                 // TODO header line & layout
                 foreach (T obj in objects)
