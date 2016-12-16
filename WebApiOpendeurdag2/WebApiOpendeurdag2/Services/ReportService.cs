@@ -11,7 +11,7 @@ namespace WebApiOpendeurdag2.Services
     {
         AddLineStrategy<T, D> strat { get; set; }
 
-        Stream MakeDocument(DbSet<T> objects);
+        Stream MakeDocument(IEnumerable<T> objects);
     }
 
     public enum ReportType {

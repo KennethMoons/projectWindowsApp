@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.IO;
+using System.Linq;
 
 namespace WebApiOpendeurdag2.Services
 {
@@ -20,7 +21,7 @@ namespace WebApiOpendeurdag2.Services
         {
         }
 
-        public Stream MakeDocument(DbSet<T> objects)
+        public Stream MakeDocument(IEnumerable<T> objects)
         {
             Stream result = new MemoryStream();
             PdfDocument pdf = new PdfDocument(new PdfWriter(result));
@@ -42,7 +43,7 @@ namespace WebApiOpendeurdag2.Services
         {
             public void AddLine(T obj, Table tab)
             {
-                tab.AddCell("object added");
+                tab.AddCell("object toegevoegd");
             }
 
             public int Length()

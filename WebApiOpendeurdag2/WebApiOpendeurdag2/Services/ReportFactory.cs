@@ -11,7 +11,7 @@ namespace WebApiOpendeurdag2.Services
         {
             switch (type) {
                 case ReportType.PDF: return new PdfReportService<T>() as ReportService<T, D>;
-                case ReportType.EXCEL: break;
+                case ReportType.EXCEL: return new ExcelReportService<T>() as ReportService<T, D>;
             }
             throw new NotImplementedException(type.ToString() + " heeft nog geen ReportService");
         }
