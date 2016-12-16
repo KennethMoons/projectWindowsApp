@@ -29,8 +29,27 @@ namespace WebApiOpendeurdag2.Models
 
         public System.Data.Entity.DbSet<WebApiOpendeurdag2.Models.Newsitem> Newsitems { get; set; }
 
-        public System.Data.Entity.DbSet<WebApiOpendeurdag2.Models.VoorkeurCampus> VoorkeurCampus { get; set; }
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Gebruiker>()
+                .HasMany(g => g.VoorkeurCampussen)
+                .WithMany()
+                .Map(x =>
+                {
+                    x.MapLeftKey("GebruikerId");
+                    x.MapRightKey("CampusId");
+                    x.ToTable("VoorkeurCampussen");
+                });
 
-        public System.Data.Entity.DbSet<WebApiOpendeurdag2.Models.VoorkeurOpleiding> VoorkeurOpleidings { get; set; }
+            modelBuilder.Entity<Gebruiker>()
+                .HasMany(g => g.VoorkeurOpleidingen)
+                .WithMany()
+                .Map(x =>
+                {
+                    x.MapLeftKey("GebruikerId");
+                    x.MapRightKey("OpleidingId");
+                    x.ToTable("VoorkeurOpleidingen");
+                });
+        }
     }
 }

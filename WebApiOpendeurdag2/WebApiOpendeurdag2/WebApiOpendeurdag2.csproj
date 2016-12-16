@@ -219,8 +219,6 @@
     <Compile Include="Controllers\NewsitemsController.cs" />
     <Compile Include="Controllers\OpleidingsController.cs" />
     <Compile Include="Controllers\ReportsController.cs" />
-    <Compile Include="Controllers\VoorkeurCampusController.cs" />
-    <Compile Include="Controllers\VoorkeurOpleidingsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -234,14 +232,16 @@
     <Compile Include="Migrations\201612131718220_GebruikersRol.Designer.cs">
       <DependentUpon>201612131718220_GebruikersRol.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201612161511523_GebruikersVoorkeuren.cs" />
+    <Compile Include="Migrations\201612161511523_GebruikersVoorkeuren.Designer.cs">
+      <DependentUpon>201612161511523_GebruikersVoorkeuren.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Campus.cs" />
     <Compile Include="Models\Gebruiker.cs" />
     <Compile Include="Models\Infomoment.cs" />
     <Compile Include="Models\Newsitem.cs" />
     <Compile Include="Models\Opleiding.cs" />
-    <Compile Include="Models\VoorkeurCampus.cs" />
-    <Compile Include="Models\VoorkeurOpleiding.cs" />
     <Compile Include="Models\WebApiOpendeurdag2Context.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Security\APIPrincipal.cs" />
@@ -291,6 +291,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201612131718220_GebruikersRol.resx">
       <DependentUpon>201612131718220_GebruikersRol.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612161511523_GebruikersVoorkeuren.resx">
+      <DependentUpon>201612161511523_GebruikersVoorkeuren.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
