@@ -27,6 +27,7 @@ namespace ProjectOpendeurdag
         public Campussen()
         {
             this.InitializeComponent();
+            vulCampussen();
         }
 
         public async void vulCampussen()
