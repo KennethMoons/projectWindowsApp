@@ -9,30 +9,151 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <StackPanel>
-            <Image Height="125" Width="900" x:Name="afbeelding"/>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="campus" Margin="20"/>
-                <TextBlock x:Name="campus" Text="campus" Margin="20"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="adres" Margin="20"/>
-                <TextBlock x:Name="adres" Text="adres" Margin="20"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="postcode" Margin="20"/>
-                <TextBlock x:Name="postcode" Text="postcode" Margin="20"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="gemeente" Margin="20"/>
-                <TextBlock x:Name="gemeente" Text="gemeente" Margin="20"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="weer" Margin="20"/>
-                <TextBlock x:Name="weer" Margin="20"/>
-            </StackPanel>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="VisualStateGroup">
+                <VisualState x:Name="Wide">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="800" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="afbeelding.(Grid.Column)" Value="2" />
+                        <Setter Target="afbeelding.(Grid.ColumnSpan)" Value="2" />
+                        <Setter Target="afbeelding.(Grid.Row)" Value="0" />
 
-            <Maps:MapControl x:Name="myMap" Height="250" Width="450" MapDoubleTapped="myMap_MapDoubleTapped"/>
-        </StackPanel>
+                        <Setter Target="campusTxt.(Grid.Column)" Value="0" />
+                        <Setter Target="campusTxt.(Grid.ColumnSpan)" Value="1" />
+                        <Setter Target="campusTxt.(Grid.Row)" Value="1" />
+
+                        <Setter Target="campus.(Grid.Column)" Value="1" />
+                        <Setter Target="campus.(Grid.ColumnSpan)" Value="1" />
+                        <Setter Target="campus.(Grid.Row)" Value="1" />
+
+                        <Setter Target="adresTxt.(Grid.Column)" Value="0" />
+                        <Setter Target="adresTxt.(Grid.ColumnSpan)" Value="1" />
+                        <Setter Target="adresTxt.(Grid.Row)" Value="2" />
+
+                        <Setter Target="adres.(Grid.Column)" Value="1" />
+                        <Setter Target="adres.(Grid.ColumnSpan)" Value="1" />
+                        <Setter Target="adres.(Grid.Row)" Value="2" />
+
+                        <Setter Target="postcodeTxt.(Grid.Column)" Value="0" />
+                        <Setter Target="postcodeTxt.(Grid.ColumnSpan)" Value="1" />
+                        <Setter Target="postcodeTxt.(Grid.Row)" Value="3" />
+
+                        <Setter Target="postcode.(Grid.Column)" Value="1" />
+                        <Setter Target="postcode.(Grid.ColumnSpan)" Value="1" />
+                        <Setter Target="postcode.(Grid.Row)" Value="3" />
+
+                        <Setter Target="gemeenteTxt.(Grid.Column)" Value="0" />
+                        <Setter Target="gemeenteTxt.(Grid.ColumnSpan)" Value="1" />
+                        <Setter Target="gemeenteTxt.(Grid.Row)" Value="4" />
+
+                        <Setter Target="gemeente.(Grid.Column)" Value="1" />
+                        <Setter Target="gemeente.(Grid.ColumnSpan)" Value="1" />
+                        <Setter Target="gemeente.(Grid.Row)" Value="4" />
+
+                        <Setter Target="weerTxt.(Grid.Column)" Value="0" />
+                        <Setter Target="weerTxt.(Grid.ColumnSpan)" Value="1" />
+                        <Setter Target="weerTxt.(Grid.Row)" Value="5" />
+
+                        <Setter Target="weer.(Grid.Column)" Value="1" />
+                        <Setter Target="weer.(Grid.ColumnSpan)" Value="1" />
+                        <Setter Target="weer.(Grid.Row)" Value="5" />
+
+                        <Setter Target="myMap.(Grid.Column)" Value="2" />
+                        <Setter Target="myMap.(Grid.ColumnSpan)" Value="2" />
+                        <Setter Target="myMap.(Grid.Row)" Value="6" />
+                        <Setter Target="myMap.(Grid.RowSpan)" Value="2" />
+                        <Setter Target="myMap.Margin" Value="0 0 0 15"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="Narrow">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="afbeelding.(Grid.Column)" Value="0" />
+                        <Setter Target="afbeelding.(Grid.ColumnSpan)" Value="6" />
+                        <Setter Target="afbeelding.(Grid.Row)" Value="0" />
+
+                        <Setter Target="campusTxt.(Grid.Column)" Value="0" />
+                        <Setter Target="campusTxt.(Grid.ColumnSpan)" Value="3" />
+                        <Setter Target="campusTxt.(Grid.Row)" Value="1" />
+
+                        <Setter Target="campus.(Grid.Column)" Value="3" />
+                        <Setter Target="campus.(Grid.ColumnSpan)" Value="3" />
+                        <Setter Target="campus.(Grid.Row)" Value="1" />
+
+                        <Setter Target="adresTxt.(Grid.Column)" Value="0" />
+                        <Setter Target="adresTxt.(Grid.ColumnSpan)" Value="3" />
+                        <Setter Target="adresTxt.(Grid.Row)" Value="2" />
+
+                        <Setter Target="adres.(Grid.Column)" Value="3" />
+                        <Setter Target="adres.(Grid.ColumnSpan)" Value="3" />
+                        <Setter Target="adres.(Grid.Row)" Value="2" />
+
+                        <Setter Target="postcodeTxt.(Grid.Column)" Value="0" />
+                        <Setter Target="postcodeTxt.(Grid.ColumnSpan)" Value="3" />
+                        <Setter Target="postcodeTxt.(Grid.Row)" Value="3" />
+
+                        <Setter Target="postcode.(Grid.Column)" Value="3" />
+                        <Setter Target="postcode.(Grid.ColumnSpan)" Value="3" />
+                        <Setter Target="postcode.(Grid.Row)" Value="3" />
+
+                        <Setter Target="gemeenteTxt.(Grid.Column)" Value="0" />
+                        <Setter Target="gemeenteTxt.(Grid.ColumnSpan)" Value="3" />
+                        <Setter Target="gemeenteTxt.(Grid.Row)" Value="4" />
+
+                        <Setter Target="gemeente.(Grid.Column)" Value="3" />
+                        <Setter Target="gemeente.(Grid.ColumnSpan)" Value="3" />
+                        <Setter Target="gemeente.(Grid.Row)" Value="4" />
+
+                        <Setter Target="weerTxt.(Grid.Column)" Value="0" />
+                        <Setter Target="weerTxt.(Grid.ColumnSpan)" Value="3" />
+                        <Setter Target="weerTxt.(Grid.Row)" Value="5" />
+
+                        <Setter Target="weer.(Grid.Column)" Value="3" />
+                        <Setter Target="weer.(Grid.ColumnSpan)" Value="3" />
+                        <Setter Target="weer.(Grid.Row)" Value="5" />
+
+                        <Setter Target="myMap.(Grid.Column)" Value="0" />
+                        <Setter Target="myMap.(Grid.ColumnSpan)" Value="6" />
+                        <Setter Target="myMap.(Grid.Row)" Value="6" />
+                        <Setter Target="myMap.(Grid.RowSpan)" Value="2" />
+                        <Setter Target="myMap.Margin" Value="10 0 10 15"/>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*"  />
+            <RowDefinition Height="*"  />
+            <RowDefinition Height="*"  />
+            <RowDefinition Height="*"  />
+            <RowDefinition Height="*"  />
+            <RowDefinition Height="*"  />
+            <RowDefinition Height="*"  />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition  Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Image Height="125" Width="900" x:Name="afbeelding" />
+        <TextBlock Name="campusTxt" Text="campus" Margin="20"/>
+        <TextBlock x:Name="campus" Text="campus" Margin="20"/>
+        <TextBlock Name="adresTxt" Text="adres" Margin="20"/>
+        <TextBlock x:Name="adres" Text="adres" Margin="20"/>
+        <TextBlock Name="postcodeTxt" Text="postcode" Margin="20"/>
+        <TextBlock x:Name="postcode" Text="postcode" Margin="20"/>
+        <TextBlock Name="gemeenteTxt" Text="gemeente" Margin="20"/>
+        <TextBlock x:Name="gemeente" Text="gemeente" Margin="20"/>
+        <TextBlock Name="weerTxt" Text="weer" Margin="20"/>
+        <TextBlock x:Name="weer" Margin="20"/>
+        <Maps:MapControl x:Name="myMap" Height="250" Width="450" MapDoubleTapped="myMap_MapDoubleTapped"/>
     </Grid>
 </Page>

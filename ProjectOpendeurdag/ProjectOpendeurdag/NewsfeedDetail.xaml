@@ -8,30 +8,160 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <StackPanel>
-            <TextBox x:Name="titel" PlaceholderText="titel" Margin="10"/>
-            <TextBox x:Name="beschrijving" PlaceholderText="beschrijving" Margin="20" Height="200px"/>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="op welke datum" Margin="10"></TextBlock>
-                <TextBox x:Name="datum" PlaceholderText="datum" Margin="10"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="op welk uur" Margin="10"></TextBlock>
-                <TextBox x:Name="tijd" PlaceholderText="uur" Margin="10"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="voor een bepaalde campus ?" Margin="10"></TextBlock>
-                <TextBox x:Name="campus" PlaceholderText="campus" Margin="10"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="voor een bepaalde opleiding ?" Margin="10"></TextBlock>
-                <TextBox x:Name="opleiding" PlaceholderText="opleiding" Margin="10"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <Button Name="agenda_button" Click="agenda_button_Click" Content="Opslaan in agenda" Margin="10"></Button>
-                <Button Name="reminder_button" Click="reminder_button_Click" Content="reminder instellen" Margin="10"></Button>
-                <Button Name="cancel_button" Click="cancel_button_Click" Content="cancel" Margin="10"></Button>
-            </StackPanel>
-        </StackPanel>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="VisualStateGroup">
+                <VisualState x:Name="Wide">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="800" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="titel.(Grid.Column)" Value="0" />
+                        <Setter Target="titel.(Grid.ColumnSpan)" Value="6" />
+                        <Setter Target="titel.(Grid.Row)" Value="0" />
+
+                        <Setter Target="beschrijving.(Grid.Column)" Value="0" />
+                        <Setter Target="beschrijving.(Grid.ColumnSpan)" Value="6" />
+                        <Setter Target="beschrijving.(Grid.Row)" Value="1" />
+                        <Setter Target="beschrijving.(Grid.RowSpan)" Value="3" />
+
+                        <Setter Target="datumTxt.(Grid.Column)" Value="0" />
+                        <Setter Target="datumTxt.(Grid.ColumnSpan)" Value="1" />
+                        <Setter Target="datumTxt.(Grid.Row)" Value="4" />
+
+                        <Setter Target="datum.(Grid.Column)" Value="1" />
+                        <Setter Target="datum.(Grid.ColumnSpan)" Value="1" />
+                        <Setter Target="datum.(Grid.Row)" Value="4" />
+
+                        <Setter Target="tijdTxt.(Grid.Column)" Value="0" />
+                        <Setter Target="tijdTxt.(Grid.ColumnSpan)" Value="1" />
+                        <Setter Target="tijdTxt.(Grid.Row)" Value="5" />
+
+                        <Setter Target="tijd.(Grid.Column)" Value="1" />
+                        <Setter Target="tijd.(Grid.ColumnSpan)" Value="1" />
+                        <Setter Target="tijd.(Grid.Row)" Value="5" />
+
+                        <Setter Target="campusTxt.(Grid.Column)" Value="0" />
+                        <Setter Target="campusTxt.(Grid.ColumnSpan)" Value="1" />
+                        <Setter Target="campusTxt.(Grid.Row)" Value="6" />
+
+                        <Setter Target="campus.(Grid.Column)" Value="1" />
+                        <Setter Target="campus.(Grid.ColumnSpan)" Value="1" />
+                        <Setter Target="campus.(Grid.Row)" Value="6" />
+
+                        <Setter Target="opleidingTxt.(Grid.Column)" Value="0" />
+                        <Setter Target="opleidingTxt.(Grid.ColumnSpan)" Value="1" />
+                        <Setter Target="opleidingTxt.(Grid.Row)" Value="7" />
+
+                        <Setter Target="opleiding.(Grid.Column)" Value="1" />
+                        <Setter Target="opleiding.(Grid.ColumnSpan)" Value="1" />
+                        <Setter Target="opleiding.(Grid.Row)" Value="7" />
+
+                        <Setter Target="agenda_button.(Grid.Column)" Value="0" />
+                        <Setter Target="agenda_button.(Grid.ColumnSpan)" Value="1" />
+                        <Setter Target="agenda_button.(Grid.Row)" Value="8" />
+
+                        <Setter Target="reminder_button.(Grid.Column)" Value="2" />
+                        <Setter Target="reminder_button.(Grid.ColumnSpan)" Value="1" />
+                        <Setter Target="reminder_button.(Grid.Row)" Value="8" />
+
+                        <Setter Target="cancel_button.(Grid.Column)" Value="4" />
+                        <Setter Target="cancel_button.(Grid.ColumnSpan)" Value="1" />
+                        <Setter Target="cancel_button.(Grid.Row)" Value="8" />
+
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="Narrow">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="titel.(Grid.Column)" Value="0" />
+                        <Setter Target="titel.(Grid.ColumnSpan)" Value="6" />
+                        <Setter Target="titel.(Grid.Row)" Value="0" />
+
+                        <Setter Target="beschrijving.(Grid.Column)" Value="0" />
+                        <Setter Target="beschrijving.(Grid.ColumnSpan)" Value="6" />
+                        <Setter Target="beschrijving.(Grid.Row)" Value="1" />
+                        <Setter Target="beschrijving.(Grid.RowSpan)" Value="3" />
+
+                        <Setter Target="datumTxt.(Grid.Column)" Value="0" />
+                        <Setter Target="datumTxt.(Grid.ColumnSpan)" Value="3" />
+                        <Setter Target="datumTxt.(Grid.Row)" Value="4" />
+
+                        <Setter Target="datum.(Grid.Column)" Value="3" />
+                        <Setter Target="datum.(Grid.ColumnSpan)" Value="3" />
+                        <Setter Target="datum.(Grid.Row)" Value="4" />
+
+                        <Setter Target="tijdTxt.(Grid.Column)" Value="0" />
+                        <Setter Target="tijdTxt.(Grid.ColumnSpan)" Value="3" />
+                        <Setter Target="tijdTxt.(Grid.Row)" Value="5" />
+
+                        <Setter Target="tijd.(Grid.Column)" Value="3" />
+                        <Setter Target="tijd.(Grid.ColumnSpan)" Value="3" />
+                        <Setter Target="tijd.(Grid.Row)" Value="5" />
+
+                        <Setter Target="campusTxt.(Grid.Column)" Value="0" />
+                        <Setter Target="campusTxt.(Grid.ColumnSpan)" Value="3" />
+                        <Setter Target="campusTxt.(Grid.Row)" Value="6" />
+
+                        <Setter Target="campus.(Grid.Column)" Value="3" />
+                        <Setter Target="campus.(Grid.ColumnSpan)" Value="3" />
+                        <Setter Target="campus.(Grid.Row)" Value="6" />
+
+                        <Setter Target="opleidingTxt.(Grid.Column)" Value="0" />
+                        <Setter Target="opleidingTxt.(Grid.ColumnSpan)" Value="3" />
+                        <Setter Target="opleidingTxt.(Grid.Row)" Value="7" />
+
+                        <Setter Target="opleiding.(Grid.Column)" Value="3" />
+                        <Setter Target="opleiding.(Grid.ColumnSpan)" Value="3" />
+                        <Setter Target="opleiding.(Grid.Row)" Value="7" />
+
+                        <Setter Target="agenda_button.(Grid.Column)" Value="0" />
+                        <Setter Target="agenda_button.(Grid.ColumnSpan)" Value="2" />
+                        <Setter Target="agenda_button.(Grid.Row)" Value="8" />
+
+                        <Setter Target="reminder_button.(Grid.Column)" Value="2" />
+                        <Setter Target="reminder_button.(Grid.ColumnSpan)" Value="2" />
+                        <Setter Target="reminder_button.(Grid.Row)" Value="8" />
+
+                        <Setter Target="cancel_button.(Grid.Column)" Value="4" />
+                        <Setter Target="cancel_button.(Grid.ColumnSpan)" Value="2" />
+                        <Setter Target="cancel_button.(Grid.Row)" Value="8" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*"  />
+            <RowDefinition Height="*"  />
+            <RowDefinition Height="*"  />
+            <RowDefinition Height="*"  />
+            <RowDefinition Height="*"  />
+            <RowDefinition Height="*"  />
+            <RowDefinition Height="*"  />
+            <RowDefinition Height="*"  />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition  Width="*"/>
+        </Grid.ColumnDefinitions>
+        <TextBox x:Name="titel" PlaceholderText="titel" Margin="10"/>
+        <TextBox x:Name="beschrijving" PlaceholderText="beschrijving" Margin="20" Height="200px"/>
+        <TextBlock Name="datumTxt" Text="datum" Margin="10"></TextBlock>
+        <TextBox x:Name="datum" Margin="10"/>
+        <TextBlock Name="tijdTxt" Text="uur" Margin="10"></TextBlock>
+        <TextBox x:Name="tijd" Margin="10"/>
+        <TextBlock Name="campusTxt" Text="campus" Margin="10"></TextBlock>
+        <TextBox x:Name="campus" Margin="10"/>
+        <TextBlock Name="opleidingTxt" Text="opleiding ?" Margin="10"></TextBlock>
+        <TextBox x:Name="opleiding" Margin="10"/>
+        <Button Name="agenda_button" Click="agenda_button_Click" Content="Opslaan in agenda" Margin="10"></Button>
+        <Button Name="reminder_button" Click="reminder_button_Click" Content="reminder instellen" Margin="10"></Button>
+        <Button Name="cancel_button" Click="cancel_button_Click" Content="cancel" Margin="10"></Button>
     </Grid>
 </Page>
