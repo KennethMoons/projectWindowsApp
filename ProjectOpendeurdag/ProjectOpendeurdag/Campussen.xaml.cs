@@ -1,6 +1,7 @@
 ﻿using ProjectOpendeurdag.Models;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -23,7 +24,7 @@ namespace ProjectOpendeurdag
     /// </summary>
     public sealed partial class Campussen : Page
     {
-
+        ObservableCollection<Campus> CampusList = new ObservableCollection<Campus>();
         public Campussen()
         {
             this.InitializeComponent();
@@ -37,15 +38,16 @@ namespace ProjectOpendeurdag
             campussen[0].ImageLink = "Assets/campus1.jpg";
             campussen[1].ImageLink = "Assets/campus2.jpg";
             campussen[2].ImageLink = "Assets/campus3.jpeg";
-            campussenList.ItemsSource = campussen;
+            foreach (Campus c in campussen)
+                CampusList.Add(c);
         }
 
-        private void campussenList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void Campus_click(object sender, ItemClickEventArgs e)
         {
-            Campus campus = campussenList.SelectedItem as Campus;
-            if (campus.CampusId == 1)
+            Campus c = e.ClickedItem as Campus;
+            if (c.CampusId == 1)
             {
-                Frame.Navigate(typeof(CampussenDetailPagina), campus);
+                Frame.Navigate(typeof(CampussenDetailPagina), c);
             }
         }
     }

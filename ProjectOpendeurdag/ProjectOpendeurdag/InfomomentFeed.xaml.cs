@@ -1,6 +1,7 @@
 ﻿using ProjectOpendeurdag.Models;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -24,6 +25,8 @@ namespace ProjectOpendeurdag
     /// </summary>
     public sealed partial class InfomomentFeed : Page
     {
+        ObservableCollection<Infomoment> InfomomentList = new ObservableCollection<Infomoment>();
+
         public InfomomentFeed()
         {
             this.InitializeComponent();
@@ -81,13 +84,14 @@ namespace ProjectOpendeurdag
                     }
                 }
             }
-            infomomentenList.ItemsSource = infomomenten;
+            foreach (Infomoment i in infomomenten)
+                InfomomentList.Add(i);
         }
 
-        private void infomomentenList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void Infomoment_click(object sender, ItemClickEventArgs e)
         {
-            Infomoment infomoment = infomomentenList.SelectedItem as Infomoment;
-            Frame.Navigate(typeof(InfomomentfeedDetail), infomoment);
+            Infomoment i = e.ClickedItem as Infomoment;
+            Frame.Navigate(typeof(InfomomentfeedDetail), i);
         }
     }
 }
