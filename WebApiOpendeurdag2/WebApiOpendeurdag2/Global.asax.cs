@@ -15,6 +15,10 @@ namespace WebApiOpendeurdag2
         {
             GlobalConfiguration.Configure(WebApiConfig.Register);
 
+            // Fix JSON serialization for entities with nested models
+            GlobalConfiguration.Configuration.Formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+            GlobalConfiguration.Configuration.Formatters.Remove(GlobalConfiguration.Configuration.Formatters.XmlFormatter);
+
             // Register key & authorization handler
             GlobalConfiguration.Configuration.MessageHandlers.Add(new APIKeyHandler());
             GlobalConfiguration.Configuration.MessageHandlers.Add(new AuthHandler());
