@@ -33,25 +33,25 @@ namespace ProjectOpendeurdag
         {
             List<Infomoment> infomomentsResult = await Api.GetAsync<List<Infomoment>>();
             List<Infomoment> infomomenten = new List<Infomoment>();
-            List<VoorkeurCampus> voorkeurCampusItemsDb = await Api.GetAsync<List<VoorkeurCampus>>();
-            List<VoorkeurCampus> voorkeurcampussen = new List<VoorkeurCampus>();
-            var roamingSettings = ApplicationData.Current.RoamingSettings;
-            foreach (VoorkeurCampus vc in voorkeurCampusItemsDb)
-            {
-                if (vc.GebruikerId == Int32.Parse(roamingSettings.Values["gebruikerId"].ToString()))
-                {
-                    voorkeurcampussen.Add(vc);
-                }
-            }
-            List<VoorkeurOpleiding> voorkeurOpleidingenDb = await Api.GetAsync<List<VoorkeurOpleiding>>();
-            List<VoorkeurOpleiding> voorkeuropleidingen = new List<VoorkeurOpleiding>();
-            foreach (VoorkeurOpleiding vo in voorkeurOpleidingenDb)
-            {
-                if (vo.GebruikerId == Int32.Parse(roamingSettings.Values["gebruikerId"].ToString()))
-                {
-                    voorkeuropleidingen.Add(vo);
-                }
-            }
+            //List<VoorkeurCampus> voorkeurCampusItemsDb = await Api.GetAsync<List<VoorkeurCampus>>();
+            //List<VoorkeurCampus> voorkeurcampussen = new List<VoorkeurCampus>();
+            //var roamingSettings = ApplicationData.Current.RoamingSettings;
+            //foreach (VoorkeurCampus vc in voorkeurCampusItemsDb)
+            //{
+            //    if (vc.GebruikerId == Int32.Parse(roamingSettings.Values["gebruikerId"].ToString()))
+            //    {
+            //        voorkeurcampussen.Add(vc);
+            //    }
+            //}
+            //List<VoorkeurOpleiding> voorkeurOpleidingenDb = await Api.GetAsync<List<VoorkeurOpleiding>>();
+            //List<VoorkeurOpleiding> voorkeuropleidingen = new List<VoorkeurOpleiding>();
+            //foreach (VoorkeurOpleiding vo in voorkeurOpleidingenDb)
+            //{
+            //    if (vo.GebruikerId == Int32.Parse(roamingSettings.Values["gebruikerId"].ToString()))
+            //    {
+            //        voorkeuropleidingen.Add(vo);
+            //    }
+            //}
 
 
             foreach (Infomoment i in infomomentsResult)
@@ -61,26 +61,26 @@ namespace ProjectOpendeurdag
                     infomomenten.Add(i);
                 }
             }
-            foreach (VoorkeurCampus vc in voorkeurcampussen)
-            {
-                foreach (Infomoment i in infomomentsResult)
-                {
-                    if (i.CampusId == vc.CampusId)
-                    {
-                        infomomenten.Add(i);
-                    }
-                }
-            }
-            foreach (VoorkeurOpleiding vo in voorkeuropleidingen)
-            {
-                foreach (Infomoment i in infomomentsResult)
-                {
-                    if (i.OpleidingId == vo.OpleidingId)
-                    {
-                        infomomenten.Add(i);
-                    }
-                }
-            }
+            //foreach (VoorkeurCampus vc in voorkeurcampussen)
+            //{
+            //    foreach (Infomoment i in infomomentsResult)
+            //    {
+            //        if (i.CampusId == vc.CampusId)
+            //        {
+            //            infomomenten.Add(i);
+            //        }
+            //    }
+            //}
+            //foreach (VoorkeurOpleiding vo in voorkeuropleidingen)
+            //{
+            //    foreach (Infomoment i in infomomentsResult)
+            //    {
+            //        if (i.OpleidingId == vo.OpleidingId)
+            //        {
+            //            infomomenten.Add(i);
+            //        }
+            //    }
+            //}
             infomomentenList.ItemsSource = infomomenten;
         }
 

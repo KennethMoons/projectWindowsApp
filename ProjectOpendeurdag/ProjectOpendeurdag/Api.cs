@@ -34,9 +34,7 @@ namespace ProjectOpendeurdag
             { typeof(Gebruiker), "Gebruikers" },
             { typeof(Infomoment), "Infomoments" },
             { typeof(Newsitem), "Newsitems" },
-            { typeof(Opleiding), "Opleidings" },
-            { typeof(VoorkeurCampus), "VoorkeurCampus" },
-            { typeof(VoorkeurOpleiding), "VoorkeurOpleidings" }
+            { typeof(Opleiding), "Opleidings" }
         };
 
 
@@ -48,7 +46,9 @@ namespace ProjectOpendeurdag
         /// <returns>Deserialized object</returns>
         public static async Task<HttpResponseMessage> DeleteAsync<T>(int id)
         {
-            return await GetHttpClient().DeleteAsync(GetUri<T>(id));
+            string uri = GetUri<T>(id);
+            Debug.WriteLine("DELETE {0}", (object)uri);
+            return await GetHttpClient().DeleteAsync(uri);
         }
 
         /// <summary>
@@ -58,7 +58,9 @@ namespace ProjectOpendeurdag
         /// <returns>Deserialized object</returns>
         public static async Task<T> GetAsync<T>()
         {
-            return await GetAsync<T>(GetUri<T>());
+            string uri = GetUri<T>();
+            Debug.WriteLine("GET {0}", (object) uri);
+            return JsonConvert.DeserializeObject<T>(await GetHttpClient().GetStringAsync(uri));
         }
 
         /// <summary>
@@ -67,19 +69,10 @@ namespace ProjectOpendeurdag
         /// <typeparam name="T">Object type</typeparam>
         /// <param name="id">ID</param>
         /// <returns>Deserialized object</returns>
-        public static async Task<T> GetAsync<T>(int id)
+        public static async Task<T> GetAsync<T>(object id)
         {
-            return await GetAsync<T>(GetUri<T>(id));
-        }
-
-        /// <summary>
-        /// GET object from API
-        /// </summary>
-        /// <typeparam name="T">Object type</typeparam>
-        /// <param name="uri">URI</param>
-        /// <returns>Deserialized object</returns>
-        public static async Task<T> GetAsync<T>(string uri)
-        {
+            string uri = GetUri<T>(id);
+            Debug.WriteLine("GET {0}", (object) uri);
             return JsonConvert.DeserializeObject<T>(await GetHttpClient().GetStringAsync(uri));
         }
 
@@ -107,7 +100,7 @@ namespace ProjectOpendeurdag
         /// <typeparam name="T">Type</typeparam>
         /// <param name="id">ID</param>
         /// <returns>URI</returns>
-        private static string GetUri<T>(int id)
+        private static string GetUri<T>(object id)
         {
             return String.Format("{0}/{1}", GetUri<T>(), id);
         }
@@ -141,6 +134,7 @@ namespace ProjectOpendeurdag
         /// <returns>Http response</returns>
         private static async Task<HttpResponseMessage> PostJsonAsync(string uri, string json)
         {
+            Debug.WriteLine("POST {0} -> {1}", uri, json);
             HttpContent content = new StringContent(json);
             content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
             return await GetHttpClient().PostAsync(uri, content);
@@ -176,6 +170,7 @@ namespace ProjectOpendeurdag
         /// <returns>Http response</returns>
         private static async Task<HttpResponseMessage> PutJsonAsync(string uri, string json)
         {
+            Debug.WriteLine("PUT {0} -> {1}", uri, json);
             HttpContent content = new StringContent(json);
             content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
             return await GetHttpClient().PutAsync(uri, content);
@@ -201,7 +196,6 @@ namespace ProjectOpendeurdag
 
             return client;
         }
-
 
         private static PasswordCredential GetCredentialFromLocker()
         {
@@ -240,6 +234,8 @@ namespace ProjectOpendeurdag
 
         public static void Logout()
         {
+            Debug.WriteLine("LOGOUT");
+
             var settings = ApplicationData.Current.RoamingSettings;
 
             settings.Values.Remove("gebruikerId");
@@ -260,7 +256,7 @@ namespace ProjectOpendeurdag
 
         public static async Task<Gebruiker> Login(string email, string password)
         {
-            Debug.WriteLine("Login {0} -> {1}", email, password);
+            Debug.WriteLine("LOGIN {0}", (object) email);
 
             HttpClient client = new HttpClient();
 

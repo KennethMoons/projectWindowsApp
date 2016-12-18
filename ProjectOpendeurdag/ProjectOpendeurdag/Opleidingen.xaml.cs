@@ -13,6 +13,8 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -24,11 +26,25 @@ namespace ProjectOpendeurdag
     /// </summary>
     public sealed partial class Opleidingen : Page
     {
-        List<Opleiding> opleidingen;
+        public ObservableCollection<Opleiding> OpleidingCollection = new ObservableCollection<Opleiding>();
+
         public Opleidingen()
         {
             this.InitializeComponent();
-            opleidingen = OpleidingenLijst.getOpleidingen();
+
+            GetOpleidingen();
+        }
+
+        public async void GetOpleidingen()
+        {
+            var opleidingen = await Api.GetAsync<List<Opleiding>>();
+
+            opleidingen.ForEach(o =>
+            {
+                int id = opleidingen.IndexOf(o) + 1;
+                o.ImageLink = String.Format("Assets/opleiding{0}.PNG", id);
+                OpleidingCollection.Add(o);
+            });
         }
     }
 }

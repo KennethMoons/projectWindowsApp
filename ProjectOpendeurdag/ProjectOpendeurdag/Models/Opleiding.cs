@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProjectOpendeurdag.Models
 {
-    class Opleiding
+    public class Opleiding
     {
         public int OpleidingId { get; set; }
         private String naam;
@@ -57,6 +57,23 @@ namespace ProjectOpendeurdag.Models
             this.Naam = naam;
             this.Type = type;
             this.ImageLink = imageLink;
+        }
+
+        public override bool Equals(object obj)
+        {
+            var item = obj as Opleiding;
+
+            if (item == null)
+            {
+                return false;
+            }
+
+            return this.OpleidingId.Equals(item.OpleidingId);
+        }
+
+        public override int GetHashCode()
+        {
+            return this.OpleidingId.GetHashCode();
         }
     }
 

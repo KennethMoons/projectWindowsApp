@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProjectOpendeurdag.Models
 {
-    class Campus
+    public class Campus
     {
         public int CampusId { get; set; }
         public String Naam { get; set; }
@@ -14,5 +14,22 @@ namespace ProjectOpendeurdag.Models
         public String Postcode { get; set; }
         public String Gemeente { get; set; }
         public String ImageLink { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            var item = obj as Campus;
+
+            if (item == null)
+            {
+                return false;
+            }
+
+            return this.CampusId.Equals(item.CampusId);
+        }
+
+        public override int GetHashCode()
+        {
+            return this.CampusId.GetHashCode();
+        }
     }
 }

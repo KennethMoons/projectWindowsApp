@@ -7,12 +7,37 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Padding="10">
         <StackPanel>
-            <TextBlock Text="Voorkeur campus" Margin="20"></TextBlock>
+            <TextBlock Text="Voorkeuren" Style="{StaticResource HeaderTextBlockStyle}" />
+            <TextBlock Text="Campussen" Style="{StaticResource SubheaderTextBlockStyle}" />
+            <ListBox ItemsSource="{x:Bind VoorkeurCampussenState}"
+                     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+                     Margin="0,10">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <CheckBox Content="{Binding Inner.Naam}" IsChecked="{Binding IsChecked}" />
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <TextBlock Text="Opleidingen" Style="{StaticResource SubheaderTextBlockStyle}" />
+            <ListBox ItemsSource="{x:Bind VoorkeurOpleidingenState}"
+                     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" 
+                     Margin="0,10">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <CheckBox Content="{Binding Inner.Naam}" IsChecked="{Binding IsChecked, Mode=TwoWay}" />
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <!--<TextBlock Text="Voorkeur campus" Margin="20"></TextBlock>
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="Welke campus ?" Margin="20"></TextBlock>
-                <ComboBox x:Name="CampussenComboBox" Margin="20" Loaded="CampussenComboBox_Loaded"></ComboBox>
+                <ComboBox x:Name="CampussenComboBox"
+                          Margin="20"
+                          ItemsSource="{x:Bind Campussen}"
+                          DisplayMemberPath="Naam">
+                </ComboBox>
                 <Button Name="VoegCampusToeBtn" Click="VoegCampusToeBtn_Click" Content="voeg toe" Margin="20"></Button>
             </StackPanel>
             <StackPanel>
@@ -30,7 +55,11 @@
             <TextBlock Text="Voorkeur opleiding" Margin="20"></TextBlock>
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="Welke opleiding ?" Margin="20"></TextBlock>
-                <ComboBox x:Name="OpleidingenComboBox" Margin="20" Loaded="OpleidingenComboBox_Loaded"></ComboBox>
+                <ComboBox x:Name="OpleidingenComboBox" 
+                          Margin="20" 
+                          ItemsSource="{x:Bind Opleidingen}"
+                          DisplayMemberPath="Naam">
+                </ComboBox>
                 <Button Name="VoegOpleidingToeComboBox" Click="VoegOpleidingToeComboBox_Click" Content="voeg toe" Margin="20"></Button>
             </StackPanel>
             <StackPanel>
@@ -44,7 +73,7 @@
                     </ListBox.ItemTemplate>
                 </ListBox>
                 <Button Name="DeleteOpleidingBtn" Click="DeleteOpleidingBtn_Click" Content="delete opleiding"></Button>
-            </StackPanel>
+            </StackPanel>-->
         </StackPanel>
     </Grid>
 </Page>

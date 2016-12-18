@@ -38,8 +38,8 @@ namespace ProjectOpendeurdag
         {
             List<Gebruiker> gebruikerResult = await Api.GetAsync<List<Gebruiker>>();
             gebruikerResult.RemoveAt(0);
-            List<VoorkeurOpleiding> voorkeurOpleidingen = await Api.GetAsync<List<VoorkeurOpleiding>>();
-            List<VoorkeurCampus> voorkeurCampussen = await Api.GetAsync<List<VoorkeurCampus>>();
+            //List<VoorkeurOpleiding> voorkeurOpleidingen = await Api.GetAsync<List<VoorkeurOpleiding>>();
+            //List<VoorkeurCampus> voorkeurCampussen = await Api.GetAsync<List<VoorkeurCampus>>();
 
             foreach (Gebruiker g in gebruikerResult)
             {
@@ -55,23 +55,23 @@ namespace ProjectOpendeurdag
             }
             foreach (DisplayGebruiker dg in displayGebruikers)
             {
-                foreach (VoorkeurOpleiding vo in voorkeurOpleidingen)
-                {
-                    if (dg.Id == vo.GebruikerId)
-                    {
-                        Opleiding opleiding = await Api.GetAsync<Opleiding>(vo.OpleidingId);
-                        dg.OpleidingVoorkeuren += opleiding.Naam + " ";
-                    }
-                }
-                foreach (VoorkeurCampus vc in voorkeurCampussen)
-                {
-                    if (dg.Id == vc.GebruikerId)
-                    {
-                        Campus campus = await Api.GetAsync<Campus>(vc.CampusId);
-                        dg.CampusVoorkeuren += campus.Naam + " ";
+                //foreach (VoorkeurOpleiding vo in voorkeurOpleidingen)
+                //{
+                //    if (dg.Id == vo.GebruikerId)
+                //    {
+                //        Opleiding opleiding = await Api.GetAsync<Opleiding>(vo.OpleidingId);
+                //        dg.OpleidingVoorkeuren += opleiding.Naam + " ";
+                //    }
+                //}
+                //foreach (VoorkeurCampus vc in voorkeurCampussen)
+                //{
+                //    if (dg.Id == vc.GebruikerId)
+                //    {
+                //        Campus campus = await Api.GetAsync<Campus>(vc.CampusId);
+                //        dg.CampusVoorkeuren += campus.Naam + " ";
 
-                    }
-                }
+                //    }
+                //}
             }
             gebruikersList.ItemsSource = displayGebruikers;
         }
