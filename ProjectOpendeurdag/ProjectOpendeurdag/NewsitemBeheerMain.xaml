@@ -5,24 +5,63 @@
     xmlns:local="using:ProjectOpendeurdag"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:data="using:ProjectOpendeurdag.Models"
     mc:Ignorable="d">
+    <Page.Resources>
+        <DataTemplate x:DataType="data:Newsitem" x:Key="newsItemDataTemplate">
+            <StackPanel HorizontalAlignment="Center" Margin="25 15 15 30">
+                <StackPanel>
+                    <Border BorderBrush="#606060" BorderThickness="0 0 0 1" VerticalAlignment="Top">
+                        <TextBlock  Text="{x:Bind Titel}" FontSize="24"  />
+                    </Border>
+                    <TextBlock Text="{x:Bind Inhoud}" FontSize="24" Margin="0 15 0 0"/>
+                </StackPanel>
+            </StackPanel>
+        </DataTemplate>
+
+    </Page.Resources>
 
     <Page.BottomAppBar>
         <CommandBar>
             <AppBarButton Icon="Add" Label="Add New" Click="AppBarButton_Click"/>
         </CommandBar>
     </Page.BottomAppBar>
+
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <ListBox x:Name="newsitemList" SelectionChanged="newsitemList_SelectionChanged">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel>
-                        <TextBlock Text="{Binding Titel}" FontSize="24"/>
-                        <TextBlock Text="{Binding Inhoud}"/>
-                    </StackPanel>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="VisualStateGroup">
+                <VisualState x:Name="Wide">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="800" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="Listview.Visibility" Value="Collapsed"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="Narrow">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="Gridview.Visibility" Value="Collapsed"/>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <GridView Name="Gridview" Grid.Row="0" ItemsSource="{x:Bind NewsfeedList}" IsItemClickEnabled="True" ItemClick="NewsItem_click" ItemTemplate="{StaticResource newsItemDataTemplate}">
+        </GridView>
+
+        <ListView Name="Listview" 
+                  ItemsSource="{x:Bind NewsfeedList}" 
+                  ItemClick="NewsItem_click" 
+                  IsItemClickEnabled="True" 
+                  ItemTemplate="{StaticResource newsItemDataTemplate}"
+                  >
+        </ListView>
 
     </Grid>
 </Page>

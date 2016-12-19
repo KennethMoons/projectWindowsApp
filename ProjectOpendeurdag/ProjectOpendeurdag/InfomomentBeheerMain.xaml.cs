@@ -2,6 +2,7 @@
 using ProjectOpendeurdag.Models;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
@@ -26,13 +27,18 @@ namespace ProjectOpendeurdag
     /// </summary>
     public sealed partial class InfomomentBeheerMain : Page
     {
+        ObservableCollection<Infomoment> InfomomentList = new ObservableCollection<Infomoment>();
         public InfomomentBeheerMain()
         {
             this.InitializeComponent();
         }
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
-            infomomentenList.ItemsSource = await Api.GetAsync<List<Infomoment>>();
+            List<Infomoment> infomomentenResult = await Api.GetAsync<List<Infomoment>>();
+            foreach (Infomoment i in infomomentenResult)
+            {
+                InfomomentList.Add(i);
+            }
 
         }
 
@@ -41,9 +47,9 @@ namespace ProjectOpendeurdag
             Frame.Navigate(typeof(InfomomentBeheerAddOne));
         }
 
-        private void infomomenten_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void Infomoment_click(object sender, ItemClickEventArgs e)
         {
-            Infomoment infomoment = infomomentenList.SelectedItem as Infomoment;
+            Infomoment infomoment = e.ClickedItem as Infomoment;
             Frame.Navigate(typeof(InfomomentBeheerUpdate), infomoment);
         }
     }
