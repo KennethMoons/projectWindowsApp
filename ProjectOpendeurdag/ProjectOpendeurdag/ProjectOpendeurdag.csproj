@@ -170,8 +170,8 @@
     <None Include="ProjectOpendeurdag_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\campus1.jpg" />
-    <Content Include="Assets\campus2.jpg" />
+    <Content Include="Assets\campus1.jpeg" />
+    <Content Include="Assets\campus2.jpeg" />
     <Content Include="Assets\campus3.jpeg" />
     <Content Include="Assets\opleiding1.PNG" />
     <Content Include="Assets\opleiding2.PNG" />
