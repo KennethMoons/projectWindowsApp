@@ -15,6 +15,7 @@ using Windows.UI.Xaml.Navigation;
 using ProjectOpendeurdag.Models;
 using System.Net.Http;
 using Newtonsoft.Json;
+using System.Collections.ObjectModel;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -25,13 +26,18 @@ namespace ProjectOpendeurdag
     /// </summary>
     public sealed partial class NewsitemBeheerMain : Page
     {
+        ObservableCollection<Newsitem> NewsfeedList = new ObservableCollection<Newsitem>();
         public NewsitemBeheerMain()
         {
             this.InitializeComponent();
         }
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
-            newsitemList.ItemsSource = await Api.GetAsync<List<Newsitem>>();
+            List<Newsitem> newsitemsResult = await Api.GetAsync<List<Newsitem>>();
+            foreach (Newsitem n in newsitemsResult)
+            {
+                NewsfeedList.Add(n);
+            }
         }
 
         private void AppBarButton_Click(object sender, RoutedEventArgs e)
@@ -39,9 +45,9 @@ namespace ProjectOpendeurdag
             Frame.Navigate(typeof(NewsitemBeheerAddOne));
         }
 
-        private void newsitemList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void NewsItem_click(object sender, ItemClickEventArgs e)
         {
-            Newsitem newsitem = newsitemList.SelectedItem as Newsitem;
+            Newsitem newsitem = e.ClickedItem as Newsitem;
             Frame.Navigate(typeof(NewsitemBeheerUpdate), newsitem);
         }
     }
