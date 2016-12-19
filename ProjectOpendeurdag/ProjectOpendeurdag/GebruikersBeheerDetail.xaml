@@ -8,37 +8,69 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <Button Content="sla op als pdf" Click="Button_Click" Margin="10"></Button>
-                <Button Content="sla op als excel" Click="Button_Click_1" Margin="10"></Button>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Naam" Margin="10" Width="70"></TextBlock>
-                <TextBlock Text="adres" Margin="10" Width="70"></TextBlock>
-                <TextBlock Text="postcode" Margin="10" Width="70"></TextBlock>
-                <TextBlock Text="gemeente" Margin="10" Width="70"></TextBlock>
-                <TextBlock Text="telnr" Margin="10" Width="70"></TextBlock>
-                <TextBlock Text="email" Margin="10" Width="70"></TextBlock>
-                <TextBlock Text="voorkeur campussen" Margin="10" Width="150"></TextBlock>
-                <TextBlock Text="voorkeur opleidingen" Margin="10" Width="150"></TextBlock>
-            </StackPanel>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="VisualStateGroup">
+                <VisualState x:Name="Wide">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="800" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="waarschuwingStackpanel.Visibility" Value="Collapsed"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="Narrow">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="HeaderStackpanel.Visibility" Value="Collapsed"/>
+                        <Setter Target="GebruikerStackpanel.Visibility" Value="Collapsed"/>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button Content="sla op als pdf" Click="Button_Click" Margin="0 20 20 20"></Button>
+            <Button Content="sla op als excel" Click="Button_Click_1" Margin="0 20 0 20" ></Button>
+        </StackPanel>
+        <StackPanel   Orientation="Horizontal" Grid.Row="1" Name="HeaderStackpanel">
+            <TextBlock Text="Naam" Margin="10" Width="150"></TextBlock>
+            <TextBlock Text="adres" Margin="10" Width="150"></TextBlock>
+            <TextBlock Text="postcode" Margin="10" Width="70"></TextBlock>
+            <TextBlock Text="gemeente" Margin="10" Width="90"></TextBlock>
+            <TextBlock Text="telnr" Margin="10" Width="90"></TextBlock>
+            <TextBlock Text="email" Margin="10" Width="200"></TextBlock>
+            <TextBlock Text="voorkeur campussen" Margin="10" Width="300"></TextBlock>
+            <TextBlock Text="voorkeur opleidingen" Margin="10" Width="300"></TextBlock>
+        </StackPanel>
+        <StackPanel Grid.Row="2" Name="GebruikerStackpanel">
             <ListBox x:Name="gebruikersList">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding Naam}" Margin="10" Width="60"></TextBlock>
-                            <TextBlock Text="{Binding Adres}" Margin="10" Width="70"></TextBlock>
+                        <StackPanel Orientation="Horizontal" >
+                            <TextBlock Text="{Binding Naam}" Margin="10" Width="150"></TextBlock>
+                            <TextBlock Text="{Binding Adres}" Margin="10" Width="150"></TextBlock>
                             <TextBlock Text="{Binding Postcode}" Margin="10" Width="70"></TextBlock>
-                            <TextBlock Text="{Binding Gemeente}" Margin="10" Width="70"></TextBlock>
-                            <TextBlock Text="{Binding Telnr}" Margin="10" Width="70"></TextBlock>
-                            <TextBlock Text="{Binding Email}" Margin="10" Width="70"></TextBlock>
-                            <TextBlock Text="{Binding CampusVoorkeuren}" Margin="10" Width="150"></TextBlock>
-                            <TextBlock Text="{Binding OpleidingVoorkeuren}" Margin="10" Width="150"></TextBlock>
+                            <TextBlock Text="{Binding Gemeente}" Margin="10" Width="90"></TextBlock>
+                            <TextBlock Text="{Binding Telnr}" Margin="10" Width="90"></TextBlock>
+                            <TextBlock Text="{Binding Email}" Margin="10" Width="200"></TextBlock>
+                            <TextBlock Text="{Binding CampusVoorkeuren}" Margin="10" Width="300"></TextBlock>
+                            <TextBlock Text="{Binding OpleidingVoorkeuren}" Margin="10" Width="300"></TextBlock>
                         </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
+        </StackPanel>
+        <StackPanel Grid.Row="2" Name="waarschuwingStackpanel" HorizontalAlignment="Center" Margin="10">
+            <TextBlock>dit kan niet getoond worden op de smartphone. <LineBreak/>Gelieve dit te bekijken op de pc versie</TextBlock>
         </StackPanel>
 
     </Grid>
