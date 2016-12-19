@@ -35,6 +35,9 @@ namespace ProjectOpendeurdag.Helpers
         public static void SetCurrentGebruiker(Gebruiker gebruiker)
         {
             _CurrentGebruiker = gebruiker;
+
+            SyncVoorkeurCampussen();
+            SyncVoorkeurOpleidingen();
         }
 
         public static Gebruiker GetCurrentGebruiker()
@@ -54,48 +57,56 @@ namespace ProjectOpendeurdag.Helpers
 
         public static List<Campus> GetVoorkeurCampussen()
         {
-            if (_CurrentGebruiker != null)
-            {
-                Container.Values[VoorkeurCampussen] = JsonConvert.SerializeObject(_CurrentGebruiker.VoorkeurCampussen);
-            }
-
             return JsonConvert.DeserializeObject<List<Campus>>(Container.Values[VoorkeurCampussen].ToString());
         }
 
-        public static async void SetVoorkeurCampussen(ICollection<Campus> campussen)
+        public static void SetVoorkeurCampussen(ICollection<Campus> campussen)
+        {
+            Container.Values[VoorkeurCampussen] = JsonConvert.SerializeObject(campussen);
+            SyncVoorkeurCampussen();
+        }
+
+        private static async void SyncVoorkeurCampussen()
         {
             if (_CurrentGebruiker != null)
             {
-                _CurrentGebruiker.VoorkeurCampussen.Clear();
-                _CurrentGebruiker.VoorkeurCampussen.AddRange(campussen);
+                var voorkeurCampussen = GetVoorkeurCampussen();
 
-                await Api.PutAsync<Gebruiker>(_CurrentGebruiker.GebruikerId, _CurrentGebruiker);
+                if (!_CurrentGebruiker.VoorkeurCampussen.SequenceEqual(voorkeurCampussen))
+                {
+                    _CurrentGebruiker.VoorkeurCampussen.Clear();
+                    _CurrentGebruiker.VoorkeurCampussen.AddRange(voorkeurCampussen);
+
+                    await Api.PutAsync<Gebruiker>(_CurrentGebruiker.GebruikerId, _CurrentGebruiker);
+                }
             }
+        }
 
-            Container.Values[VoorkeurCampussen] = JsonConvert.SerializeObject(campussen);
+        private static async void SyncVoorkeurOpleidingen()
+        {
+            if (_CurrentGebruiker != null)
+            {
+                var voorkeurOpleidingen = GetVoorkeurOpleidingen();
+
+                if (!_CurrentGebruiker.VoorkeurOpleidingen.SequenceEqual(voorkeurOpleidingen))
+                {
+                    _CurrentGebruiker.VoorkeurOpleidingen.Clear();
+                    _CurrentGebruiker.VoorkeurOpleidingen.AddRange(voorkeurOpleidingen);
+
+                    await Api.PutAsync<Gebruiker>(_CurrentGebruiker.GebruikerId, _CurrentGebruiker);
+                }
+            }
         }
 
         public static List<Opleiding> GetVoorkeurOpleidingen()
         {
-            if (_CurrentGebruiker != null)
-            {
-                Container.Values[VoorkeurOpleidingen] = JsonConvert.SerializeObject(_CurrentGebruiker.VoorkeurOpleidingen);
-            }
-
             return JsonConvert.DeserializeObject<List<Opleiding>>(Container.Values[VoorkeurOpleidingen].ToString());
         }
 
-        public static async void SetVoorkeurOpleidingen(ICollection<Opleiding> opleidingen)
+        public static void SetVoorkeurOpleidingen(ICollection<Opleiding> opleidingen)
         {
-            if (_CurrentGebruiker != null)
-            {
-                _CurrentGebruiker.VoorkeurOpleidingen.Clear();
-                _CurrentGebruiker.VoorkeurOpleidingen.AddRange(opleidingen);
-
-                await Api.PutAsync<Gebruiker>(_CurrentGebruiker.GebruikerId, _CurrentGebruiker);
-            }
-
             Container.Values[VoorkeurOpleidingen] = JsonConvert.SerializeObject(opleidingen);
+            SyncVoorkeurOpleidingen();
         }
     }
 }
