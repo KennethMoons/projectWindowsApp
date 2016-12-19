@@ -6,6 +6,9 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
+    <Page.DataContext>
+        <local:GebruikersModel />
+    </Page.DataContext>
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.ColumnDefinitions>
@@ -42,15 +45,15 @@
         </StackPanel>
 
         <TextBlock Grid.Column="0" Grid.Row="3" Text="aantal studenten" Margin="5 25 5 0"></TextBlock>
-        <TextBlock Grid.Column="1" Grid.Row="3" x:Name="aantalStudenten" Margin="25"></TextBlock>
+        <TextBlock Grid.Column="1" Grid.Row="3" Text="{Binding Aantal}" Margin="25"></TextBlock>
         <TextBlock Grid.Column="0" Grid.Row="4" Text="Populairste opleiding" Margin="15 25 5 0"></TextBlock>
-        <TextBlock Grid.Column="1" Grid.Row="4" Text=""  Margin="25"></TextBlock>
+        <TextBlock Grid.Column="1" Grid.Row="4" Text="{Binding PopulairsteOpleiding.Naam}"  Margin="25"></TextBlock>
         <TextBlock Grid.Column="0" Grid.Row="5" Text="minst populaire opleiding" Margin="5 25 5 0"></TextBlock>
-        <TextBlock Grid.Column="1" Grid.Row="5" Text="" Margin="25"></TextBlock>
+        <TextBlock Grid.Column="1" Grid.Row="5" Text="{Binding MinstPopulaireOpleiding.Naam}" Margin="25"></TextBlock>
         <TextBlock Grid.Column="0" Grid.Row="6" Text="Populairste campus" Margin="5 25 5 0"></TextBlock>
-        <TextBlock Grid.Column="1" Grid.Row="6" Text="" Margin="25"></TextBlock>
+        <TextBlock Grid.Column="1" Grid.Row="6" Text="{Binding PopulairsteCampus.Naam}" Margin="25"></TextBlock>
         <TextBlock Grid.Column="0" Grid.Row="7" Text="Minst populaire campus" Margin="5 25 5 0"></TextBlock>
-        <TextBlock Grid.Column="1" Grid.Row="7" Text="" Margin="25"></TextBlock>
+        <TextBlock Grid.Column="1" Grid.Row="7" Text="{Binding MinstPopulaireCampus.Naam}" Margin="25"></TextBlock>
 
     </Grid>
 </Page>
