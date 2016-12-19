@@ -7,43 +7,40 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Padding="10">
         <StackPanel>
-            <TextBlock Text="Voorkeur campus" Margin="20"></TextBlock>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Welke campus ?" Margin="20"></TextBlock>
-                <ComboBox x:Name="CampussenComboBox" Margin="20" Loaded="CampussenComboBox_Loaded"></ComboBox>
-                <Button Name="VoegCampusToeBtn" Click="VoegCampusToeBtn_Click" Content="voeg toe" Margin="20"></Button>
-            </StackPanel>
-            <StackPanel>
-                <ListBox x:Name="campussenList">
+            <TextBlock Text="Voorkeuren" Style="{StaticResource HeaderTextBlockStyle}" />
+            <TextBlock Text="Campussen" Style="{StaticResource SubheaderTextBlockStyle}" />
+            <StackPanel Margin="0,10">
+                <ListBoxItem>
+                    <CheckBox x:Name="AlleCampussen" 
+                              Content="Alle campussen"/>
+                </ListBoxItem>
+                <ListBox ItemsSource="{x:Bind VoorkeurCampussenState}"
+                     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="{Binding Campus.Naam}" FontSize="12"/>
-                            </StackPanel>
+                            <CheckBox Content="{Binding Inner.Naam}" 
+                                      IsChecked="{Binding IsChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
-                <Button Name="DeleteCampusBtn" Click="DeleteCampusBtn_Click" Content="delete campus"></Button>
             </StackPanel>
-            <TextBlock Text="Voorkeur opleiding" Margin="20"></TextBlock>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Welke opleiding ?" Margin="20"></TextBlock>
-                <ComboBox x:Name="OpleidingenComboBox" Margin="20" Loaded="OpleidingenComboBox_Loaded"></ComboBox>
-                <Button Name="VoegOpleidingToeComboBox" Click="VoegOpleidingToeComboBox_Click" Content="voeg toe" Margin="20"></Button>
-            </StackPanel>
-            <StackPanel>
-                <ListBox x:Name="opleidingenLijst">
+            <TextBlock Text="Opleidingen" Style="{StaticResource SubheaderTextBlockStyle}" />
+            <StackPanel Margin="0,10">
+                <ListBoxItem>
+                    <CheckBox x:Name="AlleOpleidingen" 
+                              Content="Alle opleidingen"/>
+                </ListBoxItem>
+                <ListBox ItemsSource="{x:Bind VoorkeurOpleidingenState}"
+                     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="{Binding Opleiding.Naam}" FontSize="12"/>
-                            </StackPanel>
+                            <CheckBox Content="{Binding Inner.Naam}" 
+                                      IsChecked="{Binding IsChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
-                <Button Name="DeleteOpleidingBtn" Click="DeleteOpleidingBtn_Click" Content="delete opleiding"></Button>
             </StackPanel>
         </StackPanel>
     </Grid>

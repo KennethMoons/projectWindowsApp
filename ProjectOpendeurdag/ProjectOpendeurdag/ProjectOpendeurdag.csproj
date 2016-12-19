@@ -135,8 +135,6 @@
     <Compile Include="Models\Infomoment.cs" />
     <Compile Include="Models\Newsitem.cs" />
     <Compile Include="Models\Opleiding.cs" />
-    <Compile Include="Models\VoorkeurCampus.cs" />
-    <Compile Include="Models\VoorkeurOpleiding.cs" />
     <Compile Include="Models\WeatherProxy.cs" />
     <Compile Include="Newsfeed.xaml.cs">
       <DependentUpon>Newsfeed.xaml</DependentUpon>

@@ -14,5 +14,22 @@ namespace WebApiOpendeurdag2.Models
         public String Adres { get; set; }
         public String Postcode { get; set; }
         public String Gemeente { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            Campus item = obj as Campus;
+
+            if (item == null)
+            {
+                return false;
+            }
+
+            return this.CampusId.Equals(item.CampusId);
+        }
+
+        public override int GetHashCode()
+        {
+            return this.CampusId.GetHashCode();
+        }
     }
 }

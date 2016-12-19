@@ -14,6 +14,10 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using ProjectOpendeurdag.Models;
 using Windows.Storage;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Net.Http;
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace ProjectOpendeurdag
@@ -23,160 +27,212 @@ namespace ProjectOpendeurdag
     /// </summary>
     public sealed partial class Opties : Page
     {
+        public Gebruiker Gebruiker { get; set; }
+        public ObservableCollection<Campus> Campussen { get; set; }
+        public ObservableCollection<Opleiding> Opleidingen { get; set; }
+        public ObservableCollection<Campus> VoorkeurCampussen { get; set; }
+        public ObservableCollection<Opleiding> VoorkeurOpleidingen { get; set; }
+        public ObservableCollection<ToggleState<Campus>> VoorkeurCampussenState { get; set; }
+        public ObservableCollection<ToggleState<Opleiding>> VoorkeurOpleidingenState { get; set; }
+
         public Opties()
         {
             this.InitializeComponent();
-            vulCampussen();
-            vulOpleidingen();
-        }
-        public async void vulCampussen()
-        {
-            List<VoorkeurCampus> voorkeurCampusItemsDb = await Api.GetAsync<List<VoorkeurCampus>>();
-            List<VoorkeurCampus> voorkeurcampussen = new List<VoorkeurCampus>();
-            var roamingSettings = ApplicationData.Current.RoamingSettings;
-            foreach (VoorkeurCampus vc in voorkeurCampusItemsDb)
-            {
-                if (vc.GebruikerId == Int32.Parse(roamingSettings.Values["gebruikerId"].ToString()))
-                {
-                    voorkeurcampussen.Add(vc);
-                }
-            }
-            foreach (VoorkeurCampus vc in voorkeurcampussen)
-            {
-                Campus c = await Api.GetAsync<Campus>(vc.CampusId);
-                vc.Campus = c;
-            }
-            campussenList.ItemsSource = voorkeurcampussen;
+            this.DataContext = this;
+            // Alle campussen/opleidingen
+            this.Campussen = new ObservableCollection<Campus>();
+            this.Opleidingen = new ObservableCollection<Opleiding>();
+            // Geselecteerde campussen/opleidingen
+            this.VoorkeurCampussen = new ObservableCollection<Campus>();
+            this.VoorkeurOpleidingen = new ObservableCollection<Opleiding>();
+            // Toggle state voor checkboxes
+            this.VoorkeurCampussenState = new ObservableCollection<ToggleState<Campus>>();
+            this.VoorkeurOpleidingenState = new ObservableCollection<ToggleState<Opleiding>>();
+
+            InitializeData();
         }
 
-        public async void vulOpleidingen()
+        private async void InitializeData()
         {
-            var roamingSettings = ApplicationData.Current.RoamingSettings;
-            List<VoorkeurOpleiding> voorkeurOpleidingenDb = await Api.GetAsync<List<VoorkeurOpleiding>>();
-            List<VoorkeurOpleiding> voorkeuropleidingen = new List<VoorkeurOpleiding>();
-            foreach (VoorkeurOpleiding vo in voorkeurOpleidingenDb)
-            {
-                if (vo.GebruikerId == Int32.Parse(roamingSettings.Values["gebruikerId"].ToString()))
-                {
-                    voorkeuropleidingen.Add(vo);
-                }
-            }
-            foreach (VoorkeurOpleiding vo in voorkeuropleidingen)
-            {
-                Opleiding o = await Api.GetAsync<Opleiding>(vo.OpleidingId);
-                vo.Opleiding = o;
-            }
-            opleidingenLijst.ItemsSource = voorkeuropleidingen;
-        }
-
-        private async void CampussenComboBox_Loaded(object sender, RoutedEventArgs e)
-        {
-            List<VoorkeurCampus> voorkeurCampusItemsDb = await Api.GetAsync<List<VoorkeurCampus>>();
-            List<VoorkeurCampus> voorkeurcampussen = new List<VoorkeurCampus>();
-            var roamingSettings = ApplicationData.Current.RoamingSettings;
-            foreach (VoorkeurCampus vc in voorkeurCampusItemsDb)
-            {
-                if (vc.GebruikerId == Int32.Parse(roamingSettings.Values["gebruikerId"].ToString()))
-                {
-                    voorkeurcampussen.Add(vc);
-                }
-            }
             List<Campus> campussen = await Api.GetAsync<List<Campus>>();
-            for (int i = 0; i < campussen.Count; i++)
+            List<Opleiding> opleidingen = await Api.GetAsync<List<Opleiding>>();
+
+            // Add all campussen/opleidingen to collection
+            campussen.ForEach(c => Campussen.Add(c));
+            opleidingen.ForEach(o => Opleidingen.Add(o));
+
+            // Get current user
+            Gebruiker = await Api.GetAsync<Gebruiker>("current");
+
+            // Set preferences if user is logged in
+            if (Gebruiker != null)
             {
-                for (int y = 0; y < voorkeurcampussen.Count; y++)
+                if (Gebruiker.VoorkeurCampussen != null)
                 {
-                    if (voorkeurcampussen[y].CampusId == campussen[i].CampusId)
+                    VoorkeurCampussen.Clear();
+                    Gebruiker.VoorkeurCampussen.ForEach(c => VoorkeurCampussen.Add(c));
+                }
+                if (Gebruiker.VoorkeurOpleidingen != null)
+                {
+                    VoorkeurOpleidingen.Clear();
+                    Gebruiker.VoorkeurOpleidingen.ForEach(o => VoorkeurOpleidingen.Add(o));
+                }
+            }
+
+            // Set initial state for top checkboxes
+            if (VoorkeurCampussen.Count == 0)
+            {
+                AlleCampussen.IsChecked = false;
+            }
+            else if (VoorkeurCampussen.Count == Campussen.Count)
+            {
+                AlleCampussen.IsChecked = true;
+            }
+            else
+            {
+                AlleCampussen.IsChecked = null;
+            }
+
+            if (VoorkeurOpleidingen.Count == 0)
+            {
+                AlleOpleidingen.IsChecked = false;
+            }
+            else if (VoorkeurOpleidingen.Count == Opleidingen.Count)
+            {
+                AlleOpleidingen.IsChecked = true;
+            }
+            else
+            {
+                AlleOpleidingen.IsChecked = null;
+            }
+
+            // Listen to changes in preferences
+            VoorkeurCampussen.CollectionChanged += VoorkeurCampussen_CollectionChanged;
+            VoorkeurOpleidingen.CollectionChanged += VoorkeurOpleidingen_CollectionChanged;
+
+            // Listen to changes in top checkboxes
+            AlleCampussen.Checked += AlleCampussen_Checked;
+            AlleCampussen.Unchecked += AlleCampussen_Unchecked;
+            AlleOpleidingen.Checked += AlleOpleidingen_Checked;
+            AlleOpleidingen.Unchecked += AlleOpleidingen_Unchecked;
+
+            // Create states for each campus/opleiding and bind them
+            campussen.ForEach(c => VoorkeurCampussenState.Add(new ToggleState<Campus>(VoorkeurCampussen, c)));
+            opleidingen.ForEach(o => VoorkeurOpleidingenState.Add(new ToggleState<Opleiding>(VoorkeurOpleidingen, o)));
+        }
+
+        private void VoorkeurCampussen_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            SaveCampussen();
+        }
+
+        private void VoorkeurOpleidingen_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            SaveOpleidingen();
+        }
+
+        private void AlleCampussen_Checked(object sender, RoutedEventArgs e)
+        {
+            // Pause listening for changes
+            VoorkeurCampussen.CollectionChanged -= VoorkeurCampussen_CollectionChanged;
+
+            VoorkeurCampussen.Clear();
+            Campussen.ToList().ForEach(c => VoorkeurCampussen.Add(c));
+
+            SaveCampussen();
+
+            // Resume listening for changes
+            VoorkeurCampussen.CollectionChanged += VoorkeurCampussen_CollectionChanged;
+        }
+
+        private void AlleCampussen_Unchecked(object sender, RoutedEventArgs e)
+        {
+            VoorkeurCampussen.Clear();
+        }
+
+        private void AlleOpleidingen_Checked(object sender, RoutedEventArgs e)
+        {
+            // Pause listening for changes
+            VoorkeurOpleidingen.CollectionChanged -= VoorkeurOpleidingen_CollectionChanged;
+
+            VoorkeurOpleidingen.Clear();
+            Opleidingen.ToList().ForEach(o => VoorkeurOpleidingen.Add(o));
+
+            SaveOpleidingen();
+
+            // Resume listening for changes
+            VoorkeurOpleidingen.CollectionChanged += VoorkeurOpleidingen_CollectionChanged;
+        }
+
+        private void AlleOpleidingen_Unchecked(object sender, RoutedEventArgs e)
+        {
+            VoorkeurOpleidingen.Clear();
+        }
+
+        private async void SaveCampussen()
+        {
+            if (Gebruiker != null)
+            {
+                Gebruiker.VoorkeurCampussen.Clear();
+                Gebruiker.VoorkeurCampussen.AddRange(VoorkeurCampussen);
+
+                await Api.PutAsync<Gebruiker>(Gebruiker.GebruikerId, Gebruiker);
+            }
+        }
+
+        private async void SaveOpleidingen()
+        {
+            if (Gebruiker != null)
+            {
+                Gebruiker.VoorkeurOpleidingen.Clear();
+                Gebruiker.VoorkeurOpleidingen.AddRange(VoorkeurOpleidingen);
+
+                await Api.PutAsync<Gebruiker>(Gebruiker.GebruikerId, Gebruiker);
+            }
+        }
+
+        public class ToggleState<T> : INotifyPropertyChanged
+        {
+            private ObservableCollection<T> _Collection;
+
+            public event PropertyChangedEventHandler PropertyChanged;
+
+            public ToggleState(ObservableCollection<T> collection, T inner)
+            {
+                _Collection = collection;
+                _Collection.CollectionChanged += _Collection_CollectionChanged;
+                Inner = inner;
+            }
+
+            private void _Collection_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+            {
+                if (PropertyChanged != null)
+                {
+                    // Notify UI that property might have changed
+                    PropertyChanged(this, new PropertyChangedEventArgs("IsChecked"));
+                }
+            }
+
+            public T Inner { get; set; }
+
+            public bool IsChecked
+            {
+                get
+                {
+                    return _Collection.Contains(Inner);
+                }
+                set
+                {
+                    if (value == false && _Collection.Contains(Inner))
                     {
-                        campussen.RemoveAt(i);
+                        _Collection.Remove(Inner);
+                    }
+                    else if (value == true && !_Collection.Contains(Inner))
+                    {
+                        _Collection.Add(Inner);
                     }
                 }
             }
-            List<String> waarden = new List<string>();
-            campussen.RemoveAt(campussen.Count - 1);
-            foreach (Campus c in campussen)
-            {
-                waarden.Add(c.Naam);
-            }
-            CampussenComboBox.ItemsSource = waarden;
-        }
-
-        private async void VoegCampusToeBtn_Click(object sender, RoutedEventArgs e)
-        {
-            VoorkeurCampus voorkeurcampus = new VoorkeurCampus();
-            var roamingSettings = ApplicationData.Current.RoamingSettings;
-            voorkeurcampus.GebruikerId = Int32.Parse(roamingSettings.Values["gebruikerId"].ToString());
-            List<Campus> campussen = await Api.GetAsync<List<Campus>>();
-            foreach (Campus c in campussen)
-            {
-                if (c.Naam == CampussenComboBox.SelectedItem.ToString())
-                    voorkeurcampus.CampusId = c.CampusId;
-            }
-            await Api.PostAsync<VoorkeurCampus>(voorkeurcampus);
-            Frame.Navigate(typeof(Opties));
-        }
-
-        private async void OpleidingenComboBox_Loaded(object sender, RoutedEventArgs e)
-        {
-            var roamingSettings = ApplicationData.Current.RoamingSettings;
-            List<VoorkeurOpleiding> voorkeurOpleidingenDb = await Api.GetAsync<List<VoorkeurOpleiding>>();
-            List<VoorkeurOpleiding> voorkeuropleidingen = new List<VoorkeurOpleiding>();
-            foreach (VoorkeurOpleiding vo in voorkeurOpleidingenDb)
-            {
-                if (vo.GebruikerId == Int32.Parse(roamingSettings.Values["gebruikerId"].ToString()))
-                {
-                    voorkeuropleidingen.Add(vo);
-                }
-            }
-            List<Opleiding> opleidingen = await Api.GetAsync<List<Opleiding>>();
-
-            for (int i = 0; i < opleidingen.Count; i++)
-            {
-                for (int y = 0; y < voorkeuropleidingen.Count; y++)
-                {
-                    if (voorkeuropleidingen[y].OpleidingId == opleidingen[i].OpleidingId)
-                    {
-                        opleidingen.RemoveAt(i);
-                    }
-                }
-            }
-            List<String> waarden = new List<string>();
-            opleidingen.RemoveAt(opleidingen.Count - 1);
-            foreach (Opleiding o in opleidingen)
-            {
-                waarden.Add(o.Naam);
-            }
-            OpleidingenComboBox.ItemsSource = waarden;
-        }
-
-        private async void DeleteCampusBtn_Click(object sender, RoutedEventArgs e)
-        {
-            VoorkeurCampus voorkeurCampus = campussenList.SelectedItem as VoorkeurCampus;
-            await Api.DeleteAsync<VoorkeurCampus>(voorkeurCampus.VoorkeurCampusId);
-            Frame.Navigate(typeof(Opties));
-        }
-
-        private async void DeleteOpleidingBtn_Click(object sender, RoutedEventArgs e)
-        {
-            VoorkeurOpleiding voorkeurOpleiding = opleidingenLijst.SelectedItem as VoorkeurOpleiding;
-            await Api.DeleteAsync<VoorkeurOpleiding>(voorkeurOpleiding.VoorkeurOpleidingId);
-            Frame.Navigate(typeof(Opties));
-        }
-
-        private async void VoegOpleidingToeComboBox_Click(object sender, RoutedEventArgs e)
-        {
-            VoorkeurOpleiding voorkeuropleiding = new VoorkeurOpleiding();
-            var roamingSettings = ApplicationData.Current.RoamingSettings;
-            voorkeuropleiding.GebruikerId = Int32.Parse(roamingSettings.Values["gebruikerId"].ToString());
-            Opleiding opleiding = OpleidingenComboBox.SelectedItem as Opleiding;
-            List<Opleiding> opleidingen = await Api.GetAsync<List<Opleiding>>();
-            foreach (Opleiding o in opleidingen)
-            {
-                if (o.Naam == OpleidingenComboBox.SelectedItem.ToString())
-                    voorkeuropleiding.OpleidingId = o.OpleidingId;
-            }
-            await Api.PostAsync<VoorkeurOpleiding>(voorkeuropleiding);
-            Frame.Navigate(typeof(Opties));
         }
     }
 }

@@ -19,6 +19,8 @@ namespace WebApiOpendeurdag2.Models
         public String Gemeente { get; set; }
         public String Telnr { get; set; }
         public String Rol { get; set; }
+        public virtual ICollection<Campus> VoorkeurCampussen { get; set; }
+        public virtual ICollection<Opleiding> VoorkeurOpleidingen { get; set; }
     }
 
     public class GebruikersRollen

@@ -23,7 +23,7 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="100" />
         </Grid.RowDefinitions>
-        <GridView ItemsSource="{x:Bind opleidingen}" IsItemClickEnabled="True" ItemTemplate="{StaticResource OpleidingDataTemplate}"></GridView>
+        <GridView ItemsSource="{x:Bind OpleidingCollection}" IsItemClickEnabled="True" ItemTemplate="{StaticResource OpleidingDataTemplate}"></GridView>
         <TextBlock Grid.Row="1"
                    Name="ResultTextBlock"
                    FontSize="24"
