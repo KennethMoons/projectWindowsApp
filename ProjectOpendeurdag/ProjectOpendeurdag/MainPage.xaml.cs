@@ -56,25 +56,24 @@ namespace ProjectOpendeurdag
         {
             SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = MyFrame.CanGoBack ? AppViewBackButtonVisibility.Visible : AppViewBackButtonVisibility.Collapsed;
 
-            // Update title & selected item in navigation list
+            // Update title 
+            TitleTextBlock.Text = PageTitles.Get(e.SourcePageType);
+
+            // Update selected item in navigation list
             if (e.SourcePageType.Equals(typeof(Newsfeed)))
             {
-                TitleTextBlock.Text = "Nieuws";
                 NavigationList.SelectedItem = NewsFeedLbi;
             }
             else if (e.SourcePageType.Equals(typeof(Opleidingen)))
             {
-                TitleTextBlock.Text = "Opleidingen";
                 NavigationList.SelectedItem = OpleidingenLbi;
             }
             else if (e.SourcePageType.Equals(typeof(Campussen)))
             {
-                TitleTextBlock.Text = "Campussen";
                 NavigationList.SelectedItem = CampussenLbi;
             }
             else if (e.SourcePageType.Equals(typeof(InfomomentFeed)))
             {
-                TitleTextBlock.Text = "Infomomenten";
                 NavigationList.SelectedItem = InfoMomentenLbi;
             }
         }

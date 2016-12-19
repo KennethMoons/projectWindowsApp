@@ -10,6 +10,7 @@ using Windows.ApplicationModel.Core;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Core;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -117,6 +118,9 @@ namespace ProjectOpendeurdag
 
             // Toggle back button on navigation event
             SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = ((Frame) sender).CanGoBack ? AppViewBackButtonVisibility.Visible : AppViewBackButtonVisibility.Collapsed;
+
+            // Update title
+            ApplicationView.GetForCurrentView().Title = PageTitles.Get(e.SourcePageType);
         }
 
         /// <summary>

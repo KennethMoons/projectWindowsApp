@@ -107,6 +107,7 @@
     <Compile Include="GebruikersBeheerMain.xaml.cs">
       <DependentUpon>GebruikersBeheerMain.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\PageTitles.cs" />
     <Compile Include="Helpers\Settings.cs" />
     <Compile Include="InfomomentBeheerAddOne.xaml.cs">
       <DependentUpon>InfomomentBeheerAddOne.xaml</DependentUpon>
