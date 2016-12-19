@@ -15,6 +15,7 @@ using Windows.UI.Xaml.Navigation;
 using ProjectOpendeurdag.Models;
 using Newtonsoft.Json;
 using System.Net.Http;
+using ProjectOpendeurdag.Helpers;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 

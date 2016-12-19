@@ -12,7 +12,7 @@ using Windows.Storage;
 using System.Diagnostics;
 using ProjectOpendeurdag.Helpers;
 
-namespace ProjectOpendeurdag
+namespace ProjectOpendeurdag.Helpers
 {
     /// <summary>
     /// Helper for retrieving objects from web API
