@@ -31,15 +31,16 @@ namespace ProjectOpendeurdag
         public Newsfeed()
         {
             this.InitializeComponent();
-            GetNewsItems();
+            this.Loaded += Newsfeed_Loaded;
         }
-        public async void GetNewsItems()
+
+        private async void Newsfeed_Loaded(object sender, RoutedEventArgs e)
         {
-            var newsitemsResult = await Api.GetAsync<List<Newsitem>>();
+            var newsitems = await Api.GetAsync<List<Newsitem>>();
             var voorkeurCampussen = Settings.GetVoorkeurCampussen();
             var voorkeurOpleidingen = Settings.GetVoorkeurOpleidingen();
 
-            newsitemsResult.Where(n =>
+            newsitems.Where(n =>
             {
                 // Ensure campus & opleiding are either not set or in voorkeuren
                 var voorkeurCampus = n.Campus != null ? voorkeurCampussen.Contains(n.Campus) : true;

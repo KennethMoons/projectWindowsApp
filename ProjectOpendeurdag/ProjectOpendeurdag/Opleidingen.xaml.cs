@@ -32,18 +32,16 @@ namespace ProjectOpendeurdag
         public Opleidingen()
         {
             this.InitializeComponent();
-
-            GetOpleidingen();
+            this.Loaded += Opleidingen_Loaded;
         }
 
-        public async void GetOpleidingen()
+        private async void Opleidingen_Loaded(object sender, RoutedEventArgs e)
         {
             var opleidingen = await Api.GetAsync<List<Opleiding>>();
 
             opleidingen.ForEach(o =>
             {
-                int id = opleidingen.IndexOf(o) + 1;
-                o.ImageLink = String.Format("Assets/opleiding{0}.PNG", id);
+                o.ImageLink = String.Format("Assets/opleiding{0}.PNG", o.OpleidingId);
                 OpleidingCollection.Add(o);
             });
         }

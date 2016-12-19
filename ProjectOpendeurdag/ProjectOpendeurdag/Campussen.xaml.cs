@@ -29,18 +29,18 @@ namespace ProjectOpendeurdag
         public Campussen()
         {
             this.InitializeComponent();
-            vulCampussen();
+            this.Loaded += Campussen_Loaded;
         }
 
-        public async void vulCampussen()
+        private async void Campussen_Loaded(object sender, RoutedEventArgs e)
         {
             List<Campus> campussen = await Api.GetAsync<List<Campus>>();
-            //campussen.RemoveAt(campussen.Count - 1);
-            campussen[0].ImageLink = "Assets/campus1.jpg";
-            campussen[1].ImageLink = "Assets/campus2.jpg";
-            campussen[2].ImageLink = "Assets/campus3.jpeg";
-            foreach (Campus c in campussen)
+
+            campussen.ForEach(c =>
+            {
+                c.ImageLink = String.Format("Assets/campus{0}.jpeg", c.CampusId);
                 CampusList.Add(c);
+            });
         }
 
         private void Campus_click(object sender, ItemClickEventArgs e)

@@ -31,62 +31,26 @@ namespace ProjectOpendeurdag
         public InfomomentFeed()
         {
             this.InitializeComponent();
-            getInfomoments();
+            this.Loaded += InfomomentFeed_Loaded;
         }
-        public async void getInfomoments()
+
+        private async void InfomomentFeed_Loaded(object sender, RoutedEventArgs e)
         {
-            List<Infomoment> infomomentsResult = await Api.GetAsync<List<Infomoment>>();
-            List<Infomoment> infomomenten = new List<Infomoment>();
-            //List<VoorkeurCampus> voorkeurCampusItemsDb = await Api.GetAsync<List<VoorkeurCampus>>();
-            //List<VoorkeurCampus> voorkeurcampussen = new List<VoorkeurCampus>();
-            //var roamingSettings = ApplicationData.Current.RoamingSettings;
-            //foreach (VoorkeurCampus vc in voorkeurCampusItemsDb)
-            //{
-            //    if (vc.GebruikerId == Int32.Parse(roamingSettings.Values["gebruikerId"].ToString()))
-            //    {
-            //        voorkeurcampussen.Add(vc);
-            //    }
-            //}
-            //List<VoorkeurOpleiding> voorkeurOpleidingenDb = await Api.GetAsync<List<VoorkeurOpleiding>>();
-            //List<VoorkeurOpleiding> voorkeuropleidingen = new List<VoorkeurOpleiding>();
-            //foreach (VoorkeurOpleiding vo in voorkeurOpleidingenDb)
-            //{
-            //    if (vo.GebruikerId == Int32.Parse(roamingSettings.Values["gebruikerId"].ToString()))
-            //    {
-            //        voorkeuropleidingen.Add(vo);
-            //    }
-            //}
+            var newsitems = await Api.GetAsync<List<Infomoment>>();
+            var voorkeurCampussen = Settings.GetVoorkeurCampussen();
+            var voorkeurOpleidingen = Settings.GetVoorkeurOpleidingen();
 
-
-            //foreach (Infomoment i in infomomentsResult)
-            //{
-            //    if (i.CampusId == 4 && i.OpleidingId == 5)
-            //    {
-            //        infomomenten.Add(i);
-            //    }
-            //}
-            //foreach (VoorkeurCampus vc in voorkeurcampussen)
-            //{
-            //    foreach (Infomoment i in infomomentsResult)
-            //    {
-            //        if (i.CampusId == vc.CampusId)
-            //        {
-            //            infomomenten.Add(i);
-            //        }
-            //    }
-            //}
-            //foreach (VoorkeurOpleiding vo in voorkeuropleidingen)
-            //{
-            //    foreach (Infomoment i in infomomentsResult)
-            //    {
-            //        if (i.OpleidingId == vo.OpleidingId)
-            //        {
-            //            infomomenten.Add(i);
-            //        }
-            //    }
-            //}
-            foreach (Infomoment i in infomomenten)
+            newsitems.Where(i =>
+            {
+                // Ensure campus & opleiding are either not set or in voorkeuren
+                var voorkeurCampus = i.Campus != null ? voorkeurCampussen.Contains(i.Campus) : true;
+                var voorkeurOpleiding = i.Opleiding != null ? voorkeurOpleidingen.Contains(i.Opleiding) : true;
+                return voorkeurCampus && voorkeurOpleiding;
+            }).ToList().ForEach(i =>
+            {
+                // Add all info items to list
                 InfomomentList.Add(i);
+            });
         }
 
         private void Infomoment_click(object sender, ItemClickEventArgs e)
