@@ -31,24 +31,6 @@ namespace ProjectOpendeurdag
         {
             this.InitializeComponent();
         }
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            newsitem = e.Parameter as Newsitem;
-            titel.Text = newsitem.Titel;
-            beschrijving.Text = newsitem.Inhoud;
-            Datum.Date = DateTime.Parse(newsitem.Datum);
-            Tijd.Time = TimeSpan.Parse(newsitem.Uur);
-        }
-
-        private async void OpleidingenComboBox_Loaded(object sender, RoutedEventArgs e)
-        {
-            List<Opleiding> opleidingen = new List<Opleiding>();
-            Opleiding nullOpleiding = new NullOpleiding();
-            opleidingen.Add(nullOpleiding);
-            opleidingen.AddRange(await Api.GetAsync<List<Opleiding>>());
-            OpleidingenComboBox.ItemsSource = opleidingen;
-            OpleidingenComboBox.SelectedItem = newsitem.Opleiding != null ? newsitem.Opleiding : nullOpleiding;
-        }
 
         private async void CampussenComboBox_Loaded(object sender, RoutedEventArgs e)
         {
@@ -60,24 +42,46 @@ namespace ProjectOpendeurdag
             CampussenComboBox.SelectedItem = newsitem.Campus != null ? newsitem.Campus : nullCampus;
         }
 
-        private async void AppBarButton_Click_1(object sender, RoutedEventArgs e)
+        private async void OpleidingenComboBox_Loaded(object sender, RoutedEventArgs e)
         {
-            await Api.DeleteAsync<Newsitem>(newsitem.NewsitemId);
-            Frame.GoBack();
+            List<Opleiding> opleidingen = new List<Opleiding>();
+            Opleiding nullOpleiding = new NullOpleiding();
+            opleidingen.Add(nullOpleiding);
+            opleidingen.AddRange(await Api.GetAsync<List<Opleiding>>());
+            OpleidingenComboBox.ItemsSource = opleidingen;
+            OpleidingenComboBox.SelectedItem = newsitem.Opleiding != null ? newsitem.Opleiding : nullOpleiding;
+        }
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            newsitem = e.Parameter as Newsitem;
+            titel.Text = newsitem.Titel;
+            beschrijving.Text = newsitem.Inhoud;
+            Datum.Date = DateTime.Parse(newsitem.Datum);
+            Tijd.Time = TimeSpan.Parse(newsitem.Uur);
         }
 
-        private async void AppBarButton_Click(object sender, RoutedEventArgs e)
+        private async void Save_Click(object sender, RoutedEventArgs e)
         {
+            newsitem.Titel = titel.Text;
+            newsitem.Inhoud = beschrijving.Text;
+            newsitem.Datum = Datum.Date.ToString().Split(' ')[0];
+            newsitem.Uur = Tijd.Time.ToString();
+
             var campus = CampussenComboBox.SelectedItem as Campus;
             var opleiding = OpleidingenComboBox.SelectedItem as Opleiding;
 
-            newsitem.Titel = titel.Text;
-            newsitem.Inhoud = beschrijving.Text;
             newsitem.Campus = campus is NullCampus ? null : campus;
-            newsitem.Datum = Datum.Date.ToString().Split(' ')[0];
             newsitem.Opleiding = opleiding is NullOpleiding ? null : opleiding;
-            newsitem.Uur = Tijd.Time.ToString();
+
             await Api.PutAsync<Newsitem>(newsitem.NewsitemId, newsitem);
+
+            Frame.GoBack();
+        }
+
+        private async void Delete_Click(object sender, RoutedEventArgs e)
+        {
+            await Api.DeleteAsync<Newsitem>(newsitem.NewsitemId);
+
             Frame.GoBack();
         }
     }

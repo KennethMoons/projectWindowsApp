@@ -32,15 +32,6 @@ namespace ProjectOpendeurdag
             this.InitializeComponent();
         }
 
-        private async void OpleidingenComboBox_Loaded(object sender, RoutedEventArgs e)
-        {
-            List<Opleiding> opleidingen = new List<Opleiding>();
-            Opleiding nullOpleiding = new NullOpleiding();
-            opleidingen.Add(nullOpleiding);
-            opleidingen.AddRange(await Api.GetAsync<List<Opleiding>>());
-            OpleidingenComboBox.ItemsSource = opleidingen;
-        }
-
         private async void CampussenComboBox_Loaded(object sender, RoutedEventArgs e)
         {
             List<Campus> campussen = new List<Campus>();
@@ -48,26 +39,36 @@ namespace ProjectOpendeurdag
             campussen.Add(nullCampus);
             campussen.AddRange(await Api.GetAsync<List<Campus>>());
             CampussenComboBox.ItemsSource = campussen;
+            CampussenComboBox.SelectedItem = nullCampus;
         }
 
-        private async void AppBarButton_Click(object sender, RoutedEventArgs e)
+        private async void OpleidingenComboBox_Loaded(object sender, RoutedEventArgs e)
         {
+            List<Opleiding> opleidingen = new List<Opleiding>();
+            Opleiding nullOpleiding = new NullOpleiding();
+            opleidingen.Add(nullOpleiding);
+            opleidingen.AddRange(await Api.GetAsync<List<Opleiding>>());
+            OpleidingenComboBox.ItemsSource = opleidingen;
+            OpleidingenComboBox.SelectedItem = nullOpleiding;
+        }
+
+        private async void Save_Click(object sender, RoutedEventArgs e)
+        {
+            Newsitem newsitem = new Newsitem();
+
+            newsitem.Datum = Datum.Date.ToString().Split(' ')[0];
+            newsitem.Inhoud = beschrijving.Text;
+            newsitem.Titel = titel.Text;
+            newsitem.Uur = Tijd.Time.ToString();
+
             var campus = CampussenComboBox.SelectedValue as Campus;
             var opleiding = OpleidingenComboBox.SelectedValue as Opleiding;
 
-            Newsitem newsitem = new Newsitem();
             newsitem.Campus = campus is NullCampus ? null : campus;
-            newsitem.Datum = Datum.Date.ToString().Split(' ')[0];
-            newsitem.Inhoud = beschrijving.Text;
             newsitem.Opleiding = opleiding is NullOpleiding ? null : opleiding;
-            newsitem.Titel = titel.Text;
-            newsitem.Uur = Tijd.Time.ToString();
-            await Api.PostAsync<Newsitem>(newsitem);
-            Frame.GoBack();
-        }
 
-        private void AppBarButton_Click_1(object sender, RoutedEventArgs e)
-        {
+            await Api.PostAsync<Newsitem>(newsitem);
+
             Frame.GoBack();
         }
     }

@@ -9,8 +9,7 @@
 
     <Page.BottomAppBar>
         <CommandBar>
-            <AppBarButton Icon="Accept" Label="Add" Click="AppBarButton_Click"/>
-            <AppBarButton Icon="Cancel" Label="appbarbutton" Click="AppBarButton_Click_1"/>
+            <AppBarButton Icon="Save" Label="Opslaan" Click="Save_Click"/>
         </CommandBar>
     </Page.BottomAppBar>
 
