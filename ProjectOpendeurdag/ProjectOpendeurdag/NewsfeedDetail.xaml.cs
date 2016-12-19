@@ -47,14 +47,14 @@ namespace ProjectOpendeurdag
 
             foreach (Opleiding o in opleidingen)
             {
-                if (o.OpleidingId == newsitem.Opleiding.OpleidingId)
+                if (o == newsitem.Opleiding)
                 {
                     opleiding.Text = o.Naam;
                 }
             }
             foreach (Campus c in campussen)
             {
-                if (c.CampusId == newsitem.Campus.CampusId)
+                if (c == newsitem.Campus)
                 {
                     campus.Text = c.Naam;
                 }

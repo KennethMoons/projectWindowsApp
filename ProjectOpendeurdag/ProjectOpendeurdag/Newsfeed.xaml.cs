@@ -31,8 +31,9 @@ namespace ProjectOpendeurdag
         public Newsfeed()
         {
             this.InitializeComponent();
+            GetNewsItems();
         }
-        public async void getNewsItems()
+        public async void GetNewsItems()
         {
             var newsitemsResult = await Api.GetAsync<List<Newsitem>>();
             var voorkeurCampussen = Settings.GetVoorkeurCampussen();
