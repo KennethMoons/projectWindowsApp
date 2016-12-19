@@ -7,7 +7,14 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Page.BottomAppBar>
+        <CommandBar>
+            <AppBarButton Icon="Calendar" Label="Opslaan in agenda" Click="agenda_button_Click" />
+            <AppBarButton Icon="Clock" Label="Reminder instellen" Click="reminder_button_Click" />
+        </CommandBar>
+    </Page.BottomAppBar>
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Padding="10">
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="VisualStateGroup">
                 <VisualState x:Name="Wide">
@@ -56,18 +63,6 @@
                         <Setter Target="opleiding.(Grid.ColumnSpan)" Value="1" />
                         <Setter Target="opleiding.(Grid.Row)" Value="7" />
 
-                        <Setter Target="agenda_button.(Grid.Column)" Value="0" />
-                        <Setter Target="agenda_button.(Grid.ColumnSpan)" Value="1" />
-                        <Setter Target="agenda_button.(Grid.Row)" Value="8" />
-
-                        <Setter Target="reminder_button.(Grid.Column)" Value="2" />
-                        <Setter Target="reminder_button.(Grid.ColumnSpan)" Value="1" />
-                        <Setter Target="reminder_button.(Grid.Row)" Value="8" />
-
-                        <Setter Target="cancel_button.(Grid.Column)" Value="4" />
-                        <Setter Target="cancel_button.(Grid.ColumnSpan)" Value="1" />
-                        <Setter Target="cancel_button.(Grid.Row)" Value="8" />
-
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="Narrow">
@@ -115,25 +110,12 @@
                         <Setter Target="opleiding.(Grid.Column)" Value="3" />
                         <Setter Target="opleiding.(Grid.ColumnSpan)" Value="3" />
                         <Setter Target="opleiding.(Grid.Row)" Value="7" />
-
-                        <Setter Target="agenda_button.(Grid.Column)" Value="0" />
-                        <Setter Target="agenda_button.(Grid.ColumnSpan)" Value="2" />
-                        <Setter Target="agenda_button.(Grid.Row)" Value="8" />
-
-                        <Setter Target="reminder_button.(Grid.Column)" Value="2" />
-                        <Setter Target="reminder_button.(Grid.ColumnSpan)" Value="2" />
-                        <Setter Target="reminder_button.(Grid.Row)" Value="8" />
-
-                        <Setter Target="cancel_button.(Grid.Column)" Value="4" />
-                        <Setter Target="cancel_button.(Grid.ColumnSpan)" Value="2" />
-                        <Setter Target="cancel_button.(Grid.Row)" Value="8" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
-            <RowDefinition Height="*"  />
             <RowDefinition Height="*"  />
             <RowDefinition Height="*"  />
             <RowDefinition Height="*"  />
@@ -150,18 +132,15 @@
             <ColumnDefinition Width="*" />
             <ColumnDefinition  Width="*"/>
         </Grid.ColumnDefinitions>
-        <TextBox x:Name="titel" PlaceholderText="titel" Margin="10"/>
-        <TextBox x:Name="beschrijving" PlaceholderText="beschrijving" Margin="20" Height="200px"/>
-        <TextBlock Name="datumTxt" Text="datum" Margin="10"></TextBlock>
+        <TextBox x:Name="titel" PlaceholderText="Titel" Margin="10"/>
+        <TextBox x:Name="beschrijving" PlaceholderText="Beschrijving" Margin="10" Height="200px"/>
+        <TextBlock Name="datumTxt" Text="Datum" Margin="10"></TextBlock>
         <TextBox x:Name="datum" Margin="10"/>
-        <TextBlock Name="tijdTxt" Text="uur" Margin="10"></TextBlock>
+        <TextBlock Name="tijdTxt" Text="Uur" Margin="10"></TextBlock>
         <TextBox x:Name="tijd" Margin="10"/>
-        <TextBlock Name="campusTxt" Text="campus" Margin="10"></TextBlock>
+        <TextBlock Name="campusTxt" Text="Campus" Margin="10"></TextBlock>
         <TextBox x:Name="campus" Margin="10"/>
-        <TextBlock Name="opleidingTxt" Text="opleiding ?" Margin="10"></TextBlock>
+        <TextBlock Name="opleidingTxt" Text="Opleiding" Margin="10"></TextBlock>
         <TextBox x:Name="opleiding" Margin="10"/>
-        <Button Name="agenda_button" Click="agenda_button_Click" Content="Opslaan in agenda" Margin="10"></Button>
-        <Button Name="reminder_button" Click="reminder_button_Click" Content="reminder instellen" Margin="10"></Button>
-        <Button Name="cancel_button" Click="cancel_button_Click" Content="cancel" Margin="10"></Button>
     </Grid>
 </Page>

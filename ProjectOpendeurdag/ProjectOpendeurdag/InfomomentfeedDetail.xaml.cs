@@ -73,7 +73,7 @@ namespace ProjectOpendeurdag
 
         private async void reminder_button_Click(object sender, RoutedEventArgs e)
         {
-            MessageDialog showDialog = new MessageDialog("wenst u een reminder een half uur voor de afspraak ?");
+            MessageDialog showDialog = new MessageDialog("Wenst u een reminder een half uur voor de afspraak?");
             showDialog.Commands.Add(new UICommand("Ok") { Id = 0 });
             showDialog.Commands.Add(new UICommand("Cancel") { Id = 1 });
             showDialog.DefaultCommandIndex = 1;
@@ -97,11 +97,7 @@ namespace ProjectOpendeurdag
                 Frame.Navigate(typeof(InfomomentFeed));
             }
         }
-
-        private void cancel_button_Click(object sender, RoutedEventArgs e)
-        {
-            Frame.Navigate(typeof(InfomomentFeed));
-        }
+        
         public Appointment setAfspraak()
         {
             String[] datumFormat = datum.Text.Split('/');
@@ -114,8 +110,6 @@ namespace ProjectOpendeurdag
             appointment.Details = beschrijving.Text;
             return appointment;
         }
-
-
 
         public async static Task<string> Add(Appointment appt)
         {

@@ -94,10 +94,6 @@ namespace ProjectOpendeurdag
             }
         }
 
-        private void cancel_button_Click(object sender, RoutedEventArgs e)
-        {
-            Frame.Navigate(typeof(Newsfeed));
-        }
         public Appointment setAfspraak()
         {
             String[] datumFormat = datum.Text.Split('/');
@@ -110,8 +106,6 @@ namespace ProjectOpendeurdag
             appointment.Details = beschrijving.Text;
             return appointment;
         }
-
-
 
         public async static Task<string> Add(Appointment appt)
         {

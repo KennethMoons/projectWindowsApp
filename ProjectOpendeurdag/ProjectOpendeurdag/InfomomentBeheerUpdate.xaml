@@ -14,7 +14,7 @@
         </CommandBar>
     </Page.BottomAppBar>
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Padding="10">
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="VisualStateGroup">
                 <VisualState x:Name="Wide">
@@ -37,8 +37,8 @@
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
         <StackPanel>
-            <TextBox x:Name="titel" PlaceholderText="titel" Margin="20"/>
-            <TextBox x:Name="beschrijving" PlaceholderText="beschrijving" Margin="20" Height="180px"/>
+            <TextBox x:Name="titel" PlaceholderText="Titel" Margin="10"/>
+            <TextBox x:Name="beschrijving" PlaceholderText="Beschrijving" Margin="10" Height="180px"/>
 
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -51,14 +51,14 @@
                     <RowDefinition/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <TextBlock Text="Datum" Margin="20"></TextBlock>
-                <DatePicker x:Name="Datum" Margin="20" Grid.Column="1"></DatePicker>
-                <TextBlock Text="Tijdstip" Margin="20" Grid.Row="1"></TextBlock>
-                <TimePicker x:Name="Tijd" Grid.Row="1" Grid.Column="1" Margin="20"></TimePicker>
-                <TextBlock Text="voor een bepaalde campus ?" Grid.Row="2" Margin="20"></TextBlock>
-                <ComboBox x:Name="CampussenComboBox" Margin="20" Grid.Row="2" Grid.Column="1" Loaded="CampussenComboBox_Loaded"></ComboBox>
-                <TextBlock Text="voor een bepaalde opleiding ?" Grid.Row="3" Margin="20"></TextBlock>
-                <ComboBox x:Name="OpleidingenComboBox" Margin="20" Grid.Row="3" Grid.Column="1" Loaded="OpleidingenComboBox_Loaded"></ComboBox>
+                <TextBlock Text="Datum" Margin="10"></TextBlock>
+                <DatePicker x:Name="Datum" Margin="10" Grid.Column="1"></DatePicker>
+                <TextBlock Text="Tijdstip" Margin="10" Grid.Row="1"></TextBlock>
+                <TimePicker x:Name="Tijd" Grid.Row="1" Grid.Column="1" Margin="10"></TimePicker>
+                <TextBlock Text="voor een bepaalde campus ?" Grid.Row="2" Margin="10"></TextBlock>
+                <ComboBox x:Name="CampussenComboBox" Margin="10" Grid.Row="2" Grid.Column="1" Loaded="CampussenComboBox_Loaded"></ComboBox>
+                <TextBlock Text="voor een bepaalde opleiding ?" Grid.Row="3" Margin="10"></TextBlock>
+                <ComboBox x:Name="OpleidingenComboBox" Margin="10" Grid.Row="3" Grid.Column="1" Loaded="OpleidingenComboBox_Loaded"></ComboBox>
             </Grid>
         </StackPanel>
     </Grid>
