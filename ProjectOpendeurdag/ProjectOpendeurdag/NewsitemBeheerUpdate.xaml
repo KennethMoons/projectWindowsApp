@@ -15,25 +15,51 @@
     </Page.BottomAppBar>
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="VisualStateGroup">
+                <VisualState x:Name="Wide">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="800" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="Shifter.Width" Value="4*"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="Narrow">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="Shifter.Width" Value="3*"/>
+                        <Setter Target="beschrijving.Height" Value="300px"/>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
         <StackPanel>
             <TextBox x:Name="titel" PlaceholderText="titel" Margin="20"/>
-            <TextBox x:Name="beschrijving" PlaceholderText="beschrijving" Margin="20" Height="250px"/>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="op welke datum" Margin="20"></TextBlock>
-                <DatePicker x:Name="Datum" Margin="20"></DatePicker>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="op welk uur" Margin="20"></TextBlock>
-                <TimePicker x:Name="Tijd" Margin="20"></TimePicker>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="voor een bepaalde campus ?" Margin="20"></TextBlock>
-                <ComboBox x:Name="CampussenComboBox" Margin="20" Loaded="CampussenComboBox_Loaded"></ComboBox>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="voor een bepaalde opleiding ?" Margin="20"></TextBlock>
-                <ComboBox x:Name="OpleidingenComboBox" Margin="20" Loaded="OpleidingenComboBox_Loaded"></ComboBox>
-            </StackPanel>
+            <TextBox x:Name="beschrijving" PlaceholderText="beschrijving" Margin="20" Height="180px"/>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition x:Name="Shifter" Width="4*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <TextBlock Text="Datum" Margin="20"></TextBlock>
+                <DatePicker x:Name="Datum" Margin="20" Grid.Column="1"></DatePicker>
+                <TextBlock Text="Tijdstip" Margin="20" Grid.Row="1"></TextBlock>
+                <TimePicker x:Name="Tijd" Grid.Row="1" Grid.Column="1" Margin="20"></TimePicker>
+                <TextBlock Text="voor een bepaalde campus ?" Grid.Row="2" Margin="20"></TextBlock>
+                <ComboBox x:Name="CampussenComboBox" Margin="20" Grid.Row="2" Grid.Column="1" Loaded="CampussenComboBox_Loaded"></ComboBox>
+                <TextBlock Text="voor een bepaalde opleiding ?" Grid.Row="3" Margin="20"></TextBlock>
+                <ComboBox x:Name="OpleidingenComboBox" Margin="20" Grid.Row="3" Grid.Column="1" Loaded="OpleidingenComboBox_Loaded"></ComboBox>
+            </Grid>
         </StackPanel>
 
     </Grid>

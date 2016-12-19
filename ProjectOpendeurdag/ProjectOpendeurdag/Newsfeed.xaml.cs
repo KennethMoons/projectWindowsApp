@@ -1,6 +1,7 @@
 ﻿using ProjectOpendeurdag.Models;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -24,6 +25,8 @@ namespace ProjectOpendeurdag
     /// </summary>
     public sealed partial class Newsfeed : Page
     {
+        ObservableCollection<Newsitem> NewsfeedList = new ObservableCollection<Newsitem>();
+
         public Newsfeed()
         {
             this.InitializeComponent();
@@ -80,13 +83,14 @@ namespace ProjectOpendeurdag
             //        }
             //    }
             //}
-            newsitemList.ItemsSource = newsItems;
+            foreach (Newsitem n in newsItems)
+                NewsfeedList.Add(n);
         }
 
-        private void newsitemList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void NewsItem_click(object sender, ItemClickEventArgs e)
         {
-            Newsitem newsitem = newsitemList.SelectedItem as Newsitem;
-            Frame.Navigate(typeof(NewsfeedDetail), newsitem);
+            Newsitem n = e.ClickedItem as Newsitem;
+            Frame.Navigate(typeof(NewsfeedDetail), n);
         }
     }
 }

@@ -17,6 +17,10 @@ namespace WebApiOpendeurdag2.Models
     
         public WebApiOpendeurdag2Context() : base("name=WebApiOpendeurdag2Context")
         {
+            if (Environment.UserName.Equals("benoit"))
+            {
+                Database.Connection.ConnectionString = "Database=Opendeur;Data Source=ITEXT-BLAGAE;Integrated Security=True";
+            }
         }
 
         public System.Data.Entity.DbSet<WebApiOpendeurdag2.Models.Campus> Campus { get; set; }
