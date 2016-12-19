@@ -8,34 +8,49 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <StackPanel>
-            <TextBlock Text="Gebruikgegevens" Margin="25"></TextBlock>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Alle gebruikers" Margin="25"></TextBlock>
-                <Button Content="Bekijk lijst" Click="BekijkLijst" Margin="25"></Button>
-            </StackPanel>
-            <TextBlock Text="Algemene informatie" Margin="25"></TextBlock>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="aantal studenten : " Margin="25"></TextBlock>
-                <TextBlock x:Name="aantalStudenten" Margin="25"></TextBlock>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="In deze opleiding is het meest interesse : " Margin="25"></TextBlock>
-                <TextBlock Text=""  Margin="25"></TextBlock>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="In deze opleiding is het minst interesse : " Margin="25"></TextBlock>
-                <TextBlock Text="" Margin="25"></TextBlock>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="In deze Campus is het meest interesse : " Margin="25"></TextBlock>
-                <TextBlock Text="" Margin="25"></TextBlock>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="In deze Campus is het minste interesse : " Margin="25"></TextBlock>
-                <TextBlock Text="" Margin="25"></TextBlock>
-            </StackPanel>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2">
+            <Border CornerRadius="6" BorderBrush="Gray" Background="LightGray" BorderThickness="2">
+                <StackPanel HorizontalAlignment="Center">
+                    <TextBlock Text="Gebruikgegevens" Margin="25"></TextBlock>
+                </StackPanel>
+            </Border>
         </StackPanel>
+
+        <TextBlock Grid.Column="0" Grid.Row="1" Text="Alle gebruikers" Margin="25" ></TextBlock>
+        <Button Grid.Column="1" Grid.Row="1" Content="Bekijk lijst" Click="BekijkLijst" Margin="25"></Button>
+        <StackPanel Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2">
+            <Border CornerRadius="6" BorderBrush="Gray" Background="LightGray" BorderThickness="2">
+                <StackPanel HorizontalAlignment="Center" >
+                    <TextBlock Text="Algemene informatie" Margin="25"></TextBlock>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+
+        <TextBlock Grid.Column="0" Grid.Row="3" Text="aantal studenten" Margin="5 25 5 0"></TextBlock>
+        <TextBlock Grid.Column="1" Grid.Row="3" x:Name="aantalStudenten" Margin="25"></TextBlock>
+        <TextBlock Grid.Column="0" Grid.Row="4" Text="Populairste opleiding" Margin="15 25 5 0"></TextBlock>
+        <TextBlock Grid.Column="1" Grid.Row="4" Text=""  Margin="25"></TextBlock>
+        <TextBlock Grid.Column="0" Grid.Row="5" Text="minst populaire opleiding" Margin="5 25 5 0"></TextBlock>
+        <TextBlock Grid.Column="1" Grid.Row="5" Text="" Margin="25"></TextBlock>
+        <TextBlock Grid.Column="0" Grid.Row="6" Text="Populairste campus" Margin="5 25 5 0"></TextBlock>
+        <TextBlock Grid.Column="1" Grid.Row="6" Text="" Margin="25"></TextBlock>
+        <TextBlock Grid.Column="0" Grid.Row="7" Text="Minst populaire campus" Margin="5 25 5 0"></TextBlock>
+        <TextBlock Grid.Column="1" Grid.Row="7" Text="" Margin="25"></TextBlock>
 
     </Grid>
 </Page>
