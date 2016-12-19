@@ -57,13 +57,13 @@ namespace ProjectOpendeurdag
             //}
 
 
-            foreach (Infomoment i in infomomentsResult)
-            {
-                if (i.CampusId == 4 && i.OpleidingId == 5)
-                {
-                    infomomenten.Add(i);
-                }
-            }
+            //foreach (Infomoment i in infomomentsResult)
+            //{
+            //    if (i.CampusId == 4 && i.OpleidingId == 5)
+            //    {
+            //        infomomenten.Add(i);
+            //    }
+            //}
             //foreach (VoorkeurCampus vc in voorkeurcampussen)
             //{
             //    foreach (Infomoment i in infomomentsResult)

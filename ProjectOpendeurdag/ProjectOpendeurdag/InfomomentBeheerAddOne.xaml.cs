@@ -47,9 +47,9 @@ namespace ProjectOpendeurdag
             Infomoment infomoment = new Infomoment();
             infomoment.Titel = titel.Text;
             infomoment.Beschrijving = beschrijving.Text;
-            infomoment.CampusId = CampussenComboBox.SelectedIndex + 1;
+            //infomoment.CampusId = CampussenComboBox.SelectedIndex + 1;
             infomoment.Datum = Datum.Date.ToString().Split(' ')[0];
-            infomoment.OpleidingId = OpleidingenComboBox.SelectedIndex + 1;
+            //infomoment.OpleidingId = OpleidingenComboBox.SelectedIndex + 1;
             infomoment.Uur = Tijd.Time.ToString();
             await Api.PostAsync<Infomoment>(infomoment);
             Frame.GoBack();

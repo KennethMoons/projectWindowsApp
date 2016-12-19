@@ -42,9 +42,9 @@ namespace ProjectOpendeurdag
         {
             infomoment.Titel = titel.Text;
             infomoment.Beschrijving = beschrijving.Text;
-            infomoment.CampusId = CampussenComboBox.SelectedIndex + 1;
+            //infomoment.CampusId = CampussenComboBox.SelectedIndex + 1;
             infomoment.Datum = Datum.Date.ToString().Split(' ')[0];
-            infomoment.OpleidingId = OpleidingenComboBox.SelectedIndex + 1;
+            //infomoment.OpleidingId = OpleidingenComboBox.SelectedIndex + 1;
             infomoment.Uur = Tijd.Time.ToString();
             await Api.PutAsync<Infomoment>(infomoment.InfomomentId, infomoment);
             Frame.GoBack();
@@ -65,7 +65,7 @@ namespace ProjectOpendeurdag
                 waarden.Add(o.Naam);
             }
             OpleidingenComboBox.ItemsSource = waarden;
-            OpleidingenComboBox.SelectedIndex = infomoment.OpleidingId -1;
+            //OpleidingenComboBox.SelectedIndex = infomoment.OpleidingId -1;
         }
 
         private async void CampussenComboBox_Loaded(object sender, RoutedEventArgs e)
@@ -77,7 +77,7 @@ namespace ProjectOpendeurdag
                 waarden.Add(c.Naam);
             }
             CampussenComboBox.ItemsSource = waarden;
-            CampussenComboBox.SelectedIndex = infomoment.CampusId - 1;
+            //CampussenComboBox.SelectedIndex = infomoment.CampusId - 1;
         }
     }
 }
