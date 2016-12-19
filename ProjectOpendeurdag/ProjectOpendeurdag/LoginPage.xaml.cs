@@ -46,8 +46,6 @@ namespace ProjectOpendeurdag
 
             if (gebruiker != null)
             {
-                ApplicationData.Current.RoamingSettings.Values["gebruikerId"] = gebruiker.GebruikerId;
-                Api.SetCredentials(email, password);
                 Frame.Navigate(typeof(MainPage));
                 return;
             }

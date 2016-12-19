@@ -242,17 +242,7 @@ namespace ProjectOpendeurdag
 
             Settings.SetCurrentGebruiker(null);
 
-            var vault = new PasswordVault();
-
-            // Remove previous credentials (if any)
-            try
-            {
-                vault.FindAllByResource(API_KEY).ToList().ForEach(c => vault.Remove(c));
-            }
-            catch
-            {
-                // No credentials
-            }
+            RemoveCredentials();
         }
 
         public static async Task<Gebruiker> Login(string email, string password)
@@ -272,7 +262,7 @@ namespace ProjectOpendeurdag
 
             try
             {
-                user = JsonConvert.DeserializeObject<Gebruiker>(await client.GetStringAsync(String.Format("{0}/{1}", API_URL, "login")));
+                user = JsonConvert.DeserializeObject<Gebruiker>(await client.GetStringAsync(GetUri<Gebruiker>("current")));
             }
             catch (Exception)
             {
@@ -289,7 +279,17 @@ namespace ProjectOpendeurdag
             return user;
         }
 
-        public static void SetCredentials(string email, string password)
+        private static void SetCredentials(string email, string password)
+        {
+            RemoveCredentials();
+
+            var vault = new PasswordVault();
+
+            // Add new credentials
+            vault.Add(new PasswordCredential(API_KEY, email, password));
+        }
+
+        private static void RemoveCredentials()
         {
             var vault = new PasswordVault();
 
@@ -302,9 +302,6 @@ namespace ProjectOpendeurdag
             {
                 // No credentials
             }
-
-            // Add new credentials
-            vault.Add(new PasswordCredential(API_KEY, email, password));
         }
     }
 }
