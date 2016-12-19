@@ -54,6 +54,26 @@ namespace WebApiOpendeurdag2.Models
                     x.MapRightKey("OpleidingId");
                     x.ToTable("VoorkeurOpleidingen");
                 });
+
+            modelBuilder.Entity<Infomoment>()
+                .HasOptional(i => i.Campus)
+                .WithMany()
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Infomoment>()
+                .HasOptional(i => i.Opleiding)
+                .WithMany()
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Newsitem>()
+                .HasOptional(n => n.Campus)
+                .WithMany()
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Newsitem>()
+                .HasOptional(n => n.Opleiding)
+                .WithMany()
+                .WillCascadeOnDelete(false);
         }
     }
 }

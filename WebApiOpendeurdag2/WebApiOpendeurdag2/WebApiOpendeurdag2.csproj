@@ -236,6 +236,10 @@
     <Compile Include="Migrations\201612161511523_GebruikersVoorkeuren.Designer.cs">
       <DependentUpon>201612161511523_GebruikersVoorkeuren.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201612191238581_NullableCampusOpleiding.cs" />
+    <Compile Include="Migrations\201612191238581_NullableCampusOpleiding.Designer.cs">
+      <DependentUpon>201612191238581_NullableCampusOpleiding.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Campus.cs" />
     <Compile Include="Models\Gebruiker.cs" />
@@ -294,6 +298,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201612161511523_GebruikersVoorkeuren.resx">
       <DependentUpon>201612161511523_GebruikersVoorkeuren.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612191238581_NullableCampusOpleiding.resx">
+      <DependentUpon>201612191238581_NullableCampusOpleiding.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

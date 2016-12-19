@@ -54,6 +54,16 @@ namespace WebApiOpendeurdag2.Controllers
             }
 
             db.Entry(newsitem).State = EntityState.Modified;
+            
+            if (newsitem.Campus != null)
+            {
+                db.Entry(newsitem.Campus).State = EntityState.Unchanged;
+            }
+
+            if (newsitem.Opleiding != null)
+            {
+                db.Entry(newsitem.Opleiding).State = EntityState.Unchanged;
+            }
 
             try
             {
@@ -84,6 +94,17 @@ namespace WebApiOpendeurdag2.Controllers
             }
 
             db.Newsitems.Add(newsitem);
+
+            if (newsitem.Campus != null)
+            {
+                db.Entry(newsitem.Campus).State = EntityState.Unchanged;
+            }
+
+            if (newsitem.Opleiding != null)
+            {
+                db.Entry(newsitem.Opleiding).State = EntityState.Unchanged;
+            }
+
             await db.SaveChangesAsync();
 
             return CreatedAtRoute("DefaultApi", new { id = newsitem.NewsitemId }, newsitem);

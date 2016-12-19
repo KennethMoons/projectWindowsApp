@@ -15,11 +15,7 @@ namespace WebApiOpendeurdag2.Models
         public String Beschrijving { get; set; }
         public String Datum { get; set; }
         public String Uur { get; set; }
-        public int CampusId { get; set; }
-        [ForeignKey("CampusId")]
-        public Campus Campus { get; set; }
-        public int OpleidingId { get; set; }
-        [ForeignKey("OpleidingId")]
-        public Opleiding Opleiding { get; set; }
+        public virtual Campus Campus { get; set; }
+        public virtual Opleiding Opleiding { get; set; }
     }
 }

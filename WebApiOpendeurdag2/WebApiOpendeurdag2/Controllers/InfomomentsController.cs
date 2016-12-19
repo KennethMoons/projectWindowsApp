@@ -55,6 +55,16 @@ namespace WebApiOpendeurdag2.Controllers
 
             db.Entry(infomoment).State = EntityState.Modified;
 
+            if (infomoment.Campus != null)
+            {
+                db.Entry(infomoment.Campus).State = EntityState.Unchanged;
+            }
+
+            if (infomoment.Opleiding != null)
+            {
+                db.Entry(infomoment.Opleiding).State = EntityState.Unchanged;
+            }
+
             try
             {
                 await db.SaveChangesAsync();
@@ -84,6 +94,17 @@ namespace WebApiOpendeurdag2.Controllers
             }
 
             db.Infomoments.Add(infomoment);
+
+            if (infomoment.Campus != null)
+            {
+                db.Entry(infomoment.Campus).State = EntityState.Unchanged;
+            }
+
+            if (infomoment.Opleiding != null)
+            {
+                db.Entry(infomoment.Opleiding).State = EntityState.Unchanged;
+            }
+
             await db.SaveChangesAsync();
 
             return CreatedAtRoute("DefaultApi", new { id = infomoment.InfomomentId }, infomoment);
