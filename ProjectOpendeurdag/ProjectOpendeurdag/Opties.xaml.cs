@@ -79,16 +79,97 @@ namespace ProjectOpendeurdag
                 }
             }
 
+            // Set initial state for top checkboxes
+            if (VoorkeurCampussen.Count == 0)
+            {
+                AlleCampussen.IsChecked = false;
+            }
+            else if (VoorkeurCampussen.Count == Campussen.Count)
+            {
+                AlleCampussen.IsChecked = true;
+            }
+            else
+            {
+                AlleCampussen.IsChecked = null;
+            }
+
+            if (VoorkeurOpleidingen.Count == 0)
+            {
+                AlleOpleidingen.IsChecked = false;
+            }
+            else if (VoorkeurOpleidingen.Count == Opleidingen.Count)
+            {
+                AlleOpleidingen.IsChecked = true;
+            }
+            else
+            {
+                AlleOpleidingen.IsChecked = null;
+            }
+
             // Listen to changes in preferences
             VoorkeurCampussen.CollectionChanged += VoorkeurCampussen_CollectionChanged;
             VoorkeurOpleidingen.CollectionChanged += VoorkeurOpleidingen_CollectionChanged;
+
+            // Listen to changes in top checkboxes
+            AlleCampussen.Checked += AlleCampussen_Checked;
+            AlleCampussen.Unchecked += AlleCampussen_Unchecked;
+            AlleOpleidingen.Checked += AlleOpleidingen_Checked;
+            AlleOpleidingen.Unchecked += AlleOpleidingen_Unchecked;
 
             // Create states for each campus/opleiding and bind them
             campussen.ForEach(c => VoorkeurCampussenState.Add(new ToggleState<Campus>(VoorkeurCampussen, c)));
             opleidingen.ForEach(o => VoorkeurOpleidingenState.Add(new ToggleState<Opleiding>(VoorkeurOpleidingen, o)));
         }
 
-        private async void VoorkeurCampussen_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        private void VoorkeurCampussen_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            SaveCampussen();
+        }
+
+        private void VoorkeurOpleidingen_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            SaveOpleidingen();
+        }
+
+        private void AlleCampussen_Checked(object sender, RoutedEventArgs e)
+        {
+            // Pause listening for changes
+            VoorkeurCampussen.CollectionChanged -= VoorkeurCampussen_CollectionChanged;
+
+            VoorkeurCampussen.Clear();
+            Campussen.ToList().ForEach(c => VoorkeurCampussen.Add(c));
+
+            SaveCampussen();
+
+            // Resume listening for changes
+            VoorkeurCampussen.CollectionChanged += VoorkeurCampussen_CollectionChanged;
+        }
+
+        private void AlleCampussen_Unchecked(object sender, RoutedEventArgs e)
+        {
+            VoorkeurCampussen.Clear();
+        }
+
+        private void AlleOpleidingen_Checked(object sender, RoutedEventArgs e)
+        {
+            // Pause listening for changes
+            VoorkeurOpleidingen.CollectionChanged -= VoorkeurOpleidingen_CollectionChanged;
+
+            VoorkeurOpleidingen.Clear();
+            Opleidingen.ToList().ForEach(o => VoorkeurOpleidingen.Add(o));
+
+            SaveOpleidingen();
+
+            // Resume listening for changes
+            VoorkeurOpleidingen.CollectionChanged += VoorkeurOpleidingen_CollectionChanged;
+        }
+
+        private void AlleOpleidingen_Unchecked(object sender, RoutedEventArgs e)
+        {
+            VoorkeurOpleidingen.Clear();
+        }
+
+        private async void SaveCampussen()
         {
             if (Gebruiker != null)
             {
@@ -99,7 +180,7 @@ namespace ProjectOpendeurdag
             }
         }
 
-        private async void VoorkeurOpleidingen_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        private async void SaveOpleidingen()
         {
             if (Gebruiker != null)
             {
@@ -110,14 +191,26 @@ namespace ProjectOpendeurdag
             }
         }
 
-        public class ToggleState<T>
+        public class ToggleState<T> : INotifyPropertyChanged
         {
             private ObservableCollection<T> _Collection;
+
+            public event PropertyChangedEventHandler PropertyChanged;
 
             public ToggleState(ObservableCollection<T> collection, T inner)
             {
                 _Collection = collection;
+                _Collection.CollectionChanged += _Collection_CollectionChanged;
                 Inner = inner;
+            }
+
+            private void _Collection_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+            {
+                if (PropertyChanged != null)
+                {
+                    // Notify UI that property might have changed
+                    PropertyChanged(this, new PropertyChangedEventArgs("IsChecked"));
+                }
             }
 
             public T Inner { get; set; }
