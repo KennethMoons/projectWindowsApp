@@ -13,9 +13,7 @@ namespace ProjectOpendeurdag.Models
         public String Beschrijving { get; set; }
         public String Datum { get; set; }
         public String Uur { get; set; }
-        public int CampusId { get; set; }
         public Campus Campus { get; set; }
-        public int OpleidingId { get; set; }
         public Opleiding Opleiding { get; set; }
     }
 }

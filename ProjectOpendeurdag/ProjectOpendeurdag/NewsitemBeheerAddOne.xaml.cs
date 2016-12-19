@@ -33,33 +33,32 @@ namespace ProjectOpendeurdag
 
         private async void OpleidingenComboBox_Loaded(object sender, RoutedEventArgs e)
         {
-            List<Opleiding> opleidingen = await Api.GetAsync<List<Opleiding>>();
-            List<String> waarden = new List<string>();
-            foreach(Opleiding o in opleidingen)
-            {
-                waarden.Add(o.Naam);
-            }
-            OpleidingenComboBox.ItemsSource = waarden;
+            List<Opleiding> opleidingen = new List<Opleiding>();
+            Opleiding nullOpleiding = new NullOpleiding();
+            opleidingen.Add(nullOpleiding);
+            opleidingen.AddRange(await Api.GetAsync<List<Opleiding>>());
+            OpleidingenComboBox.ItemsSource = opleidingen;
         }
 
         private async void CampussenComboBox_Loaded(object sender, RoutedEventArgs e)
         {
-            List<Campus> campussen = await Api.GetAsync<List<Campus>>();
-            List<String> waarden = new List<string>();
-            foreach (Campus c in campussen)
-            {
-                waarden.Add(c.Naam);
-            }
-            CampussenComboBox.ItemsSource = waarden;
+            List<Campus> campussen = new List<Campus>();
+            Campus nullCampus = new NullCampus();
+            campussen.Add(nullCampus);
+            campussen.AddRange(await Api.GetAsync<List<Campus>>());
+            CampussenComboBox.ItemsSource = campussen;
         }
 
         private async void AppBarButton_Click(object sender, RoutedEventArgs e)
         {
+            var campus = CampussenComboBox.SelectedValue as Campus;
+            var opleiding = OpleidingenComboBox.SelectedValue as Opleiding;
+
             Newsitem newsitem = new Newsitem();
-            newsitem.CampusId = CampussenComboBox.SelectedIndex + 1;
+            newsitem.Campus = campus is NullCampus ? null : campus;
             newsitem.Datum = Datum.Date.ToString().Split(' ')[0];
             newsitem.Inhoud = beschrijving.Text;
-            newsitem.OpleidingId = OpleidingenComboBox.SelectedIndex + 1;
+            newsitem.Opleiding = opleiding is NullOpleiding ? null : opleiding;
             newsitem.Titel = titel.Text;
             newsitem.Uur = Tijd.Time.ToString();
             await Api.PostAsync<Newsitem>(newsitem);

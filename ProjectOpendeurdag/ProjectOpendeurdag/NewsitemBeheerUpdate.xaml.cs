@@ -35,31 +35,28 @@ namespace ProjectOpendeurdag
             newsitem = e.Parameter as Newsitem;
             titel.Text = newsitem.Titel;
             beschrijving.Text = newsitem.Inhoud;
-            Datum.Date = new DateTime(Int32.Parse(newsitem.Datum.Split('/')[2]), Int32.Parse(newsitem.Datum.Split('/')[1]), Int32.Parse(newsitem.Datum.Split('/')[0]));
+            Datum.Date = DateTime.Parse(newsitem.Datum);
+            Tijd.Time = TimeSpan.Parse(newsitem.Uur);
         }
 
         private async void OpleidingenComboBox_Loaded(object sender, RoutedEventArgs e)
         {
-            List<Opleiding> opleidingen = await Api.GetAsync<List<Opleiding>>();
-            List<String> waarden = new List<string>();
-            foreach (Opleiding o in opleidingen)
-            {
-                waarden.Add(o.Naam);
-            }
-            OpleidingenComboBox.ItemsSource = waarden;
-            OpleidingenComboBox.SelectedIndex = newsitem.OpleidingId - 1;
+            List<Opleiding> opleidingen = new List<Opleiding>();
+            Opleiding nullOpleiding = new NullOpleiding();
+            opleidingen.Add(nullOpleiding);
+            opleidingen.AddRange(await Api.GetAsync<List<Opleiding>>());
+            OpleidingenComboBox.ItemsSource = opleidingen;
+            OpleidingenComboBox.SelectedItem = newsitem.Opleiding != null ? newsitem.Opleiding : nullOpleiding;
         }
 
         private async void CampussenComboBox_Loaded(object sender, RoutedEventArgs e)
         {
-            List<Campus> campussen = await Api.GetAsync<List<Campus>>();
-            List<String> waarden = new List<string>();
-            foreach (Campus c in campussen)
-            {
-                waarden.Add(c.Naam);
-            }
-            CampussenComboBox.ItemsSource = waarden;
-            CampussenComboBox.SelectedIndex = newsitem.CampusId - 1;
+            List<Campus> campussen = new List<Campus>();
+            Campus nullCampus = new NullCampus();
+            campussen.Add(nullCampus);
+            campussen.AddRange(await Api.GetAsync<List<Campus>>());
+            CampussenComboBox.ItemsSource = campussen;
+            CampussenComboBox.SelectedItem = newsitem.Campus != null ? newsitem.Campus : nullCampus;
         }
 
         private async void AppBarButton_Click_1(object sender, RoutedEventArgs e)
@@ -70,11 +67,14 @@ namespace ProjectOpendeurdag
 
         private async void AppBarButton_Click(object sender, RoutedEventArgs e)
         {
+            var campus = CampussenComboBox.SelectedItem as Campus;
+            var opleiding = OpleidingenComboBox.SelectedItem as Opleiding;
+
             newsitem.Titel = titel.Text;
             newsitem.Inhoud = beschrijving.Text;
-            newsitem.CampusId = CampussenComboBox.SelectedIndex + 1;
+            newsitem.Campus = campus is NullCampus ? null : campus;
             newsitem.Datum = Datum.Date.ToString().Split(' ')[0];
-            newsitem.OpleidingId = OpleidingenComboBox.SelectedIndex + 1;
+            newsitem.Opleiding = opleiding is NullOpleiding ? null : opleiding;
             newsitem.Uur = Tijd.Time.ToString();
             await Api.PutAsync<Newsitem>(newsitem.NewsitemId, newsitem);
             Frame.GoBack();

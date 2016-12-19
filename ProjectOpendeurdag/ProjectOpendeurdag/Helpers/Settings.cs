@@ -77,7 +77,6 @@ namespace ProjectOpendeurdag.Helpers
 
         public static List<Opleiding> GetVoorkeurOpleidingen()
         {
-
             if (_CurrentGebruiker != null)
             {
                 Container.Values[VoorkeurOpleidingen] = JsonConvert.SerializeObject(_CurrentGebruiker.VoorkeurOpleidingen);

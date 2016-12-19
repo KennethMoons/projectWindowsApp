@@ -32,4 +32,12 @@ namespace ProjectOpendeurdag.Models
             return this.CampusId.GetHashCode();
         }
     }
+
+    public class NullCampus : Campus
+    {
+        public NullCampus()
+        {
+            Naam = "Geen";
+        }
+    }
 }

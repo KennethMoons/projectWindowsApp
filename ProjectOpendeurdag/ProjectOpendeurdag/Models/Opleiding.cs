@@ -52,13 +52,6 @@ namespace ProjectOpendeurdag.Models
             }
         }
 
-        public Opleiding(string naam, string type, string imageLink)
-        {
-            this.Naam = naam;
-            this.Type = type;
-            this.ImageLink = imageLink;
-        }
-
         public override bool Equals(object obj)
         {
             var item = obj as Opleiding;
@@ -77,22 +70,11 @@ namespace ProjectOpendeurdag.Models
         }
     }
 
-    class OpleidingenLijst
+    public class NullOpleiding : Opleiding
     {
-        public static List<Opleiding> getOpleidingen()
+        public NullOpleiding()
         {
-            List<Opleiding> opleidingen = new List<Opleiding>();
-            Opleiding o1 = new Opleiding("bedrijfsmanagement","professionele bachelor","Assets/opleiding1.PNG");
-            Opleiding o2 = new Opleiding("Office management", "professionele bachelor", "Assets/opleiding2.PNG");
-            Opleiding o3 = new Opleiding("Retailmanagement", "professionele bachelor", "Assets/opleiding3.PNG");
-            Opleiding o4 = new Opleiding("Toegepaste informatica", "professionele bachelor", "Assets/opleiding4.PNG");
-
-            opleidingen.Add(o1);
-            opleidingen.Add(o2);
-            opleidingen.Add(o3);
-            opleidingen.Add(o4);
-
-            return opleidingen;
+            Naam = "Geen";
         }
     }
 }

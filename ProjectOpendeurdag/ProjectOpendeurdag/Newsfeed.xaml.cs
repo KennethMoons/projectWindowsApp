@@ -15,6 +15,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using ProjectOpendeurdag.Helpers;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -33,58 +34,21 @@ namespace ProjectOpendeurdag
         }
         public async void getNewsItems()
         {
-            List<Newsitem> newsitemsResult = await Api.GetAsync<List<Newsitem>>();
-            List<Newsitem> newsItems = new List<Newsitem>();
-            //List<VoorkeurCampus> voorkeurCampusItemsDb = await Api.GetAsync<List<VoorkeurCampus>>();
-            //List<VoorkeurCampus> voorkeurcampussen = new List<VoorkeurCampus>();
-            //var roamingSettings = ApplicationData.Current.RoamingSettings;
-            //foreach (VoorkeurCampus vc in voorkeurCampusItemsDb)
-            //{
-            //    if (vc.GebruikerId == Int32.Parse(roamingSettings.Values["gebruikerId"].ToString()))
-            //    {
-            //        voorkeurcampussen.Add(vc);
-            //    }
-            //}
-            //List<VoorkeurOpleiding> voorkeurOpleidingenDb = await Api.GetAsync<List<VoorkeurOpleiding>>();
-            //List<VoorkeurOpleiding> voorkeuropleidingen = new List<VoorkeurOpleiding>();
-            //foreach (VoorkeurOpleiding vo in voorkeurOpleidingenDb)
-            //{
-            //    if (vo.GebruikerId == Int32.Parse(roamingSettings.Values["gebruikerId"].ToString()))
-            //    {
-            //        voorkeuropleidingen.Add(vo);
-            //    }
-            //}
+            var newsitemsResult = await Api.GetAsync<List<Newsitem>>();
+            var voorkeurCampussen = Settings.GetVoorkeurCampussen();
+            var voorkeurOpleidingen = Settings.GetVoorkeurOpleidingen();
 
-
-            foreach (Newsitem n in newsitemsResult)
+            newsitemsResult.Where(n =>
             {
-                if (n.CampusId == 4 && n.OpleidingId == 5)
-                {
-                    newsItems.Add(n);
-                }
-            }
-            //foreach (VoorkeurCampus vc in voorkeurcampussen)
-            //{
-            //    foreach (Newsitem n in newsitemsResult)
-            //    {
-            //        if (n.CampusId == vc.CampusId)
-            //        {
-            //            newsItems.Add(n);
-            //        }
-            //    }
-            //}
-            //foreach (VoorkeurOpleiding vo in voorkeuropleidingen)
-            //{
-            //    foreach (Newsitem n in newsitemsResult)
-            //    {
-            //        if (n.OpleidingId == vo.OpleidingId)
-            //        {
-            //            newsItems.Add(n);
-            //        }
-            //    }
-            //}
-            foreach (Newsitem n in newsItems)
+                // Ensure campus & opleiding are either not set or in voorkeuren
+                var voorkeurCampus = n.Campus != null ? voorkeurCampussen.Contains(n.Campus) : true;
+                var voorkeurOpleiding = n.Opleiding != null ? voorkeurOpleidingen.Contains(n.Opleiding) : true;
+                return voorkeurCampus && voorkeurOpleiding;
+            }).ToList().ForEach(n =>
+            {
+                // Add all news items to list
                 NewsfeedList.Add(n);
+            });
         }
 
         private void NewsItem_click(object sender, ItemClickEventArgs e)
