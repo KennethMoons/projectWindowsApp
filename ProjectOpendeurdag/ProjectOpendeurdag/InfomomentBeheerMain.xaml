@@ -5,7 +5,22 @@
     xmlns:local="using:ProjectOpendeurdag"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:data="using:ProjectOpendeurdag.Models"
     mc:Ignorable="d">
+
+    <Page.Resources>
+        <DataTemplate x:DataType="data:Infomoment" x:Key="InfomomentDataTemplate">
+            <StackPanel HorizontalAlignment="Center" Margin="25 15 15 30">
+                <StackPanel>
+                    <Border BorderBrush="#606060" BorderThickness="0 0 0 1" VerticalAlignment="Top">
+                        <TextBlock  Text="{x:Bind Titel}" FontSize="24"  />
+                    </Border>
+                    <TextBlock Text="{x:Bind Beschrijving}" FontSize="24" Margin="0 15 0 0"/>
+                </StackPanel>
+            </StackPanel>
+        </DataTemplate>
+
+    </Page.Resources>
 
     <Page.BottomAppBar>
         <CommandBar>
@@ -13,16 +28,40 @@
         </CommandBar>
     </Page.BottomAppBar>
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <ListBox x:Name="infomomentenList" SelectionChanged="infomomenten_SelectionChanged">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel>
-                        <TextBlock Text="{Binding Titel}" FontSize="24"/>
-                        <TextBlock Text="{Binding Beschrijving}"/>
-                    </StackPanel>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="VisualStateGroup">
+                <VisualState x:Name="Wide">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="800" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="Listview.Visibility" Value="Collapsed"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="Narrow">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="Gridview.Visibility" Value="Collapsed"/>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <GridView Name="Gridview" Grid.Row="0" ItemsSource="{x:Bind InfomomentList}" IsItemClickEnabled="True" ItemClick="Infomoment_click" ItemTemplate="{StaticResource InfomomentDataTemplate}">
+        </GridView>
+
+        <ListView Name="Listview" 
+                  ItemsSource="{x:Bind InfomomentList}" 
+                  ItemClick="Infomoment_click" 
+                  IsItemClickEnabled="True" 
+                  ItemTemplate="{StaticResource InfomomentDataTemplate}"
+                  >
+        </ListView>
 
     </Grid>
 </Page>
