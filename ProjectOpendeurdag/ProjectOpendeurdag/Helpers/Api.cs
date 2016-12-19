@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using Windows.Security.Credentials;
 using Windows.Storage;
 using System.Diagnostics;
+using ProjectOpendeurdag.Helpers;
 
 namespace ProjectOpendeurdag
 {
@@ -184,14 +185,17 @@ namespace ProjectOpendeurdag
             client.DefaultRequestHeaders.Add("API_KEY", API_KEY);
 
             // Set authorization if logged in
-            var loginCredential = GetCredentialFromLocker();
-
-            if (loginCredential != null)
+            if (Settings.IsGebruikerLoggedIn())
             {
-                var username = loginCredential.UserName;
-                var password = loginCredential.Password;
-                var auth = Convert.ToBase64String(ASCIIEncoding.ASCII.GetBytes(String.Format("{0}:{1}", username, password)));
-                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", auth);
+                var loginCredential = GetCredentialFromLocker();
+
+                if (loginCredential != null)
+                {
+                    var username = loginCredential.UserName;
+                    var password = loginCredential.Password;
+                    var auth = Convert.ToBase64String(ASCIIEncoding.ASCII.GetBytes(String.Format("{0}:{1}", username, password)));
+                    client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", auth);
+                }
             }
 
             return client;
@@ -236,10 +240,7 @@ namespace ProjectOpendeurdag
         {
             Debug.WriteLine("LOGOUT");
 
-            var settings = ApplicationData.Current.RoamingSettings;
-
-            settings.Values.Remove("gebruikerId");
-            settings.Values.Remove("gebruikerIsAdmin");
+            Settings.SetCurrentGebruiker(null);
 
             var vault = new PasswordVault();
 
@@ -278,20 +279,12 @@ namespace ProjectOpendeurdag
                 // Login failed
             }
 
-            var settings = ApplicationData.Current.RoamingSettings;
-
             if (user != null)
             {
-                settings.Values["gebruikerId"] = user.GebruikerId;
-                settings.Values["gebruikerIsAdmin"] = user.Rol != null && GebruikersRollen.Admin.Equals(user.Rol);
-
                 SetCredentials(email, password);
             }
-            else
-            {
-                settings.Values.Remove("gebruikerId");
-                settings.Values.Remove("gebruikerIsAdmin");
-            }
+
+            Settings.SetCurrentGebruiker(user);
 
             return user;
         }
