@@ -18,6 +18,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Net.Http;
+using ProjectOpendeurdag.Helpers;
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace ProjectOpendeurdag
@@ -27,7 +28,6 @@ namespace ProjectOpendeurdag
     /// </summary>
     public sealed partial class Opties : Page
     {
-        public Gebruiker Gebruiker { get; set; }
         public ObservableCollection<Campus> Campussen { get; set; }
         public ObservableCollection<Opleiding> Opleidingen { get; set; }
         public ObservableCollection<Campus> VoorkeurCampussen { get; set; }
@@ -61,49 +61,28 @@ namespace ProjectOpendeurdag
             campussen.ForEach(c => Campussen.Add(c));
             opleidingen.ForEach(o => Opleidingen.Add(o));
 
-            // Get current user
-            Gebruiker = await Api.GetAsync<Gebruiker>("current");
+            // Get preferences from settings
+            Settings.GetVoorkeurCampussen().ForEach(c => VoorkeurCampussen.Add(c));
+            Settings.GetVoorkeurOpleidingen().ForEach(o => VoorkeurOpleidingen.Add(o));
 
-            // Set preferences if user is logged in
-            if (Gebruiker != null)
-            {
-                if (Gebruiker.VoorkeurCampussen != null)
-                {
-                    VoorkeurCampussen.Clear();
-                    Gebruiker.VoorkeurCampussen.ForEach(c => VoorkeurCampussen.Add(c));
-                }
-                if (Gebruiker.VoorkeurOpleidingen != null)
-                {
-                    VoorkeurOpleidingen.Clear();
-                    Gebruiker.VoorkeurOpleidingen.ForEach(o => VoorkeurOpleidingen.Add(o));
-                }
-            }
+            // Set initial state for 'check all' checkboxes
 
-            // Set initial state for top checkboxes
-            if (VoorkeurCampussen.Count == 0)
-            {
-                AlleCampussen.IsChecked = false;
-            }
-            else if (VoorkeurCampussen.Count == Campussen.Count)
-            {
-                AlleCampussen.IsChecked = true;
-            }
-            else
+            if (VoorkeurCampussen.Count > 0 && VoorkeurCampussen.Count < Campussen.Count)
             {
                 AlleCampussen.IsChecked = null;
             }
-
-            if (VoorkeurOpleidingen.Count == 0)
+            else
             {
-                AlleOpleidingen.IsChecked = false;
+                AlleCampussen.IsChecked = VoorkeurCampussen.Count == Campussen.Count;
             }
-            else if (VoorkeurOpleidingen.Count == Opleidingen.Count)
+
+            if (VoorkeurOpleidingen.Count > 0 && VoorkeurOpleidingen.Count < Opleidingen.Count)
             {
-                AlleOpleidingen.IsChecked = true;
+                AlleOpleidingen.IsChecked = null;
             }
             else
             {
-                AlleOpleidingen.IsChecked = null;
+                AlleOpleidingen.IsChecked = VoorkeurOpleidingen.Count == Opleidingen.Count;
             }
 
             // Listen to changes in preferences
@@ -123,12 +102,12 @@ namespace ProjectOpendeurdag
 
         private void VoorkeurCampussen_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
-            SaveCampussen();
+            Settings.SetVoorkeurCampussen(VoorkeurCampussen);
         }
 
         private void VoorkeurOpleidingen_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
-            SaveOpleidingen();
+            Settings.SetVoorkeurOpleidingen(VoorkeurOpleidingen);
         }
 
         private void AlleCampussen_Checked(object sender, RoutedEventArgs e)
@@ -139,7 +118,7 @@ namespace ProjectOpendeurdag
             VoorkeurCampussen.Clear();
             Campussen.ToList().ForEach(c => VoorkeurCampussen.Add(c));
 
-            SaveCampussen();
+            Settings.SetVoorkeurCampussen(VoorkeurCampussen);
 
             // Resume listening for changes
             VoorkeurCampussen.CollectionChanged += VoorkeurCampussen_CollectionChanged;
@@ -158,7 +137,7 @@ namespace ProjectOpendeurdag
             VoorkeurOpleidingen.Clear();
             Opleidingen.ToList().ForEach(o => VoorkeurOpleidingen.Add(o));
 
-            SaveOpleidingen();
+            Settings.SetVoorkeurOpleidingen(VoorkeurOpleidingen);
 
             // Resume listening for changes
             VoorkeurOpleidingen.CollectionChanged += VoorkeurOpleidingen_CollectionChanged;
@@ -167,28 +146,6 @@ namespace ProjectOpendeurdag
         private void AlleOpleidingen_Unchecked(object sender, RoutedEventArgs e)
         {
             VoorkeurOpleidingen.Clear();
-        }
-
-        private async void SaveCampussen()
-        {
-            if (Gebruiker != null)
-            {
-                Gebruiker.VoorkeurCampussen.Clear();
-                Gebruiker.VoorkeurCampussen.AddRange(VoorkeurCampussen);
-
-                await Api.PutAsync<Gebruiker>(Gebruiker.GebruikerId, Gebruiker);
-            }
-        }
-
-        private async void SaveOpleidingen()
-        {
-            if (Gebruiker != null)
-            {
-                Gebruiker.VoorkeurOpleidingen.Clear();
-                Gebruiker.VoorkeurOpleidingen.AddRange(VoorkeurOpleidingen);
-
-                await Api.PutAsync<Gebruiker>(Gebruiker.GebruikerId, Gebruiker);
-            }
         }
 
         public class ToggleState<T> : INotifyPropertyChanged

@@ -17,7 +17,7 @@
                               Content="Alle campussen"/>
                 </ListBoxItem>
                 <ListBox ItemsSource="{x:Bind VoorkeurCampussenState}"
-                     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+                         Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <CheckBox Content="{Binding Inner.Naam}" 
@@ -33,7 +33,7 @@
                               Content="Alle opleidingen"/>
                 </ListBoxItem>
                 <ListBox ItemsSource="{x:Bind VoorkeurOpleidingenState}"
-                     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+                         Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <CheckBox Content="{Binding Inner.Naam}" 

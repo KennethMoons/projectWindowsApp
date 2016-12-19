@@ -16,6 +16,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using System.Diagnostics;
 using Windows.UI.Core;
+using ProjectOpendeurdag.Helpers;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -43,11 +44,8 @@ namespace ProjectOpendeurdag
 
         private void ToggleLoginButtons()
         {
-            var settings = ApplicationData.Current.RoamingSettings;
-
-
-            bool isLoggedIn = settings.Values["gebruikerId"] != null;
-            bool isAdmin = settings.Values["gebruikerIsAdmin"] != null && Boolean.Parse(settings.Values["gebruikerIsAdmin"].ToString());
+            bool isLoggedIn = Settings.IsGebruikerLoggedIn();
+            bool isAdmin = Settings.IsGebruikerLoggedIn();
 
             LoginButton.Visibility = !isLoggedIn ? Visibility.Visible : Visibility.Collapsed;
             UserButton.Visibility = isLoggedIn && !isAdmin ? Visibility.Visible : Visibility.Collapsed;
