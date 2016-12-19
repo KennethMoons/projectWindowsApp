@@ -16,6 +16,8 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using ProjectOpendeurdag.Helpers;
+using Windows.UI.Text;
+using Windows.Storage.Streams;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -33,44 +35,42 @@ namespace ProjectOpendeurdag
 
         private async void CampussenComboBox_Loaded(object sender, RoutedEventArgs e)
         {
-            List<Campus> campussen = await Api.GetAsync<List<Campus>>();
-            List<String> waarden = new List<string>();
-            foreach (Campus c in campussen)
-            {
-                waarden.Add(c.Naam);
-            }
-            CampussenComboBox.ItemsSource = waarden;
-            CampussenComboBox.SelectedIndex = 3;
-        }
-
-        private async void AppBarButton_Click(object sender, RoutedEventArgs e)
-        {
-            Infomoment infomoment = new Infomoment();
-            infomoment.Titel = titel.Text;
-            infomoment.Beschrijving = beschrijving.Text;
-            //infomoment.CampusId = CampussenComboBox.SelectedIndex + 1;
-            infomoment.Datum = Datum.Date.ToString().Split(' ')[0];
-            //infomoment.OpleidingId = OpleidingenComboBox.SelectedIndex + 1;
-            infomoment.Uur = Tijd.Time.ToString();
-            await Api.PostAsync<Infomoment>(infomoment);
-            Frame.GoBack();
-        }
-
-        private void AppBarButton_Click_1(object sender, RoutedEventArgs e)
-        {
-            Frame.GoBack();
+            List<Campus> campussen = new List<Campus>();
+            Campus nullCampus = new NullCampus();
+            campussen.Add(nullCampus);
+            campussen.AddRange(await Api.GetAsync<List<Campus>>());
+            CampussenComboBox.ItemsSource = campussen;
+            CampussenComboBox.SelectedItem = nullCampus;
         }
 
         private async void OpleidingenComboBox_Loaded(object sender, RoutedEventArgs e)
         {
-            List<Opleiding> opleidingen = await Api.GetAsync<List<Opleiding>>();
-            List<String> waarden = new List<string>();
-            foreach (Opleiding o in opleidingen)
-            {
-                waarden.Add(o.Naam);
-            }
-            OpleidingenComboBox.ItemsSource = waarden;
-            OpleidingenComboBox.SelectedIndex = 4;
+            List<Opleiding> opleidingen = new List<Opleiding>();
+            Opleiding nullOpleiding = new NullOpleiding();
+            opleidingen.Add(nullOpleiding);
+            opleidingen.AddRange(await Api.GetAsync<List<Opleiding>>());
+            OpleidingenComboBox.ItemsSource = opleidingen;
+            OpleidingenComboBox.SelectedItem = nullOpleiding;
+        }
+
+        private async void Save_Click(object sender, RoutedEventArgs e)
+        {
+            Infomoment infomoment = new Infomoment();
+
+            infomoment.Titel = titel.Text;
+            infomoment.Beschrijving = beschrijving.Text;
+            infomoment.Datum = Datum.Date.ToString().Split(' ')[0];
+            infomoment.Uur = Tijd.Time.ToString();
+            
+            var campus = CampussenComboBox.SelectedValue as Campus;
+            var opleiding = OpleidingenComboBox.SelectedValue as Opleiding;
+
+            infomoment.Campus = campus is NullCampus ? null : campus;
+            infomoment.Opleiding = opleiding is NullOpleiding ? null : opleiding;
+
+            await Api.PostAsync<Infomoment>(infomoment);
+
+            Frame.GoBack();
         }
     }
 }

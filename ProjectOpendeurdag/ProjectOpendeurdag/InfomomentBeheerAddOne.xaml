@@ -8,8 +8,7 @@
     mc:Ignorable="d">
     <Page.BottomAppBar>
         <CommandBar>
-            <AppBarButton Icon="Accept" Label="Add" Click="AppBarButton_Click"/>
-            <AppBarButton Icon="Cancel" Label="appbarbutton" Click="AppBarButton_Click_1"/>
+            <AppBarButton Icon="Save" Label="Opslaan" Click="Save_Click"/>
         </CommandBar>
     </Page.BottomAppBar>
 
@@ -36,9 +35,8 @@
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
         <StackPanel>
-            <TextBox x:Name="titel" PlaceholderText="titel" Margin="20"/>
-            <TextBox x:Name="beschrijving" PlaceholderText="beschrijving" Margin="20" Height="180px"/>
-
+            <TextBox x:Name="titel" PlaceholderText="Titel" Margin="20"/>
+            <TextBox x:Name="beschrijving" PlaceholderText="Beschrijving" Margin="20" Height="180px"/>
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="2*"/>

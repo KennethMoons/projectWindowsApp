@@ -32,53 +32,57 @@ namespace ProjectOpendeurdag
             this.InitializeComponent();
         }
 
+        private async void CampussenComboBox_Loaded(object sender, RoutedEventArgs e)
+        {
+            List<Campus> campussen = new List<Campus>();
+            Campus nullCampus = new NullCampus();
+            campussen.Add(nullCampus);
+            campussen.AddRange(await Api.GetAsync<List<Campus>>());
+            CampussenComboBox.ItemsSource = campussen;
+            CampussenComboBox.SelectedItem = infomoment.Campus != null ? infomoment.Campus : nullCampus;
+        }
+
+        private async void OpleidingenComboBox_Loaded(object sender, RoutedEventArgs e)
+        {
+            List<Opleiding> opleidingen = new List<Opleiding>();
+            Opleiding nullOpleiding = new NullOpleiding();
+            opleidingen.Add(nullOpleiding);
+            opleidingen.AddRange(await Api.GetAsync<List<Opleiding>>());
+            OpleidingenComboBox.ItemsSource = opleidingen;
+            OpleidingenComboBox.SelectedItem = infomoment.Opleiding != null ? infomoment.Opleiding : nullOpleiding;
+        }
+
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             infomoment = e.Parameter as Infomoment;
             titel.Text = infomoment.Titel;
             beschrijving.Text = infomoment.Beschrijving;
-            Datum.Date = new DateTime(Int32.Parse(infomoment.Datum.Split('/')[2]), Int32.Parse(infomoment.Datum.Split('/')[1]), Int32.Parse(infomoment.Datum.Split('/')[0]));
+            Datum.Date = DateTime.Parse(infomoment.Datum);
+            Tijd.Time = TimeSpan.Parse(infomoment.Uur);
         }
-        private async void AppBarButton_Click(object sender, RoutedEventArgs e)
+        private async void Save_Click(object sender, RoutedEventArgs e)
         {
             infomoment.Titel = titel.Text;
             infomoment.Beschrijving = beschrijving.Text;
-            //infomoment.CampusId = CampussenComboBox.SelectedIndex + 1;
             infomoment.Datum = Datum.Date.ToString().Split(' ')[0];
-            //infomoment.OpleidingId = OpleidingenComboBox.SelectedIndex + 1;
             infomoment.Uur = Tijd.Time.ToString();
+
+            var campus = CampussenComboBox.SelectedValue as Campus;
+            var opleiding = OpleidingenComboBox.SelectedValue as Opleiding;
+
+            infomoment.Campus = campus is NullCampus ? null : campus;
+            infomoment.Opleiding = opleiding is NullOpleiding ? null : opleiding;
+
             await Api.PutAsync<Infomoment>(infomoment.InfomomentId, infomoment);
+
             Frame.GoBack();
         }
 
-        private async void AppBarButton_Click_1(object sender, RoutedEventArgs e)
+        private async void Delete_Click(object sender, RoutedEventArgs e)
         {
             await Api.DeleteAsync<Infomoment>(infomoment.InfomomentId);
+
             Frame.GoBack();
-        }
-
-        private async void OpleidingenComboBox_Loaded(object sender, RoutedEventArgs e)
-        {
-            List<Opleiding> opleidingen = await Api.GetAsync<List<Opleiding>>();
-            List<String> waarden = new List<string>();
-            foreach (Opleiding o in opleidingen)
-            {
-                waarden.Add(o.Naam);
-            }
-            OpleidingenComboBox.ItemsSource = waarden;
-            //OpleidingenComboBox.SelectedIndex = infomoment.OpleidingId -1;
-        }
-
-        private async void CampussenComboBox_Loaded(object sender, RoutedEventArgs e)
-        {
-            List<Campus> campussen = await Api.GetAsync<List<Campus>>();
-            List<String> waarden = new List<string>();
-            foreach (Campus c in campussen)
-            {
-                waarden.Add(c.Naam);
-            }
-            CampussenComboBox.ItemsSource = waarden;
-            //CampussenComboBox.SelectedIndex = infomoment.CampusId - 1;
         }
     }
 }
