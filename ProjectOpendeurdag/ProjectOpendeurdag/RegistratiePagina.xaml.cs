@@ -16,6 +16,8 @@ using ProjectOpendeurdag.Models;
 using Newtonsoft.Json;
 using System.Net.Http;
 using ProjectOpendeurdag.Helpers;
+using System.ComponentModel.DataAnnotations;
+using Prism.Windows.Validation;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -26,33 +28,110 @@ namespace ProjectOpendeurdag
     /// </summary>
     public sealed partial class RegistratiePagina : Page
     {
+        public RegistratieModel Registratie { get; set; }
+
+
         public RegistratiePagina()
         {
             this.InitializeComponent();
+            this.Loaded += RegistratiePagina_Loaded;
+        }
+
+        private void RegistratiePagina_Loaded(object sender, RoutedEventArgs e)
+        {
+            Registratie = DataContext as RegistratieModel;
+            Registratie.ErrorsChanged += Registratie_ErrorsChanged;
+        }
+
+        private void Registratie_ErrorsChanged(object sender, System.ComponentModel.DataErrorsChangedEventArgs e)
+        {
+            ErrorList.ItemsSource = Registratie.Errors.Errors.Values.SelectMany(x => x);
         }
 
         private async void Submit_Click(object sender, RoutedEventArgs e)
         {
-            Gebruiker gebruiker = new Gebruiker();
-            gebruiker.Wachtwoord = TxtPwd.Password;
-            gebruiker.Naam = VoornaamAddr.Text + " " + NameAddr.Text;
-            gebruiker.Adres = TxtAddr.Text;
-            gebruiker.Postcode = TxtPostcode.Text;
-            gebruiker.Gemeente = TxtGemeente.Text;
-            gebruiker.Email = TxtEmail.Text;
-            gebruiker.Telnr = TxtTelefoon.Text;
-            await Api.PostAsync<Gebruiker>(gebruiker);
-            Frame.GoBack();
+            if (Registratie.ValidateProperties())
+            {
+                Gebruiker gebruiker = new Gebruiker();
+
+                gebruiker.Email = Registratie.Email;
+                gebruiker.Wachtwoord = Registratie.Wachtwoord;
+                gebruiker.Naam = Registratie.Voornaam + " " + Registratie.Naam;
+                gebruiker.Adres = Registratie.Adres;
+                gebruiker.Postcode = Registratie.Postcode;
+                gebruiker.Gemeente = Registratie.Gemeente;
+                gebruiker.Telnr = Registratie.Telefoon;
+
+                try
+                {
+                    await Api.PostAsync<Gebruiker>(gebruiker);
+                    await Api.Login(gebruiker.Email, gebruiker.Adres);
+                }
+                catch (Exception)
+                {
+                    // Something went wrong
+                }
+
+
+                Frame.GoBack();
+            }
         }
+    }
 
-        private void Txt_GotFocus(object sender, RoutedEventArgs e)
+    public class RegistratieModel : ValidatableBindableBase
+    {
+        private string email;
+        private string wachtwoord;
+        private string naam;
+        private string voornaam;
+        private string adres;
+        private string postcode;
+        private string gemeente;
+        private string telefoon;
+
+        [Required]
+        [RegularExpression(@"\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*", ErrorMessage = "Gelieve een geldig email adres in te geven")]
+        public string Email
         {
-
+            get { return email; }
+            set { SetProperty(ref email, value); }
         }
-
-        private void pwd_GotFocus(object sender, RoutedEventArgs e)
+        [Required]
+        public string Wachtwoord
         {
-
+            get { return wachtwoord; }
+            set { SetProperty(ref wachtwoord, value); }
+        }
+        public string Naam
+        {
+            get { return naam; }
+            set { SetProperty(ref naam, value); }
+        }
+        public string Voornaam
+        {
+            get { return voornaam; }
+            set { SetProperty(ref voornaam, value); }
+        }
+        public string Adres
+        {
+            get { return adres; }
+            set { SetProperty(ref adres, value); }
+        }
+        [RegularExpression(@"\d{4}", ErrorMessage = "Gelieve een geldige postcode in te geven")]
+        public string Postcode
+        {
+            get { return postcode; }
+            set { SetProperty(ref postcode, value); }
+        }
+        public string Gemeente
+        {
+            get { return gemeente; }
+            set { SetProperty(ref gemeente, value); }
+        }
+        public string Telefoon
+        {
+            get { return telefoon; }
+            set { SetProperty(ref telefoon, value); }
         }
     }
 }

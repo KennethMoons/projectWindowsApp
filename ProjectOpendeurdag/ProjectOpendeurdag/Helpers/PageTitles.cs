@@ -25,6 +25,8 @@ namespace ProjectOpendeurdag.Helpers
             { typeof(Opleidingen), "Opleidingen" },
             { typeof(InfomomentFeed), "Infomomenten" },
             { typeof(InfomomentfeedDetail), "Infomoment" },
+            { typeof(LoginPage), "Inloggen" },
+            { typeof(RegistratiePagina), "Registreren" },
         };
 
         public static string Get(Type pageType)

@@ -7,97 +7,59 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid x:Name="LayoutRoot" Background="White">
+    <Page.DataContext>
+        <local:RegistratieModel />
+    </Page.DataContext>
 
-        <Grid Margin="5,0,0,0">
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Padding="10">
+        <StackPanel MaxWidth="500" Margin="10,0">
+            <TextBlock Style="{ThemeResource HeaderTextBlockStyle}">Registreren</TextBlock>
+            <ItemsControl Name="ErrorList" ItemsSource="{Binding Errors.Errors}" />
+            <StackPanel Margin="0,0,0,10">
+                <TextBlock Style="{ThemeResource TitleTextBlockStyle}" Margin="0,10">Account</TextBlock>
+                <StackPanel>
+                    <TextBlock Text="Email" Margin="0,0,0,5" />
+                    <TextBox Text="{Binding Email, Mode=TwoWay}" InputScope="EmailNameOrAddress" />
+                </StackPanel>
+                <StackPanel Margin="0,5,0,0">
+                    <TextBlock Text="Wachtwoord" Margin="0,0,0,5" />
+                    <PasswordBox Password="{Binding Wachtwoord, Mode=TwoWay}" />
+                </StackPanel>
+                <TextBlock Style="{ThemeResource TitleTextBlockStyle}" Margin="0,10">Contactgegevens</TextBlock>
+                <StackPanel Margin="0,5,0,0">
+                    <TextBlock Text="Naam" Margin="0,0,0,5" />
+                    <TextBox Text="{Binding Naam, Mode=TwoWay}"/>
+                </StackPanel>
+                <StackPanel Margin="0,5,0,0">
+                    <TextBlock Text="Voornaam" Margin="0,0,0,5" />
+                    <TextBox Text="{Binding Voornaam, Mode=TwoWay}" />
+                </StackPanel>
+                <StackPanel>
+                    <TextBlock Text="Telefoon" Margin="0,0,0,5" />
+                    <TextBox Text="{Binding Telefoon, Mode=TwoWay}" InputScope="NameOrPhoneNumber" />
+                </StackPanel>
 
-            <Grid.RowDefinitions>
+                <TextBlock Style="{ThemeResource TitleTextBlockStyle}" Margin="0,10">Adresgegevens</TextBlock>
+                <StackPanel Margin="0,5,0,0">
+                    <TextBlock Text="Straat + Nr" Margin="0,0,0,5" />
+                    <TextBox Text="{Binding Adres, Mode=TwoWay}" />
+                </StackPanel>
+                <StackPanel Margin="0,5,0,0">
+                    <TextBlock Text="Postcode" Margin="0,0,0,5" />
+                    <TextBox Text="{Binding Postcode, Mode=TwoWay}" InputScope="Digits" />
+                </StackPanel>
+                <StackPanel Margin="0,5,0,0">
+                    <TextBlock Text="Gemeente" Margin="0,0,0,5" />
+                    <TextBox Text="{Binding Gemeente, Mode=TwoWay}" />
+                </StackPanel>
+            </StackPanel>
 
-                <RowDefinition Height="Auto"/>
-
-                <RowDefinition Height="Auto"/>
-
-                <RowDefinition Height="Auto"/>
-
-                <RowDefinition Height="Auto"/>
-
-                <RowDefinition Height="Auto"/>
-
-                <RowDefinition Height="Auto"/>
-
-                <RowDefinition Height="Auto"/>
-
-                <RowDefinition Height="Auto"/>
-
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-
-            </Grid.RowDefinitions>
-
-            <!--Title-->
-
-            <TextBlock Text="Registreer :" Grid.Row="0" FontSize="40"  Foreground="Black"/>
-
-
-
-            <!--Email-->
-
-            <TextBlock Text="EmaiID: " Grid.Row="1" Margin="0,25,0,0" Foreground="Black" />
-
-            <TextBox Name="TxtEmail" BorderBrush="LightGray" Grid.Row="1" Margin="100,0,0,0" GotFocus="Txt_GotFocus"/>
-
-
-
-            <!--Password-->
-
-            <TextBlock Text="Password: " Grid.Row="2" Margin="0,25,0,0" Foreground="Black" />
-
-            <PasswordBox Name="TxtPwd" BorderBrush="LightGray" Grid.Row="2" Margin="100,0,0,0" GotFocus="pwd_GotFocus" />
-            
-            <!--naam-->
-
-            <TextBlock Text="Naam: " Grid.Row="3" Margin="0,25,0,0" Foreground="Black" />
-
-            <TextBox Name="NameAddr" BorderBrush="LightGray" Grid.Row="3" Margin="100,0,0,0" GotFocus="Txt_GotFocus"/>
-
-            <!--voornaam-->
-
-            <TextBlock Text="Voornaam: " Grid.Row="4" Margin="0,25,0,0" Foreground="Black" />
-
-            <TextBox Name="VoornaamAddr" BorderBrush="LightGray" Grid.Row="4" Margin="100,0,0,0" GotFocus="Txt_GotFocus"/>
-
-            <!--Address-->
-
-            <TextBlock Text="Address: " Grid.Row="5" Margin="0,25,0,0" Foreground="Black" />
-
-            <TextBox Name="TxtAddr" BorderBrush="LightGray" Grid.Row="5" Margin="100,0,0,0" GotFocus="Txt_GotFocus"/>
-
-            <!--Postcode-->
-
-            <TextBlock Text="Postcode: " Grid.Row="6" Margin="0,25,0,0" Foreground="Black" />
-
-            <TextBox Name="TxtPostcode" BorderBrush="LightGray" Grid.Row="6" Margin="100,0,0,0" GotFocus="Txt_GotFocus"/>
-
-            <!--Gemeente-->
-
-            <TextBlock Text="Gemeente: " Grid.Row="7" Margin="0,25,0,0" Foreground="Black" />
-
-            <TextBox Name="TxtGemeente" BorderBrush="LightGray" Grid.Row="7" Margin="100,0,0,0" GotFocus="Txt_GotFocus"/>
-
-            <!--Telefoon-->
-
-            <TextBlock Text="Telefoon: " Grid.Row="8" Margin="0,25,0,0" Foreground="Black" />
-
-            <TextBox Name="TxtTelefoon" BorderBrush="LightGray" Grid.Row="8" Margin="100,0,0,0" GotFocus="Txt_GotFocus"/>
-
-            <!--Submit Button-->
-
-            <Button BorderBrush="Transparent"  Background="#FF30DABB" Content="Submit"  Name="BtnSubmit" Click="Submit_Click" Grid.Row="9"/>
-
-
-
-        </Grid>
-
+            <Button Content="Registreren" 
+                    Background="{ThemeResource SystemControlBackgroundAccentBrush}"
+                    Foreground="{ThemeResource SystemControlForegroundAltHighBrush}"
+                    Name="BtnSubmit" 
+                    Click="Submit_Click" 
+                    Margin="0,10" />
+        </StackPanel>
     </Grid>
 </Page>
