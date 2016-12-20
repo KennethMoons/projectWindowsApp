@@ -102,14 +102,14 @@ namespace ProjectOpendeurdag
         private string gemeente;
         private string telefoon;
 
-        [Required]
+        [Required(ErrorMessage = "Gelieve een email adres in te vullen")]
         [RegularExpression(@"\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*", ErrorMessage = "Gelieve een geldig email adres in te geven")]
         public string Email
         {
             get { return email; }
             set { SetProperty(ref email, value); }
         }
-        [Required]
+        [Required(ErrorMessage = "Gelieve een wachtwoord in te vullen")]
         public string Wachtwoord
         {
             get { return wachtwoord; }
