@@ -20,6 +20,8 @@ namespace WebApiOpendeurdag2.Services
 
     public interface AddLineStrategy<T, D> where T : class where D : class
     {
+        void AddHeaderLine(D doc);
+
         void AddLine(T obj, D doc);
 
         int Length();

@@ -27,7 +27,7 @@ namespace WebApiOpendeurdag2.Services
             using (ExcelPackage package = new ExcelPackage(result))
             {
                 ExcelWorksheet worksheet = package.Workbook.Worksheets.Add("Lijst");
-
+                strat.AddHeaderLine(worksheet);
                 foreach (T obj in objects)
                 {
                     strat.AddLine(obj, worksheet);
@@ -40,6 +40,11 @@ namespace WebApiOpendeurdag2.Services
         private class DefaultExcelStrat : AddLineStrategy<T, ExcelWorksheet>
         {
             private int row = 1;
+
+            public void AddHeaderLine(ExcelWorksheet doc)
+            {
+                row++;
+            }
 
             public void AddLine(T obj, ExcelWorksheet worksheet)
             {

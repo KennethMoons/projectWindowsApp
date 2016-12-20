@@ -79,6 +79,16 @@ namespace WebApiOpendeurdag2.Controllers
 
         class GebruikerPdfStrat : AddLineStrategy<Gebruiker, Table>
         {
+            public void AddHeaderLine(Table tab)
+            {
+                tab.AddCell("Id");
+                tab.AddCell("Naam");
+                tab.AddCell("Emailadres");
+                tab.AddCell("Telefoon");
+                tab.AddCell("Postcode");
+                tab.AddCell("Gemeente");
+            }
+
             public void AddLine(Gebruiker obj, Table tab)
             {
                 tab.AddCell(obj.GebruikerId.ToString() + "");
@@ -98,7 +108,17 @@ namespace WebApiOpendeurdag2.Controllers
 
         class GebruikerExcelStrat : AddLineStrategy<Gebruiker, ExcelWorksheet>
         {
-            private int row = 1;
+            private int row = 2;
+
+            public void AddHeaderLine(ExcelWorksheet worksheet)
+            {
+                worksheet.Cells[1, 1].Value = "Id";
+                worksheet.Cells[1, 2].Value = "Naam";
+                worksheet.Cells[1, 3].Value = "Emailadres";
+                worksheet.Cells[1, 4].Value = "Telefoon";
+                worksheet.Cells[1, 5].Value = "Postcode";
+                worksheet.Cells[1, 6].Value = "Gemeente";
+            }
 
             public void AddLine(Gebruiker obj, ExcelWorksheet worksheet)
             {

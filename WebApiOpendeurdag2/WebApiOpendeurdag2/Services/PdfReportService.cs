@@ -29,6 +29,8 @@ namespace WebApiOpendeurdag2.Services
                 doc.Add(new Paragraph("Dit is een rapport van alle studenten"));
                 Table table = new Table(strat.Length());
                 // TODO header line & layout
+                strat.AddHeaderLine(table);
+
                 foreach (T obj in objects)
                 {
                     strat.AddLine(obj, table);
@@ -41,6 +43,11 @@ namespace WebApiOpendeurdag2.Services
 
         private class DefaultPdfStrat : AddLineStrategy<T, Table>
         {
+            public void AddHeaderLine(Table doc)
+            {
+                
+            }
+
             public void AddLine(T obj, Table tab)
             {
                 tab.AddCell("object toegevoegd");
