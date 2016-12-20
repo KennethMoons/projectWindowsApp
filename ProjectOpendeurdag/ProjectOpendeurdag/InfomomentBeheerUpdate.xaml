@@ -56,9 +56,9 @@
                 <TextBlock Text="Tijdstip" Margin="10" Grid.Row="1"></TextBlock>
                 <TimePicker x:Name="Tijd" Grid.Row="1" Grid.Column="1" Margin="10"></TimePicker>
                 <TextBlock Text="voor een bepaalde campus ?" Grid.Row="2" Margin="10"></TextBlock>
-                <ComboBox x:Name="CampussenComboBox" Margin="10" Grid.Row="2" Grid.Column="1" Loaded="CampussenComboBox_Loaded"></ComboBox>
+                <ComboBox x:Name="CampussenComboBox" Margin="10" Grid.Row="2" Grid.Column="1" Loaded="CampussenComboBox_Loaded" DisplayMemberPath="Naam"></ComboBox>
                 <TextBlock Text="voor een bepaalde opleiding ?" Grid.Row="3" Margin="10"></TextBlock>
-                <ComboBox x:Name="OpleidingenComboBox" Margin="10" Grid.Row="3" Grid.Column="1" Loaded="OpleidingenComboBox_Loaded"></ComboBox>
+                <ComboBox x:Name="OpleidingenComboBox" Margin="10" Grid.Row="3" Grid.Column="1" Loaded="OpleidingenComboBox_Loaded" DisplayMemberPath="Naam"></ComboBox>
             </Grid>
         </StackPanel>
     </Grid>
