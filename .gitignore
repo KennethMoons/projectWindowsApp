@@ -12,6 +12,7 @@ SentryPortable/Sentry.UWP.Tests/RavenConfig.cs
 *.suo
 *.user
 *.sln.docstates
+*/project.lock.json
 
 # Build results
 

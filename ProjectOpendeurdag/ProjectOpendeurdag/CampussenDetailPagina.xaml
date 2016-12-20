@@ -33,7 +33,7 @@
                         <Setter Target="adresTxt.(Grid.Row)" Value="2" />
 
                         <Setter Target="adres.(Grid.Column)" Value="1" />
-                        <Setter Target="adres.(Grid.ColumnSpan)" Value="1" />
+                        <Setter Target="adres.(Grid.ColumnSpan)" Value="2" />
                         <Setter Target="adres.(Grid.Row)" Value="2" />
 
                         <Setter Target="postcodeTxt.(Grid.Column)" Value="0" />
@@ -57,7 +57,7 @@
                         <Setter Target="weerTxt.(Grid.Row)" Value="5" />
 
                         <Setter Target="weer.(Grid.Column)" Value="1" />
-                        <Setter Target="weer.(Grid.ColumnSpan)" Value="1" />
+                        <Setter Target="weer.(Grid.ColumnSpan)" Value="2" />
                         <Setter Target="weer.(Grid.Row)" Value="5" />
 
                         <Setter Target="myMap.(Grid.Column)" Value="2" />
