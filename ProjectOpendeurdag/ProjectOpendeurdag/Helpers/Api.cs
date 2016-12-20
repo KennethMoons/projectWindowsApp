@@ -22,7 +22,7 @@ namespace ProjectOpendeurdag.Helpers
         /// <summary>
         /// API base URL
         /// </summary>
-        public const string API_URL = "http://localhost:51399/api";
+        public const string API_URL = "http://projectwindowsapp.azurewebsites.net//api";
 
         public const string API_KEY = "mGI4VHw6fmhsPSG44oa8yhB9xlZGKyps";
 
