@@ -108,11 +108,11 @@ namespace ProjectOpendeurdag
                     await Windows.Storage.CachedFileManager.CompleteUpdatesAsync(file);
                 if (status == Windows.Storage.Provider.FileUpdateStatus.Complete)
                 {
-                    Debug.Write("File saved");
+                    NotificationHandler.show("Success", "Het bestand werd opgeslagen");
                 }
                 else
                 {
-                    Debug.Write("File not saved");
+                    NotificationHandler.show("Mislukt", "Fout bij opslaan bestand");
                 }
             }
 
