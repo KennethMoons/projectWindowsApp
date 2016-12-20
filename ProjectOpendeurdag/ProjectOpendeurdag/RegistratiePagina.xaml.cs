@@ -41,11 +41,24 @@ namespace ProjectOpendeurdag
         {
             Registratie = DataContext as RegistratieModel;
             Registratie.ErrorsChanged += Registratie_ErrorsChanged;
+
+            ErrorList.Visibility = Visibility.Collapsed;
         }
 
         private void Registratie_ErrorsChanged(object sender, System.ComponentModel.DataErrorsChangedEventArgs e)
         {
-            ErrorList.ItemsSource = Registratie.Errors.Errors.Values.SelectMany(x => x);
+            var errors = Registratie.Errors.Errors.Values.SelectMany(x => x);
+
+            ErrorList.ItemsSource = errors;
+
+            if (errors.Count() > 0)
+            {
+                ErrorList.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                ErrorList.Visibility = Visibility.Collapsed;
+            }
         }
 
         private async void Submit_Click(object sender, RoutedEventArgs e)
