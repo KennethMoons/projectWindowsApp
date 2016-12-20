@@ -6,6 +6,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 using ProjectOpendeurdag.Models;
 using ProjectOpendeurdag.Helpers;
+using System.Diagnostics;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -28,9 +29,6 @@ namespace ProjectOpendeurdag
         public async void VulGebruikers()
         {
             List<Gebruiker> gebruikerResult = await Api.GetAsync<List<Gebruiker>>();
-            gebruikerResult.RemoveAt(0);
-            //List<VoorkeurOpleiding> voorkeurOpleidingen = await Api.GetAsync<List<VoorkeurOpleiding>>();
-            //List<VoorkeurCampus> voorkeurCampussen = await Api.GetAsync<List<VoorkeurCampus>>();
 
             foreach (Gebruiker g in gebruikerResult)
             {
@@ -42,15 +40,31 @@ namespace ProjectOpendeurdag
                 displaygebruiker.Postcode = g.Postcode;
                 displaygebruiker.Telnr = g.Telnr;
                 displaygebruiker.Id = g.GebruikerId;
+
+                string campussen = "";
+                string opleidingen = "";
+
+                if (g.VoorkeurCampussen != null)
+                {
+                    g.VoorkeurCampussen.ForEach(c => campussen += c.Naam + ", ");
+                }
+                if (g.VoorkeurOpleidingen != null)
+                {
+                    g.VoorkeurOpleidingen.ForEach(o => opleidingen += o.Naam + ", ");
+                }
+
+                displaygebruiker.CampusVoorkeuren = campussen;
+                displaygebruiker.OpleidingVoorkeuren = opleidingen;
+
                 displayGebruikers.Add(displaygebruiker);
             }
+
             gebruikersList.ItemsSource = displayGebruikers;
         }
 
-        private async void Export_Excel_Click(object sender, RoutedEventArgs e)
+        private void Export_Excel_Click(object sender, RoutedEventArgs e)
         {
-            Stream resp = await Api.GetReportAsync("excel");
-            // did not find how to open Excel
+            SaveFile("excel", ".xlsx", "Excel File");
         }
 
         private void Export_Click(object sender, RoutedEventArgs e)
@@ -58,18 +72,50 @@ namespace ProjectOpendeurdag
             FlyoutBase.ShowAttachedFlyout((FrameworkElement)sender);
         }
 
-        private async void Export_PDF_Click(object sender, RoutedEventArgs e)
+        private void Export_PDF_Click(object sender, RoutedEventArgs e)
         {
-            Stream resp = await Api.GetReportAsync("pdf");
-            Windows.System.LauncherOptions options = new Windows.System.LauncherOptions();
-            options.ContentType = "application/pdf";
-            string file = Path.GetTempFileName();
+            SaveFile("pdf", ".pdf", "Portable Document Format");
+        }
+
+        private async void SaveFile(string uri, string type, string typeDescription)
+        {
+            Stream resp = await Api.GetReportAsync(uri);
 
             MemoryStream ms = new MemoryStream();
-            await resp.CopyToAsync(ms);
-            ms.WriteTo(new FileStream(file, FileMode.Create | FileMode.Open));
 
-            await Windows.System.Launcher.LaunchUriAsync(new Uri(file), options);
+            await resp.CopyToAsync(ms);
+
+            var savePicker = new Windows.Storage.Pickers.FileSavePicker();
+            savePicker.SuggestedStartLocation =
+                Windows.Storage.Pickers.PickerLocationId.DocumentsLibrary;
+            // Dropdown of file types the user can save the file as
+            savePicker.FileTypeChoices.Add(typeDescription, new List<string>() { type });
+            // Default file name if the user does not type one in or select a file to replace
+            savePicker.SuggestedFileName = "Gebruikers";
+
+            Windows.Storage.StorageFile file = await savePicker.PickSaveFileAsync();
+            if (file != null)
+            {
+                // Prevent updates to the remote version of the file until
+                // we finish making changes and call CompleteUpdatesAsync.
+                Windows.Storage.CachedFileManager.DeferUpdates(file);
+                // write to file
+                await Windows.Storage.FileIO.WriteBytesAsync(file, ms.ToArray());
+                // Let Windows know that we're finished changing the file so
+                // the other app can update the remote version of the file.
+                // Completing updates may require Windows to ask for user input.
+                Windows.Storage.Provider.FileUpdateStatus status =
+                    await Windows.Storage.CachedFileManager.CompleteUpdatesAsync(file);
+                if (status == Windows.Storage.Provider.FileUpdateStatus.Complete)
+                {
+                    Debug.Write("File saved");
+                }
+                else
+                {
+                    Debug.Write("File not saved");
+                }
+            }
+
         }
     }
 }
