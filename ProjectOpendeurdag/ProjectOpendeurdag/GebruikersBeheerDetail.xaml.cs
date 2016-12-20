@@ -1,20 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 using ProjectOpendeurdag.Models;
-using System.Net.Http;
-using Newtonsoft.Json;
 using ProjectOpendeurdag.Helpers;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
@@ -32,7 +22,7 @@ namespace ProjectOpendeurdag
             this.InitializeComponent();
             displayGebruikers = new List<DisplayGebruiker>();
             VulGebruikers();
-            
+
         }
 
         public async void VulGebruikers()
@@ -52,45 +42,34 @@ namespace ProjectOpendeurdag
                 displaygebruiker.Postcode = g.Postcode;
                 displaygebruiker.Telnr = g.Telnr;
                 displaygebruiker.Id = g.GebruikerId;
-                displayGebruikers.Add(displaygebruiker);   
-            }
-            foreach (DisplayGebruiker dg in displayGebruikers)
-            {
-                //foreach (VoorkeurOpleiding vo in voorkeurOpleidingen)
-                //{
-                //    if (dg.Id == vo.GebruikerId)
-                //    {
-                //        Opleiding opleiding = await Api.GetAsync<Opleiding>(vo.OpleidingId);
-                //        dg.OpleidingVoorkeuren += opleiding.Naam + " ";
-                //    }
-                //}
-                //foreach (VoorkeurCampus vc in voorkeurCampussen)
-                //{
-                //    if (dg.Id == vc.GebruikerId)
-                //    {
-                //        Campus campus = await Api.GetAsync<Campus>(vc.CampusId);
-                //        dg.CampusVoorkeuren += campus.Naam + " ";
-
-                //    }
-                //}
+                displayGebruikers.Add(displaygebruiker);
             }
             gebruikersList.ItemsSource = displayGebruikers;
         }
-        
+
+        private async void Export_Excel_Click(object sender, RoutedEventArgs e)
+        {
+            Stream resp = await Api.GetReportAsync("excel");
+            // did not find how to open Excel
+        }
 
         private void Export_Click(object sender, RoutedEventArgs e)
         {
             FlyoutBase.ShowAttachedFlyout((FrameworkElement)sender);
         }
 
-        private void Export_PDF_Click(object sender, RoutedEventArgs e)
+        private async void Export_PDF_Click(object sender, RoutedEventArgs e)
         {
-            // TODO
-        }
+            Stream resp = await Api.GetReportAsync("pdf");
+            Windows.System.LauncherOptions options = new Windows.System.LauncherOptions();
+            options.ContentType = "application/pdf";
+            string file = Path.GetTempFileName();
 
-        private void Export_Excel_Click(object sender, RoutedEventArgs e)
-        {
-            // TODO
+            MemoryStream ms = new MemoryStream();
+            await resp.CopyToAsync(ms);
+            ms.WriteTo(new FileStream(file, FileMode.Create | FileMode.Open));
+
+            await Windows.System.Launcher.LaunchUriAsync(new Uri(file), options);
         }
     }
 }

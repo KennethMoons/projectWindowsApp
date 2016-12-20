@@ -8,9 +8,8 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.Security.Credentials;
-using Windows.Storage;
 using System.Diagnostics;
-using ProjectOpendeurdag.Helpers;
+using System.IO;
 
 namespace ProjectOpendeurdag.Helpers
 {
@@ -22,7 +21,7 @@ namespace ProjectOpendeurdag.Helpers
         /// <summary>
         /// API base URL
         /// </summary>
-        public const string API_URL = "http://projectwindowsapp.azurewebsites.net//api";
+        public const string API_URL = "http://projectwindowsapp.azurewebsites.net/api";
 
         public const string API_KEY = "mGI4VHw6fmhsPSG44oa8yhB9xlZGKyps";
 
@@ -75,6 +74,13 @@ namespace ProjectOpendeurdag.Helpers
             string uri = GetUri<T>(id);
             Debug.WriteLine("GET {0}", (object) uri);
             return JsonConvert.DeserializeObject<T>(await GetHttpClient().GetStringAsync(uri));
+        }
+
+        public static async Task<Stream> GetReportAsync(string type)
+        {
+            string uri = String.Format("{0}/reports/{1}", API_URL, type);
+            Debug.WriteLine("GET {0}", (object)uri);
+            return await GetHttpClient().GetStreamAsync(uri);
         }
 
         /// <summary>
