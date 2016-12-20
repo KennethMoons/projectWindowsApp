@@ -39,12 +39,12 @@ namespace WebApiOpendeurdag2.Controllers
         }
 
         [System.Web.Http.AllowAnonymous]
-        public HttpResponseMessage GetReports() {
-            return GetReport("");
+        public async Task<HttpResponseMessage> GetReports() {
+            return await GetReport("");
         }
 
         [System.Web.Http.AllowAnonymous]
-        public HttpResponseMessage GetReport(string id)
+        public async Task<HttpResponseMessage> GetReport(string id)
         {
             try
             {
