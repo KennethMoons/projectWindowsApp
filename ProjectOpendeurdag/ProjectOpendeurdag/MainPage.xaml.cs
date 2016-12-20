@@ -45,7 +45,7 @@ namespace ProjectOpendeurdag
         private void ToggleLoginButtons()
         {
             bool isLoggedIn = Settings.IsGebruikerLoggedIn();
-            bool isAdmin = Settings.IsGebruikerLoggedIn();
+            bool isAdmin = Settings.IsGebruikerAdmin();
 
             LoginButton.Visibility = !isLoggedIn ? Visibility.Visible : Visibility.Collapsed;
             UserButton.Visibility = isLoggedIn && !isAdmin ? Visibility.Visible : Visibility.Collapsed;
