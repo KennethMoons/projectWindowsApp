@@ -25,7 +25,7 @@ namespace WebApiOpendeurdag2.Controllers
         [Authorize(Roles = GebruikersRollen.Admin)]
         public IQueryable<Gebruiker> GetGebruikers()
         {
-            return db.Gebruikers;
+            return db.Gebruikers.Include("VoorkeurCampussen").Include("VoorkeurOpleidingen");
         }
 
         // GET: api/Gebruikers/5
