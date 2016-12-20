@@ -1,5 +1,9 @@
 # projectWindowsApp
 
+- Benoit Lagae
+- Kenneth Moons
+- Tom Vandenbussche
+
 wat er al gebeurd is :
 - kan een gebruiker toevoegen
 - algemene layout
