@@ -22,7 +22,7 @@ namespace WebApiOpendeurdag2.Controllers
         [AllowAnonymous]
         public IQueryable<Infomoment> GetInfomoments()
         {
-            return db.Infomoments;
+            return db.Infomoments.Include(i => i.Campus).Include(i => i.Opleiding);
         }
 
         // GET: api/Infomoments/5

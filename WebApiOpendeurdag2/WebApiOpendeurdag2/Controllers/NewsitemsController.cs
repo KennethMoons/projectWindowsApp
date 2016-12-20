@@ -22,7 +22,7 @@ namespace WebApiOpendeurdag2.Controllers
         [AllowAnonymous]
         public IQueryable<Newsitem> GetNewsitems()
         {
-            return db.Newsitems;
+            return db.Newsitems.Include(i => i.Campus).Include(i => i.Opleiding);
         }
 
         // GET: api/Newsitems/5
