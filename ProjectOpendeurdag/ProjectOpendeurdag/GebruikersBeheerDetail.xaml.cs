@@ -78,14 +78,19 @@ namespace ProjectOpendeurdag
         }
         
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Export_Click(object sender, RoutedEventArgs e)
         {
-
+            FlyoutBase.ShowAttachedFlyout((FrameworkElement)sender);
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void Export_PDF_Click(object sender, RoutedEventArgs e)
         {
+            // TODO
+        }
 
+        private void Export_Excel_Click(object sender, RoutedEventArgs e)
+        {
+            // TODO
         }
     }
 }

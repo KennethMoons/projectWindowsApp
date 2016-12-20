@@ -7,6 +7,22 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
+    <Page.Resources>
+        <MenuFlyout x:Name="Export" Placement="Top">
+            <MenuFlyoutItem Text="Exporteer PDF" Click="Export_PDF_Click" />
+            <MenuFlyoutItem Text="Exporteer Excel" Click="Export_Excel_Click" />
+        </MenuFlyout>
+    </Page.Resources>
+    
+    <Page.BottomAppBar>
+        <CommandBar>
+            <AppBarToggleButton Icon="Download" 
+                                Label="Exporteren als PDF" 
+                                FlyoutBase.AttachedFlyout="{StaticResource Export}"
+                                Click="Export_Click"/>
+        </CommandBar>
+    </Page.BottomAppBar>
+
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="VisualStateGroup">
@@ -37,19 +53,15 @@
             <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button Content="sla op als pdf" Click="Button_Click" Margin="0 20 20 20"></Button>
-            <Button Content="sla op als excel" Click="Button_Click_1" Margin="0 20 0 20" ></Button>
-        </StackPanel>
         <StackPanel   Orientation="Horizontal" Grid.Row="1" Name="HeaderStackpanel">
             <TextBlock Text="Naam" Margin="10" Width="150"></TextBlock>
-            <TextBlock Text="adres" Margin="10" Width="150"></TextBlock>
-            <TextBlock Text="postcode" Margin="10" Width="70"></TextBlock>
-            <TextBlock Text="gemeente" Margin="10" Width="90"></TextBlock>
-            <TextBlock Text="telnr" Margin="10" Width="90"></TextBlock>
-            <TextBlock Text="email" Margin="10" Width="200"></TextBlock>
-            <TextBlock Text="voorkeur campussen" Margin="10" Width="300"></TextBlock>
-            <TextBlock Text="voorkeur opleidingen" Margin="10" Width="300"></TextBlock>
+            <TextBlock Text="Adres" Margin="10" Width="150"></TextBlock>
+            <TextBlock Text="Postcode" Margin="10" Width="70"></TextBlock>
+            <TextBlock Text="Gemeente" Margin="10" Width="90"></TextBlock>
+            <TextBlock Text="Telnr" Margin="10" Width="90"></TextBlock>
+            <TextBlock Text="Email" Margin="10" Width="200"></TextBlock>
+            <TextBlock Text="Voorkeur campussen" Margin="10" Width="300"></TextBlock>
+            <TextBlock Text="Voorkeur opleidingen" Margin="10" Width="300"></TextBlock>
         </StackPanel>
         <StackPanel Grid.Row="2" Name="GebruikerStackpanel">
             <ListBox x:Name="gebruikersList">

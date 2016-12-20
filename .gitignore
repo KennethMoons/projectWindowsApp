@@ -156,3 +156,4 @@ $RECYCLE.BIN/
 
 # Mac crap
 .DS_Store
+/ProjectOpendeurdag/ProjectOpendeurdag/project.lock.json
